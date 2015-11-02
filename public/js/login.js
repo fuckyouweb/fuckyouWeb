@@ -5,8 +5,16 @@ var LoginWriteloginForm = React.createClass({
 		var email = this.refs.email.value.trim();
 		var psw = this.refs.psw.value.trim();
 		var pswconfirm = this.refs.pswconfirm.value.trim();
+		var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        
+        if(!myreg.test(email)){
+            alert('傻逼啊！邮箱懂不？？？');
+            return false;
+        }
+        
 		if(psw != pswconfirm){
-			alert("error password!");
+			alert('傻逼啊，两次密码不一样都不知道！！！');
+			return false;
 		}
 		this.props.onLoginFormSubmit({name:name,email:email,psw:psw});
 		this.refs.name.value = '';
@@ -29,8 +37,8 @@ var LoginWriteloginForm = React.createClass({
 
 var LoginAllowloginShow = React.createClass({
 	render:function(){
-		var name = this.props.data.name;
-		var email = this.props.data.email;
+		var name = this.props.name;
+		var email = this.props.email;
 		//var name = '123';
 		//var email = '456';
 		return (
@@ -47,13 +55,18 @@ var LoginAllowloginShow = React.createClass({
 
 var LoginAllowLogin= React.createClass({
 	render:function(){
+		var len = this.props.data.length-1;
+		console.log("len="+len);
+		var name = this.props.data[len].name;
+		var email = this.props.data[len].email;
 		return (
 			<div className="login_allowloagin">
 				<div className="login_allowlogin_tranigle"></div>
 				<div className="login_allowlogin_rectangle"></div>
 				<div className="login_allowlogin_roundleft"></div>
 				<div className="login_allowlogin_roundright"></div>
-				<LoginAllowloginShow />
+				<LoginAllowloginShow name={name} email={email}/>
+				
 			</div>
 		)
 	}
@@ -87,7 +100,7 @@ var LoginContainer = React.createClass({
 	/*load the message form server or just from temp json*/
 	handleLoginFormSubmit:function(forminfo){
 		var form = forminfo;
-		this.setState = form;
+		//this.setState = form;
 		 $.ajax({
 		      url: this.props.url,
 		      dataType: 'json',
@@ -102,13 +115,13 @@ var LoginContainer = React.createClass({
 		    });
 	},
 	getInitialState: function() {
-    	return {data: []};
+    	return {data: [{'name':'1','email':'2'}]};
   	},
   	componentDidMount: function() {
     	this.loadFormFromServer();
-    	//setInterval(this.loadFormFromServer, this.props.pollInterval);
   	},
 	render:function(){
+		console.log(this.state.data)
 		return (
 			<div>
 			<LoginAllowLogin data={this.state.data}/>
