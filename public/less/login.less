@@ -16,17 +16,49 @@ html,body{
 /*
 css for zhengjian 
  */
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+  50% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+}
+@keyframes shake {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+  50% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+}
+.login_allowloagin.animate{
+	-webkit-animation: shake 1s 3 3s forwards;
+  	animation: shake 1s 3 3s forwards;
+}
 .login_allowloagin{
 	position: absolute;
 	top:10%;
 	left: 10%;
 	width: 25rem;
 	height: 15rem;
+	-webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
 	border: 1rem solid @color_pink;
 	border-radius: 1rem;
 	background-color: #fff;
-	-webkit-transform:rotate(-15deg);
-	transform:rotate(-15deg);
 	z-index: 9;
 }
 .login_allowlogin_show{
@@ -146,48 +178,50 @@ css for sorrow
  */
 @-webkit-keyframes sorrow {
   0% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale(1) rotate(-15deg);
+    transform: scale(1) rotate(-15deg);
     opacity: 1;
   }
-  90% {
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
+  50% {
+    -webkit-transform: scale(0.8) rotate(-15deg);
+    transform: scale(0.8) rotate(-15deg);
     opacity: 0.5;
   }
   100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale(1) rotate(-15deg);
+    transform: scale(1) rotate(-15deg);
     opacity: 1;
   }
 }
 @keyframes sorrow {
   0% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale(1) rotate(-15deg);
+    transform: scale(1) rotate(-15deg);
     opacity: 1;
   }
-  90% {
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
+  50% {
+    -webkit-transform: scale(0.8) rotate(-15deg);
+    transform: scale(1.2) rotate(-15deg);
     opacity: 0.5;
   }
   100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale(1) rotate(-15deg);
+    transform: scale(1) rotate(-15deg);
     opacity: 1;
   }
 }
+.login_sorrow.animate{
+	-webkit-animation: sorrow 3s 1 0s forwards;
+  	animation: sorrow 3s 1 0s forwards;
+}
 .login_sorrow{
+	-webkit-transform: scale(1) rotate(-15deg);
+    transform: scale(1) rotate(-15deg);
 	width: 10%;
 	height: 20%;
 	position: absolute;
-	-webkit-transform:rotate(-15deg);
-	transform:rotate(-15deg);
 	top: 40%;
 	left: 35%;
-	-webkit-animation: sorrow 0s 1 3s forwards;
-  	animation: sorrow 0s 1 3s forwards;
 	img{
 		width: 100%;
 		height: 100%;

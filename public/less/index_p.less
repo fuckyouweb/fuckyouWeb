@@ -1,0 +1,99 @@
+@color_green:#15adbc;
+@color_pink:#F3C9DD;
+@color_pink_deep:#f47fb5;
+
+html,body{
+	width: 100%;
+	height: 100%;
+	font-size:10px;
+}
+.container{
+	background-color: @color_green;
+	width: 80%;
+	margin: 0 auto;
+}
+.index_guide{
+	width: 70%;
+	height: 10rem;
+	border:1px solid #000;
+	margin: 0 auto;
+	div,ul,li{
+		display: inline-block;
+	}
+}
+.index_guide_logo{
+	width: 12rem;
+	vertical-align: top;
+	img{
+		width: 100%;
+	}
+}
+.index_guide_rect{
+	width: 10rem;
+	height: 3rem;
+	background-color: @color_pink;
+	margin-top: 5rem;
+	border-radius: 1rem;
+	color:#fff;
+	text-align: center;
+	line-height: 3rem;
+	font-size: 1.6rem;
+	position: relative;
+	vertical-align: bottom;
+}
+.index_guide_box{
+	margin-left: 20%;
+}
+.index_guide_box:after{
+	content: 'PenMan';
+	position: absolute;
+	font-size: 4rem;
+	font-weight: bolder;
+	top:-100%;
+	left: -3rem;
+}
+.index_guide_compete{
+	margin-left: 2rem;
+}
+.index_guide_home{
+	width: 5rem;
+	height: 5rem;
+	margin-top: -2.5rem;
+}
+.index_guide_home:after{
+	content: '';
+	position: relative;
+	top:-150%;
+	width: 0;
+	height: 0;
+	border-left: 2.5rem solid transparent;
+    border-right: 2.5rem solid transparent;
+    border-bottom: 3rem solid @color_pink;
+}
+.index_picture_list{
+	margin: 0 auto;
+	border:1px solid #fff;
+	padding-left: 3rem;
+}
+.index_picture_wrap{
+	cursor: pointer;
+	width: 20rem;
+	margin-left: 3rem;
+	margin-bottom: 1.5rem;
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+	.index_picture_style{
+		width: 100%;
+		z-index: 20;
+		border:0.5rem solid #ccc;
+		img{
+			width: 100%;
+		}
+	}
+	.index_picture_padding{
+		width: 20rem;
+		height: 1.5rem;
+		background-color: transparent;
+	}
+}

@@ -60,7 +60,7 @@ var LoginAllowLogin= React.createClass({
 		var name = this.props.data[len].name;
 		var email = this.props.data[len].email;
 		return (
-			<div className="login_allowloagin">
+			<div className="login_allowloagin" id="login_allowloagin">
 				<div className="login_allowlogin_tranigle"></div>
 				<div className="login_allowlogin_rectangle"></div>
 				<div className="login_allowlogin_roundleft"></div>
@@ -75,7 +75,7 @@ var LoginAllowLogin= React.createClass({
 var LoginSorrow = React.createClass({
 	render:function(){
 		return (
-			<div className="login_sorrow">
+			<div className="login_sorrow" id="login_sorrow">
 				<img src="img/iconfont-zhuanwan.png" />
 			</div>
 		);
@@ -108,6 +108,8 @@ var LoginContainer = React.createClass({
 		      data: form,
 		      success: function(data) {
 		        this.setState({data: data});
+		        $('#login_sorrow').addClass('animate');
+		        $('#login_allowloagin').addClass('animate');
 		      }.bind(this),
 		      error: function(xhr, status, err) {
 		        console.error(this.props.url, status, err.toString());
