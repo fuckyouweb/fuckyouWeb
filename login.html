@@ -12,35 +12,15 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<script type="text/javascript" src='js/react.js'></script>
+	<script type="text/javascript" src='js/react-dom.js'></script>
+	<script type="text/javascript" src='js/browser.min.js'></script>
 	<title>身份注册中。。。</title>
 </head>
 <body>
-<div class="container">
-<div class="login_allowloagin">
-	<div class="login_allowlogin_tranigle"></div>
-	<div class="login_allowlogin_rectangle"></div>
-	<div class="login_allowlogin_roundleft"></div>
-	<div class="login_allowlogin_roundright"></div>
-	<div class="login_allowlogin_show">通行证
-		<div class="login_allowlogin_showname login_allowlogin_showword">昵称：</div>
-		<div class="login_allowlogin_showemail login_allowlogin_showword">约么：</div>
-		<div class="login_allowlogin_photo">
-			<img src="img/head.jpeg">
-		</div>
-	</div>
-</div>
-<div class="login_sorrow">
-	<img src="img/iconfont-zhuanwan.png">
-</div>
-<div class="login_writelogin">
-<form>
-	<input type='text' name='yourname' class='login_writelogin_name login_inputstyle' placeholder='  your name:'/>
-	<input type='text' name='youremail' class='login_writelogin_email login_inputstyle' placeholder='  your e-mail:'/>
-	<input type='text' name='yourpsw' class='login_writelogin_psw login_inputstyle' placeholder='  your password:'/>
-	<input type='text' name='yourpswconfirm' class='login_writelogin_pswconfirm login_inputstyle' placeholder='  your password again:'/>
-	<button type='submit'class='login_writelogin_submit'>Touch!</button>
-</form>
-</div>	
-</div>
+<div id="container" class="container"></div>
+<script type="text/babel" src="js/login.js">
+
+</script>	
 </body>
 </html>
