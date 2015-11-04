@@ -1,0 +1,115 @@
+@import './lib/common.less';
+
+@color_green:#15adbc;
+@color_pink:#F3C9DD;
+@color_pink_deep:#f47fb5;
+@color_gray:#D8D8D8;
+.border(@b:1px){
+	border:@b solid #979797; 
+}
+
+html,body{
+	width: 100%;
+	height: 100%;
+	font-size:10px;
+}
+.container{
+	width: 100%;
+	height: 100%;
+	background-color: @color_green;
+}
+
+header{
+	padding: 0 10%;
+	width: 80%;
+	height: 5rem;
+	line-height: 5rem;
+	text-align: center;
+	background-color: #000;
+	ul{
+		.flexbox();
+		li{
+			cursor: pointer;
+			.flex();
+			list-style: none;
+			display: inline-block;
+			color: #eee;
+			font-size: 2rem;
+		}
+		li:first-child{
+			.flex(2);
+			font-size: 2.5rem;
+			color:@color_green;
+		}
+		li:hover{
+			color: @color_green;
+		}
+	}
+}
+
+.comeon_hat{
+	width: 10rem;
+	height: 10rem;
+	.border();
+	margin: 0 auto;
+	position: relative;
+	margin-top: 1rem;
+}
+
+.comeon_hat_roundup{
+	width: 5rem;
+	height: 5rem;
+	border-radius: 2.5rem;
+	background-color: #726F6F;
+	position: absolute;
+	top:-1.5rem;
+	left: 2.5rem;
+	transform:scaleY(0.5);
+	.border();
+	z-index: 10;
+}
+.comeon_hat_rect{
+	width: 5rem;
+	height: 6rem;
+	background-color: #696969;
+	.border();
+	position: absolute;
+	top:1.2rem;
+	left: 2.5rem;
+	z-index: 9;
+}
+.comeon_hat_rectdown{
+	width: 5rem;
+	height: 0.8rem;
+	background-color: #D8D8D8;
+	.border();
+	position: absolute;
+	top:7.2rem;
+	left: 2.5rem;
+	z-index: 9;
+
+}
+.comeon_hat_rounddown{
+	width: 12rem;
+	height: 12rem;
+	border-radius: 6rem;
+	background-color: #726F6F;
+	position: absolute;
+	top:2rem;
+	left: -1rem;
+	transform:scaleY(0.3);
+	.border();
+	z-index: 10;
+	box-shadow: inset 0px 1px 3px #fff;
+	z-index: 8;
+}
+
+.comeon_note{
+	width: 35rem;
+	height: 25rem;
+	border-radius: 3rem;
+	border:2px solid #726F6F;
+	background-color: @color_gray;
+	margin: 0 auto;
+	margin-top: 1rem;
+}

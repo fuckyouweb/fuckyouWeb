@@ -45,6 +45,9 @@ header{
 			font-size: 2.5rem;
 			color:@color_green;
 		}
+		li:hover{
+			color: @color_green;
+		}
 	}
 }
 
@@ -57,6 +60,8 @@ footer{
 	height: 3rem;
 	text-align: center;
 	line-height: 3rem;
+	z-index: 99;
+	//display: none;
 }
 
 .index_container{
@@ -95,12 +100,24 @@ footer{
 		}
 		.index_container_turn_greenrect{
 			width: 2rem;
-			height: 13rem;
-			background-color: @color_green; 
+			//height: 13rem;
+			padding-bottom: 0.5rem;
 			position: absolute;
-			top:1.5rem;
+			//top:0.8rem;
+			bottom: 1rem;
 			border-radius: 1.5rem;
 			left:1rem;
+			font-size: 3rem;
+    		padding-top: 1rem;
+    		z-index: 9;
+    		li{
+    			font-size: 0;
+    			height: 4rem;
+    			background-color: @color_green; 
+    		}
+    		li:nth-child(1){
+    			height: 0;
+    		}
 		}
 		.index_container_turn_greenround{
 			width: 4rem;
@@ -110,6 +127,7 @@ footer{
 			position: absolute;
 			top:13rem;
 			left: 0rem;
+			z-index: 8;
 		}
 	}
 
@@ -160,6 +178,22 @@ footer{
 	border-radius: 1rem;
 	background-color: @color_gray;
 }
+
+.index_container_hottwo_r1,
+.index_container_hotthree_r1,
+.index_container_hotthree_r2
+{
+	position: absolute;
+	left: 1rem;
+	top:-0.8rem;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 1rem;
+	background-color: @color_gray;
+}
+.index_container_hotthree_r1{
+	left: 3rem;
+}
 .index_container_picwrap{
 	width: 30%;
 	margin-left: 3%;
@@ -207,4 +241,40 @@ footer{
 }
 .index_container_hotthree{
 	padding-bottom: 5rem;
+}
+
+.index_music{
+	width: 4rem;
+	height: 4rem;
+	background-color: #000;
+	opacity: 0.8;
+	position: fixed;
+	bottom:5rem;
+	right: 0;
+	text-align: center;
+	line-height: 5rem;
+	img{
+		width: 50%;
+		margin-top: 1rem;
+	}
+}
+
+.index_music_after:before{
+	content: '>';
+	width: 2rem;
+	height: 5rem;
+	line-height: 5rem;
+	color: @color_gray;
+	position: fixed;
+	right: 33rem;
+	font-size: 3rem;
+}
+.index_music_after{
+	width: 35rem;
+	height: 5rem;
+	background-color: rgba(0, 0, 0, 0.8);
+	color:@color_gray;
+	position: fixed;
+	bottom: 4.5rem;
+	right: 0;
 }

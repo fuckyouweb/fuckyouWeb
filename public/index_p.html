@@ -12,51 +12,190 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
+	
 	<script type="text/javascript" src='js/react.js'></script>
 	<script type="text/javascript" src='js/react-dom.js'></script>
 	<script type="text/javascript" src='js/browser.min.js'></script>
 	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/index.js'></script>
 	<title>pen man box</title>
 </head>
 <body>
 <div id="container" class="container">
-<ul class="index_guide">
-	<!-- <li class="index_guide_logo">
-		<img src="img/penmanbox.png">
-	</li> -->
-	<li class="index_guide_box index_guide_rect">box</li>
-	<li class="index_guide_theme index_guide_rect">theme</li>
-	<li class="index_guide_compete index_guide_rect">来一发</li>
-	<li class="index_guide_home index_guide_rect">home</li>
-</ul>
+<header>
+	<ul class='index_head'>
+		<li class='index_head_pen'>PenManBox</li>
+		<li class='index_head_theme'>theme</li>
+		<li class='index_head_comeon'>来一发</li>
+		<li class='index_head_home'>home</li>
+	</ul>
+</header>
+<div class="index_container">
+	<!-- 轮播图 -->
+	<div class="index_container_turn">
+		<!-- 温度计 -->
+		<div class="index_container_turn_thermograph">
+			<div class="index_container_turn_grayround"></div>
+			<div class="index_container_turn_greenrect"></div>
+			<div class="index_container_turn_greenround"></div>
+		</div>
+		<!-- 图片 -->
+		<div class="index_container_turn_picture" id='turnPic'>
+		<ul>
+			<li><img src="img/lunbo_1.jpg"></li>
+			<li><img src="img/lunbo_2.jpg"></li>
+			<li><img src="img/lunbo_3.jpg"></li>
+			<li><img src="img/lunbo_4.jpg"></li>
+		</ul>			
+		</div>
+	</div>
 
-<div class="index_picture_list">
-	<div class="index_picture_wrap">
-		<div class="index_picture_style">
-            <img src="img/1.jpg">
-        </div>
-        <div class="index_picture_padding"></div>
+	<!-- 热度区一 -->
+	<div class="index_container_hotone index_container_hot">
+	<div class="index_container_hotone_line index_container_line"></div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img1_1.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img1_2.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img1_3.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="index_picture_wrap">
-		<div class="index_picture_style">
-            <img src="img/2.jpg">
-        </div>
-        <div class="index_picture_padding"></div>
+
+	<!-- 热度区二 -->
+	<div class="index_container_hottwo index_container_hot">
+		<div class="index_container_hottwo_line index_container_line"></div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img2_1.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img2_2.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img2_3.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="index_picture_wrap">
-		<div class="index_picture_style">
-            <img src="img/3.jpg">
-        </div>
-        <div class="index_picture_padding"></div>
-	</div>
-	<div class="index_picture_wrap">
-		<div class="index_picture_style">
-            <img src="img/4.jpg">
-        </div>
-        <div class="index_picture_padding"></div>
-	</div>
+
+	<!-- 热度区三 -->
+	<div class="index_container_hotthree index_container_hot">
+		<div class="index_container_hotthree_line index_container_line"></div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img3_1.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img3_2.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+		<div class="index_container_picwrap">
+			<div class="index_container_pic">
+				<img src="img/img3_3.jpg">
+			</div>
+			<div class="index_container_word">
+				<div class="index_container_author">
+					<img src="img/roundhead.png">
+				</div>
+				<div class="index_container_describe">
+					<div class="index_container_boss">boss:</div>
+					<div class="index_container_theme">theme:</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>	
 </div>
-<script type="text/babel" src="">
+<footer>
+	<div class="index_foot">copyright © 2016-1 pen man box , powered by guoningyan.com</div>
+</footer>
+<script type="text/babel">
 
 </script>	
 </body>
