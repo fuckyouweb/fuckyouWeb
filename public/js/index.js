@@ -61,7 +61,7 @@ function turn(value){
 	var choose_li = $('.index_choose li');
 
 	var	translate = 0;
-	
+
 	if (value == null){
 		$(choose_li[flag]).css('height','0px');
 		if(flag == 3){
@@ -69,17 +69,15 @@ function turn(value){
 			for(var i=0 ; i<4 ;i++){
 				$(choose_li[i]).css('height','40px');
 			}
-		} 
+		}
 		else
 			translate = -25*(++flag);
-			$(choose_li[flag]).css('height','0px');		
+			$(choose_li[flag]).css('height','0px');
 	}else{
-		flag = parseInt(value)-1;	
-		translate = -25*(--value);		
-	}	
-	p_ul.css({
-		'transform':"translate("+translate+"%)"
-	},1000);
+		flag = parseInt(value)-1;
+		translate = -25*(--value);
+	}
+	p_ul.css({'transition':'transform 1s','transform':'translate3d(' + translate+'%,0,0)'})
 
 	
 
