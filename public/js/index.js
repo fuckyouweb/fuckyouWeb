@@ -16,45 +16,72 @@
 // 		)
 // 	}
 // });
-$('document').ready(function(){
-	var turnPic = $('#turnPic');
-	var li = $('#turnPic li');
-	var ul = $('#turnPic ul');
-	var ul0 = ul[0];
-	var flag = 0;
+var flag = 0;
 
-	function turn(value){
-		var	translate = 0;
-		
-		if (value == null){
-			if(flag == 3) 
-				flag = 0;
-			else
-				translate = -25*(++flag);		
-		}else{
-			flag = parseInt(value)-1;	
-			translate = -25*(--value);		
-		}	
-		//ul0.style.transform = "translate("+translate+"%)";
-		ul.css({
-			'transform':"translate("+translate+"%)"
+$('window').scroll(function(){
+		alert(1);
+		console.log($('html').scrollTop());
+		// if($('window').scrollTop() <= 50){
+		// 	footer.hidden();
+		// }else{
+		// 	footer.show();
+		// }
+	});
+$('document').ready(function(){
+	var footer = $('footer');
+	var choose_li = $('.index_choose li');
+	var time = setInterval(turn,1000);
+
+	for(var i=0 ; i<4 ;i++){		
+		$(choose_li[i]).on('mouseenter',function(){
+			turn(this.innerHTML);
+			clearInterval(time);
+		});
+		$(choose_li[i]).on('mouseout',function(){
+			time = setInterval(turn,1000);
 		});
 	}
 
-	var time = setInterval(turn,1000);
+	$('window').scroll(function(){
+		alert(1);
+		console.log($('html').scrollTop());
+		// if($('window').scrollTop() <= 50){
+		// 	footer.hidden();
+		// }else{
+		// 	footer.show();
+		// }
+	});
 
-	// var mouseenter_li = function(){
-	// 	turn(this.innerHTML);
-	// 	clearInterval(time);
-	// }
-
-	// var mouseout_li = function(){
-	// 	time = setInterval(turn,1000);
-	// }
-
-	// for(var i=4 ; i<8 ;i++){		
-	// 	li[i].addEventListener('mouseenter',mouseenter_li,false);
-	// 	li[i].addEventListener('mouseout',mouseout_li,false);
-	// }
 });
+
+
+function turn(value){
+	var p_ul = $('#turnPic ul');
+	var choose_ul = $('.index_choose ul');
+	var choose_li = $('.index_choose li');
+
+	var	translate = 0;
+	
+	if (value == null){
+		$(choose_li[flag]).css('height','0px');
+		if(flag == 3){
+			flag = 0;
+			for(var i=0 ; i<4 ;i++){
+				$(choose_li[i]).css('height','40px');
+			}
+		} 
+		else
+			translate = -25*(++flag);
+			$(choose_li[flag]).css('height','0px');		
+	}else{
+		flag = parseInt(value)-1;	
+		translate = -25*(--value);		
+	}	
+	p_ul.css({
+		'transform':"translate("+translate+"%)"
+	},1000);
+
+	
+
+}
 
