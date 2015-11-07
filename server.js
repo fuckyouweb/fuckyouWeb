@@ -30,6 +30,29 @@ app.post('/api/login', function(req, res) {
   });
 });
 
+app.post('/api/comeon',function(req,res){
+  alert(3);
+  fs.readFile('author/test.jpg','binary',function(error,file){
+  if(error){
+    response.writeHead(500,{'Content-Type':'text/plain'});
+    response.write(error+'\n');
+    response.end();
+  }else{
+    alert(1);
+    response.writeHead(200,{'Content-Type':'image/jpg'});
+    response.write(file,'binary');
+    response.end();
+  }
+});
+})
+
+app.get('/api/login', function(req, res) {
+  alert(2);
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    res.setHeader('Cache-Control', 'no-cache');
+    res.json(JSON.parse(data));
+  });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
