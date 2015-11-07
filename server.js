@@ -46,7 +46,7 @@ app.post('/api/comeon',function(req,res){
 });
 })
 
-app.get('/api/login', function(req, res) {
+app.get('/api/comeon', function(req, res) {
   alert(2);
   fs.readFile(COMMENTS_FILE, function(err, data) {
     res.setHeader('Cache-Control', 'no-cache');

@@ -84,6 +84,6 @@ var ComeonContainer = React.createClass({
 
 
 ReactDOM.render(
-	<ComeonContainer url='api/comeon'/>,
+	<ComeonContainer url='/api/comeonoo'/>,
 	document.getElementById('container')
 )
