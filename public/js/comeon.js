@@ -29,11 +29,21 @@ var ComeonGlass = React.createClass({
 var ComeonNoteForm = React.createClass({
 	handleSubmit:function(e){
 		e.preventDefault();
-		var theme = this.refs.theme.value.trim();
-		var describe = this.refs.describe.value.trim();
-		var photo = this.refs.photo.value.trim();
+		// var theme = this.refs.theme.value.trim();
+		// var describe = this.refs.describe.value.trim();
+		// var photo = this.refs.photo.value.trim();
 
-		this.props.onComeonFormSubmit({theme:theme,describe:describe,photo:photo});
+		// this.props.onComeonFormSubmit({theme:theme,describe:describe,photo:photo});
+	
+		var fd = new FormData(document.getElementById("comeonform"));
+			//fd.append("CustomField", "This is some extra data");
+			$.ajax({
+			  url: "/upload",
+			  type: "POST",
+			  data: fd,
+			  processData: false,  // 告诉jQuery不要去处理发送的数据
+			  contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+			});
 	},
 	// handleUpload:function(e){
 	// 	e.preventDefault();
@@ -55,7 +65,7 @@ var ComeonNoteForm = React.createClass({
 	// },
 	render:function(){
 		return (
-			<form action="/upload" encType="multipart/form-data" onSubmit={this.handleSubmit}>
+			<form encType="multipart/form-data" id="comeonform" onSubmit={this.handleSubmit}>
 				<div className="comeon_note_theme">theme:</div>
 				<input type='text' className="comeon_note_themeinput" ref="theme"/>
 				<div className="comeon_note_describe">describe:</div>
