@@ -33,7 +33,7 @@ app.post('/api/login', function(req, res) {
 });
 
 app.post('/api/comeon',function(req,res){
-  //console.log(COMEON_FILE);
+  //console.log("req="+req[0]);
   // fs.readFile(COMEON_FILE,'binary',function(err,file){
   // if(err){
   //   console.log('comeon post err');
@@ -48,16 +48,33 @@ app.post('/api/comeon',function(req,res){
   //   res.end();
   // }
 //});
+    
+  
+    var form = new formidable.IncomingForm();
+    console.log('about to parse');
+    form.uploadDir="./authorphoto";//必须设置
+    form.parse(req,function(error,fields,files){
+      console.log(files);
+      console.log('parsing done');
+      fs.renameSync(files.upload.path,'test.jpg');
+    });
+
     fs.readFile(COMEON_FILE, function(err, data) {
     var comeon = JSON.parse(data);
-    // var form = new formidable.IncomingForm();
-    // console.log('about to parse');
-    // form.parse(req.body.photo,function(error,fields,files){
-    //   console.log('parsing done');
-    //   fs.renameSync(files.upload.path,'test.jpg');
-    // });
-    // req.body.photo = "test.jpg";
-    // alert(" req.body="+ req.body);
+    console.log("comeon="+comeon);
+    var len = comeon.length;
+
+    
+
+//     function sleep(milliSeconds){
+//   var startTime = new Date().getTime();
+//   while(new Date().getTime() < startTime+milliSeconds)
+//     ;
+// }
+
+// sleep(2000);
+//     req.body.photo = "test.jpg";
+    console.log(" req.body="+ req.body);
     comeon.push(req.body);
     fs.writeFile(COMEON_FILE, JSON.stringify(comeon, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
@@ -66,18 +83,32 @@ app.post('/api/comeon',function(req,res){
   });
 })
 
-// app.post('/upload',function(req,res){
-//   var form = new formidable.IncomingForm();
-//   console.log('about to parse');
-//   form.parse(request,function(error,fields,files){
-//     console.log('parsing done');
-//     fs.renameSync(files.upload.path,'tmp/test.png');
-//   })
-//   response.writeHead(200,{'Content-Type':'text/html'});
-//   response.write('receive image:<br/>');
-//   response.write('<img src="/show"/>');
-//   response.end();
-// });
+app.post('/upload',function(req,res){
+  var form = new formidable.IncomingForm();
+  console.log('about to parse');
+  form.parse(req,function(error,fields,files){
+    console.log('parsing done');
+    fs.renameSync(files.upload.path,'test.jpg');
+  })
+  response.writeHead(200,{'Content-Type':'text/html'});
+  response.write('receive image:<br/>');
+  response.write('<img src="/show"/>');
+  response.end();
+});
+
+
+app.get('/upload',function(req,res){
+  var form = new formidable.IncomingForm();
+  console.log('about to parse');
+  form.parse(req,function(error,fields,files){
+    console.log('parsing done');
+    fs.renameSync(files.photo.path,'test.jpg');
+  })
+  response.writeHead(200,{'Content-Type':'text/html'});
+  response.write('receive image:<br/>');
+  response.write('<img src="/show"/>');
+  response.end();
+});
 
 // app.post('/show',function(req,res){
 //   s.readFile('tmp/test.png','binary',function(error,file){

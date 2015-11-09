@@ -55,7 +55,7 @@ var ComeonNoteForm = React.createClass({
 	// },
 	render:function(){
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form action="/upload" encType="multipart/form-data" onSubmit={this.handleSubmit}>
 				<div className="comeon_note_theme">theme:</div>
 				<input type='text' className="comeon_note_themeinput" ref="theme"/>
 				<div className="comeon_note_describe">describe:</div>
@@ -65,7 +65,6 @@ var ComeonNoteForm = React.createClass({
 				
 				<input id='file_pic' type="file" ref="photo"/>
 				<input type="submit" value="Upload file"/ >
-				
 				<button type='submit' className="comeon_note_submit">ok!</button>
 			</form>
 		)
@@ -105,6 +104,7 @@ var ComeonContainer = React.createClass({
 		      dataType: 'json',
 		      type: 'POST',
 		      data: form,
+
 		      success: function(data) {
 		        this.setState({data: data});
 		        //alert(data[0].photo);
