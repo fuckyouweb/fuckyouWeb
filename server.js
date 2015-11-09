@@ -84,30 +84,17 @@ app.post('/api/comeon',function(req,res){
 })
 
 app.post('/upload',function(req,res){
-  var form = new formidable.IncomingForm();
-  console.log('about to parse');
-  form.parse(req,function(error,fields,files){
-    console.log('parsing done');
-    fs.renameSync(files.upload.path,'test.jpg');
-  })
-  response.writeHead(200,{'Content-Type':'text/html'});
-  response.write('receive image:<br/>');
-  response.write('<img src="/show"/>');
-  response.end();
-});
-
-
-app.get('/upload',function(req,res){
-  var form = new formidable.IncomingForm();
-  console.log('about to parse');
-  form.parse(req,function(error,fields,files){
-    console.log('parsing done');
-    fs.renameSync(files.photo.path,'test.jpg');
-  })
-  response.writeHead(200,{'Content-Type':'text/html'});
-  response.write('receive image:<br/>');
-  response.write('<img src="/show"/>');
-  response.end();
+  console.dir(req);
+  // var form = new formidable.IncomingForm();
+  // console.log('about to parse');
+  // form.parse(req,function(error,fields,files){
+  //   console.log('parsing done');
+  //   fs.renameSync(files.upload.path,'test.jpg');
+  // })
+  res.writeHead(200,{'Content-Type':'text/html'});
+  res.write('receive image:<br/>');
+  res.write('<img src="/show"/>');
+  res.end();
 });
 
 // app.post('/show',function(req,res){
