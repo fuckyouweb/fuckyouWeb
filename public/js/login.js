@@ -53,10 +53,11 @@ var LoginAllowloginShow = React.createClass({
 	}
 })
 
+// render show info
 var LoginAllowLogin= React.createClass({
 	render:function(){
 		var len = this.props.data.length-1;
-		console.log("len="+len);
+		//console.log("len="+len);
 		var name = this.props.data[len].name;
 		var email = this.props.data[len].email;
 		return (
@@ -72,6 +73,7 @@ var LoginAllowLogin= React.createClass({
 	}
 });
 
+// render sorrow
 var LoginSorrow = React.createClass({
 	render:function(){
 		return (
