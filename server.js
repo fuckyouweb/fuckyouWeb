@@ -13,6 +13,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+//app.use()
 
 app.get('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
@@ -24,7 +25,11 @@ app.get('/api/login', function(req, res) {
 app.post('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
     var login = JSON.parse(data);
-    login.push(req.body);
+    //login.push(req.body);
+    var newlogin = req.body;
+    login.name = newlogin.name;
+    login.email = newlogin.email;
+    login.psw = newlogin.psw;
     fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(login);
