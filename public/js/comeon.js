@@ -27,45 +27,32 @@ var ComeonGlass = React.createClass({
 
 //submit form
 var ComeonNoteForm = React.createClass({
+	// componentDidMount: function() {
+ //    	this.loadFormFromServer();
+ //  	},
 	handleSubmit:function(e){
 		e.preventDefault();
-		// var theme = this.refs.theme.value.trim();
-		// var describe = this.refs.describe.value.trim();
-		// var photo = this.refs.photo.value.trim();
+		
+	 	var fd = new FormData();
+		var photo = $("#file_pic")[0].files[0];
+		var theme = this.refs.theme.value.trim();
+		var describe = this.refs.describe.value.trim();
 
-		// this.props.onComeonFormSubmit({theme:theme,describe:describe,photo:photo});
-	
-		var fd = new FormData(document.getElementById("comeonform"));
-			//fd.append("CustomField", "This is some extra data");
-			$.ajax({
-			  url: "/upload",
-			  type: "POST",
-			  data: fd,
-			  processData: false,  // 告诉jQuery不要去处理发送的数据
-			  contentType: false   // 告诉jQuery不要去设置Content-Type请求头
-			});
+		fd.append('theme',theme);
+		fd.append('describe',describe);
+		fd.append('photo',photo);
+
+		$.ajax({
+		  url: "/api/comeon",
+		  type: "POST",
+		  data: fd,
+		  processData: false,  // 告诉jQuery不要去处理发送的数据
+		  contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+		}); 
 	},
-	// handleUpload:function(e){
-	// 	e.preventDefault();
-	// 	var img = this.this.refs.photo.value.trim();
-	// 	$.ajax({
-	// 	      url: this.props.url,
-	// 	      dataType: 'json',
-	// 	      type: 'POST',
-	// 	      data: form,
-	// 	      success: function(data) {
-	// 	        this.setState({data: data});
-	// 	        //alert(data[0].photo);
-	// 	      }.bind(this),
-	// 	      error: function(xhr, status, err) {
-	// 	        console.error(this.props.url, status, err.toString());
-	// 	      }.bind(this)
-	// 	    });
-	// 	},
-	// },
 	render:function(){
 		return (
-			<form encType="multipart/form-data" id="comeonform" onSubmit={this.handleSubmit}>
+			<form encType="multipart/form-data" id="comeonform" name="comeonform" onSubmit={this.handleSubmit}>
 				<div className="comeon_note_theme">theme:</div>
 				<input type='text' className="comeon_note_themeinput" ref="theme"/>
 				<div className="comeon_note_describe">describe:</div>

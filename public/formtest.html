@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<title></title>
+</head>
+<body>
+<form id="myform">
+	<input type="text"/>
+	<input type="submit" value="submit"/>
+</form>
+</body>
+<script type="text/javascript">
+	var fd = new FormData(document.getElementById("myform"));
+	console.log(fd);
+fd.append("CustomField", "This is some extra data");
+			$.ajax({
+			  url: "/upload",
+			  type: "POST",
+			  data: fd,
+			  processData: false,  // 告诉jQuery不要去处理发送的数据
+			  contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+			});
+</script>
+</html>
