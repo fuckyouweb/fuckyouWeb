@@ -9,7 +9,10 @@
     "formidable": "^1.0.17",
     "multer": "^1.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-raml2html": "^0.3.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

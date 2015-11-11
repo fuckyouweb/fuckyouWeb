@@ -1,0 +1,42 @@
+#%RAML 0.8
+---
+title:penmanbox API
+baseUri:http://guoningyan.com/{version}
+version:v1
+/login:
+    get:
+        description:Retrieve demo info 
+        responses:
+			200:
+				body:
+					application/json:
+						example:|
+							{
+								"data":{
+									"name":"policeman",
+									"email":"110@110.com"
+									}
+								"success":true,
+								"state":200
+							}
+		
+	put:
+		queryParameters:
+			name:
+			email:
+			psd:
+		description:Send user info and retrieve name and email
+		responses:
+			200:
+				body:
+					application/json:
+						example:|
+							{
+								"data":{
+									"name":"guoningyan",
+									"email":"510622610@qq.com"
+									}
+								"success":true,
+								"state":200
+							}
+			
