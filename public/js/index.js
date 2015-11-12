@@ -30,7 +30,7 @@ $('window').scroll(function(){
 $('document').ready(function(){
 	var footer = $('footer');
 	var choose_li = $('.index_choose li');
-	var time = setInterval(turn,1000);
+	var time = setInterval(turn,5000);
 
 	for(var i=0 ; i<4 ;i++){		
 		$(choose_li[i]).on('mouseenter',function(){
@@ -38,7 +38,7 @@ $('document').ready(function(){
 			clearInterval(time);
 		});
 		$(choose_li[i]).on('mouseout',function(){
-			time = setInterval(turn,1000);
+			time = setInterval(turn,5000);
 		});
 	}
 

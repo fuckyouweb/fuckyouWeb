@@ -76,7 +76,7 @@ var LoginSorrow = React.createClass({
 	render:function(){
 		return (
 			<div className={this.props.data?"login_sorrow animate":"login_sorrow"} id="login_sorrow">
-				<img src="img/iconfont-zhuanwan.png" />
+				<img src="img/iconfont-zhuanwan 2.png" />
 			</div>
 		);
 	}

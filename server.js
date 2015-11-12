@@ -19,15 +19,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/penmanbox');
-console.log(1111);
+
 var User = require('./db/user');
 var db = mongoose.connection;
 db.on('error', function(){
-    console.log(1111)
+    console.log('db open error');
     console.dir(arguments);
 });
 db.once('open', function () {
-    console.log(222)
+    console.log('db open success');
     console.dir(arguments);
 });
 
@@ -40,21 +40,31 @@ app.get('/api/login', function(req, res) {
 
 app.post('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
+    var isnew = false;
     var login = JSON.parse(data);
-    //login.push(req.body);
     var newlogin = req.body;
     login.name = newlogin.name;
     login.email = newlogin.email;
     login.psw = newlogin.psw;
 
-    var newuser = new User(req.body);
-    newuser.aliveTime = new Date();
-    newuser.save(function(err,newuser){
+    var checkuser = newlogin.email;
+
+    User.find({email:checkuser},function(err,users){
       if(err) return console.error(err);
       else{
-        console.log('success save!'+newuser);
+        console.log('this person is already exist!');
+        isnew = false;
       }
     })
+    // var newuser = new User(req.body);
+    // newuser.aliveTime = new Date();
+    // newuser.save(function(err,newuser){
+    //   if(err) return console.error(err);
+    //   else{
+
+    //     console.log('success save!'+newuser);
+    //   }
+    //})
 
     fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
