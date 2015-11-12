@@ -13,9 +13,23 @@ var COMEON_FILE = path.join(__dirname, 'comeon.json');//authorphoto/test.jpg
 
 app.set('port', (process.env.PORT || 3000));
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1/penmanbox');
+console.log(1111);
+var User = require('./db/user');
+var db = mongoose.connection;
+db.on('error', function(){
+    console.log(1111)
+    console.dir(arguments);
+});
+db.once('open', function () {
+    console.log(222)
+    console.dir(arguments);
+});
 
 app.get('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
@@ -32,10 +46,21 @@ app.post('/api/login', function(req, res) {
     login.name = newlogin.name;
     login.email = newlogin.email;
     login.psw = newlogin.psw;
+
+    var newuser = new User(req.body);
+    newuser.aliveTime = new Date();
+    newuser.save(function(err,newuser){
+      if(err) return console.error(err);
+      else{
+        console.log('success save!'+newuser);
+      }
+    })
+
     fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(login);
     });
+
   });
 });
 

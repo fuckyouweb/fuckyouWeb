@@ -4,7 +4,7 @@ title:penmanbox API
 baseUri:http://guoningyan.com/{version}
 version:v1
 /login:
-    get:
+	get:
         description:Retrieve demo info 
         responses:
 			200:
@@ -20,7 +20,7 @@ version:v1
 								"state":200
 							}
 		
-	put:
+	post:
 		queryParameters:
 			name:
 			email:
@@ -34,7 +34,7 @@ version:v1
 							{
 								"data":{
 									"name":"guoningyan",
-									"email":"510622610@qq.com"
+									"sessionTime":"yyyy-mm-dd"
 									}
 								"success":true,
 								"state":200

@@ -39,8 +39,6 @@ var LoginAllowloginShow = React.createClass({
 	render:function(){
 		var name = this.props.name;
 		var email = this.props.email;
-		//var name = '123';
-		//var email = '456';
 		return (
 			<div className="login_allowlogin_show">通行证
 				<div className="login_allowlogin_showname login_allowlogin_showword">昵称：{name}</div>

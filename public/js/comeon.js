@@ -27,9 +27,6 @@ var ComeonGlass = React.createClass({
 
 //submit form
 var ComeonNoteForm = React.createClass({
-	// componentDidMount: function() {
- //    	this.loadFormFromServer();
- //  	},
 	handleSubmit:function(e){
 		e.preventDefault();
 		
@@ -43,7 +40,7 @@ var ComeonNoteForm = React.createClass({
 		fd.append('photo',photo);
 
 		$.ajax({
-		  url: "/api/comeon",
+		  url: this.props.url,
 		  type: "POST",
 		  data: fd,
 		  processData: false,  // 告诉jQuery不要去处理发送的数据
@@ -79,43 +76,8 @@ var ComeonNotePicShow = React.createClass({
 })
 
 var ComeonContainer = React.createClass({
-	loadFormFromServer: function() {
-	    $.ajax({
-	      url: this.props.url,
-	      dataType: 'json',
-	      cache: false,
-	      success: function(data) {
-	        this.setState({data: data});
-	      }.bind(this),
-	      error: function(xhr, status, err) {
-	        console.error(this.props.url, status, err.toString());
-	      }.bind(this)
-	    });
-	  },
-	handleComeonFromSubmit:function(forminfo){
-		var form = forminfo;
-		//this.setState = form;
-		//发送服务的请求
-		 $.ajax({
-		      url: this.props.url,
-		      dataType: 'json',
-		      type: 'POST',
-		      data: form,
-
-		      success: function(data) {
-		        this.setState({data: data});
-		        //alert(data[0].photo);
-		      }.bind(this),
-		      error: function(xhr, status, err) {
-		        console.error(this.props.url, status, err.toString());
-		      }.bind(this)
-		    });
-		},
 	getInitialState: function() {
     	return {data:[{'theme':'theme','describe':'describe','photo':'test2.jpg'}]};
-  	},
-  	componentDidMount: function() {
-    	this.loadFormFromServer();
   	},
 	render:function(){
 		return (			
