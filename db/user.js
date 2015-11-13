@@ -5,7 +5,10 @@ userSchema  name,email,psd,workid,aliveTime
  */
 var userSchema = new mongoose.Schema({
 	name:String,
-	email:String,
+	email:{
+		type:String,
+		unique: true
+	},
 	psd:String,
 	workid:Number,//作品id
 	aliveTime:Date,//每次登陆时更新
@@ -13,7 +16,7 @@ var userSchema = new mongoose.Schema({
 	minimize:false
 });
 
-userSchema.set('autoIndex', true);
+//userSchema.set('autoIndex', true);
 
 userSchema.static('getList',function(cb){
 	return this.find().sort({releaseTime:-1}).exec(cb);
