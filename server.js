@@ -49,22 +49,25 @@ app.post('/api/login', function(req, res) {
 
     var checkuser = newlogin.email;
 
-    User.find({email:checkuser},function(err,users){
-      if(err) return console.error(err);
-      else{
-        console.log('this person is already exist!');
-        isnew = false;
-      }
-    })
-    // var newuser = new User(req.body);
-    // newuser.aliveTime = new Date();
-    // newuser.save(function(err,newuser){
+    // User.find({email:checkuser},function(err,users){
     //   if(err) return console.error(err);
     //   else{
-
-    //     console.log('success save!'+newuser);
+    //     console.log('this person is already exist!');
+    //     isnew = false;
     //   }
-    //})
+    // })
+    var newuser = new User(req.body);
+    newuser.aliveTime = new Date();
+    newuser.save(function(err,newuser){
+      if(err) return console.error(err);
+      else{
+        if(newuser.hasOwnProperty()){
+          console.log(newuser.name+'this person is already exist!');
+        }else{
+          console.log('success save!'+newuser);
+        }        
+      }
+    })
 
     fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
