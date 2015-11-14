@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/penmanbox');
+mongoose.connect('mongodb://localhost/penmanbox');
 
 var User = require('./db/user');
 var db = mongoose.connection;
