@@ -4,6 +4,10 @@
 @color_pink_deep:#f47fb5;
 @color_gray:#D8D8D8;
 
+@media screen and (min-width:641px) {
+html{
+	font-size: 10px;
+}
 header{
 	padding: 0 10%;
 	width: 80%;
@@ -36,6 +40,46 @@ header{
 			}
 		}
 	}
+}
+}
+
+@media screen and (max-width:640px){
+html{
+	font-size: 8px;
+}
+header{
+	padding: 0 10%;
+	width: 80%;
+	height: 20rem;
+	line-height: 5rem;
+	text-align: center;
+	background-color: #000;
+	ul{
+		width: 100%;
+		li{
+			cursor: pointer;
+			width: 100%;
+			list-style: none;
+			font-size: 2rem;
+			a{
+				color: #eee !important;
+			}
+		}
+		li:first-child{
+			.flex(2);
+			font-size: 2.5rem;
+			a{
+				color:@color_green !important;
+			}
+		}
+		li:hover{
+			a{
+				color: @color_green !important;
+			}
+		}
+	}
+}
+
 }
 
 
