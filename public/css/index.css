@@ -4,7 +4,7 @@ body {
   height: 100%;
 }
 /*PC css*/
-@media screen and (min-width: 641px) {
+@media screen and (min-width: 765px) {
   html {
     font-size: 10px;
   }
@@ -175,7 +175,7 @@ body {
   }
 }
 /*mobile css*/
-@media screen and (max-width: 640px) {
+@media screen and (min-width: 320px) and (max-width: 765px) {
   html {
     font-size: 8px;
   }
