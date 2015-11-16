@@ -31,6 +31,21 @@ db.once('open', function () {
     console.dir(arguments);
 });
 
+//404
+app.use(function(req,res){
+  res.type('text/plain');
+  res.status(404);
+  res.send('404 - Not Found');
+});
+
+//500
+app.use(function(err,req,res,next){
+  console.error(err.stack);
+  res.type('text/plain');
+  res.status(500);
+  res.send('500 - Server Error');
+});
+
 app.get('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
     res.setHeader('Cache-Control', 'no-cache');
