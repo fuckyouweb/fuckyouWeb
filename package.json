@@ -12,8 +12,11 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-raml2html": "^0.3.2",
-    "grunt-contrib-cssmin":"x"
+    "grunt-cafe-mocha": "^0.1.13",
+    "grunt-contrib-cssmin": "x",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-exec": "^0.4.6",
+    "grunt-raml2html": "^0.3.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

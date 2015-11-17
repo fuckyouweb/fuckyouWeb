@@ -1,5 +1,3 @@
-//require('nunjucks');
-// 包装函数
 module.exports = function(grunt){
 	
 	//任务配置，所有插件的配置信息
@@ -31,7 +29,7 @@ module.exports = function(grunt){
 		 			]
 		 		}
 		 	}
-		 }
+		 },
 
 		// uglify:{
 		// 	options:{
@@ -43,13 +41,14 @@ module.exports = function(grunt){
 		// 		dest:'build/<%=pkg.name%>-<%=pkg.version%>.js.min.js'
 		// 	}
 		// },
+		
 
-		// jshint:{
-		// 	build:['Gruntfile.js','src/*.js'],
-		// 	options:{
-		// 		jshintrc:'.jshintrc'
-		// 	}
-		// },
+		jshint:{
+			build:['Gruntfile.js','js/*.js'],
+			options:{
+				jshintrc:'.jshintrc'
+			}
+		}
 
 		// watch:{
 		// 	build:{
@@ -62,14 +61,15 @@ module.exports = function(grunt){
 
 	//告诉grunt我们将使用插件
 	//grunt.loadNpmTasks('grunt-contrib-uglify');
-	//grunt.loadNpmTasks('grunt-contrib-jshint');
+	
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 	//grunt.loadNpmTasks('grunt-raml2html');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	//告诉grunt当我们在终端中输入grunt时需要做些什么（注意先后顺序）
 	//grunt.registerTask('default',['jshint','uglify','watch']);
 	//grunt.registerTask('default',['raml2html']);
-	grunt.registerTask('default',['cssmin']);
+	grunt.registerTask('default',['cssmin','jshint']);
 
 }; 

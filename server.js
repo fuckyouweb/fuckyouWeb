@@ -17,6 +17,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+//url+  ?test=1  start to test
+app.use(function(req,res,next){
+  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+  next();
+})
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/penmanbox');
 
