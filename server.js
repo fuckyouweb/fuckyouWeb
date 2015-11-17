@@ -21,7 +21,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(function(req,res,next){
   res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
   next();
-})
+});
+
+//set sign cookie
+// var credentials = require('./public/js/credentials');
+// app.use(require('cookie-parser')(credentials.cookieSecret));
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/penmanbox');
@@ -78,6 +82,7 @@ app.post('/api/login', function(req, res) {
     fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(login);
+      res.redirect(303,'index.html');
     });
 
   });
