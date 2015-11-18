@@ -28,3 +28,4 @@ server端采用multer插件上传，可以通过console.dir(req.files)来查看�
 501 mail from address must be same as authorization user，邮件from要和user名字相同
 
 ###调用发送邮件模块之后res无法响应
+使用自己写的模块之后如何next()?代码错误，只是当事件执行，是res.sent和res.redirect的问题

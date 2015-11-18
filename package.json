@@ -7,9 +7,11 @@
     "body-parser": "^1.4.3",
     "cookie-parser": "^1.4.0",
     "express": "^4.4.5",
+    "express-logger": "0.0.3",
     "formidable": "^1.0.17",
     "jquery-file-upload-middleware": "^0.1.7",
     "mongoose": "^4.0.2",
+    "morgan": "^1.6.1",
     "multer": "^1.1.0",
     "nodemailer": "^1.10.0"
   },

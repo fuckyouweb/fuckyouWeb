@@ -34,6 +34,26 @@ module.exports = function(tosb){
                     console.log('Message sent: ' + info.response);
                 }
             });
+        },
+        emailError:function(message,filename,exception){
+            var body = '<h1>pen man box has a little problem</h1>'+'message:<br><pre>'+message+'</pre><br>';
+            if(exception)
+                body += 'exception:<br><pre>'+exception+'</pre></br>';
+            if(filename)
+                body += 'filename:<br><pre>'+filename+'</pre></br>';
+            var mailOptions = {
+                from:fromme, 
+                to: tosb, 
+                subject: 'penmanbox error',
+                html: body,
+                generateTextFromHtml:true
+            };
+            transporter.sendMail(mailOptions,function(err){
+                if(err)
+                    console.error('Unable to send email:'+error);
+            })
         }
+
+        
     }
 }

@@ -26,6 +26,7 @@ app.use(function(req,res,next){
 // var credentials = require('./public/js/credentials');
 // app.use(require('cookie-parser')(credentials.cookieSecret));
 
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/penmanbox');
 
@@ -39,6 +40,18 @@ db.once('open', function () {
     console.log('db open success');
     console.dir(arguments);
 });
+
+
+switch(app.get('env')){
+  case 'development':
+    app.use(require('morgan')('dev'));
+    break;
+  case 'production':
+    app.use(require('express-logger')({
+      path:__dirname + '/log/requests.log'
+    }));
+    break;
+}
 
 app.get('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
@@ -83,7 +96,7 @@ app.post('/api/login', function(req, res) {
     fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(login);
-      res.redirect(303,'index.html');
+      //res.redirect(303,'index.html');
     });
   });
 });
@@ -133,5 +146,5 @@ app.use(function(req,res){
 
 
 app.listen(app.get('port'), function() {
-  console.log('Server started: http://localhost:' + app.get('port') + '/');
+  console.log('Express started in:'+app.get('env')+' Server started: http://localhost:' + app.get('port') + '/');
 });
