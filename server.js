@@ -4,8 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer({dest:path.join(__dirname, '/public/authorphoto')});
-
-
+var mail = require('./public/js/mail/mail');
 var app = express();
 
 var LOGIN_FILE = path.join(__dirname, 'login.json');
@@ -66,25 +65,26 @@ app.post('/api/login', function(req, res) {
     //     isnew = false;
     //   }
     // })
-    var newuser = new User(req.body);
-    newuser.aliveTime = new Date();
-    newuser.save(function(err,newuser){
-      if(err) return console.error(err);
-      else{
-        if(newuser.hasOwnProperty()){
-          console.log(newuser.name+'this person is already exist!');
-        }else{
-          console.log('success save!'+newuser);
-        }        
-      }
-    })
+    // var newuser = new User(req.body);
+    // newuser.aliveTime = new Date();
+    // newuser.save(function(err,newuser){
+    //   if(err) return console.error(err);
+    //   else{
+    //     if(newuser.hasOwnProperty()){
+    //       console.log(newuser.name+'this person is already exist!');
+    //     }else{
+    //       console.log('success save!'+newuser);
+    //     }        
+    //   }
+    // });
 
-    fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
-      res.setHeader('Cache-Control', 'no-cache');
-      res.json(login);
-      res.redirect(303,'index.html');
-    });
+    mail().send(checkuser);
 
+    // fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
+    //   res.setHeader('Cache-Control', 'no-cache');
+    //   res.json(login);
+    //   res.redirect(303,'index.html');
+    // });
   });
 });
 
@@ -115,13 +115,6 @@ app.get('/api/comeon', function(req, res) {
   });
 });
 
-//404
-app.use(function(req,res){
-  res.type('text/plain');
-  res.status(404);
-  res.send('404 - Not Found');
-});
-
 //500
 app.use(function(err,req,res,next){
   console.error(err.stack);
@@ -129,6 +122,15 @@ app.use(function(err,req,res,next){
   res.status(500);
   res.send('500 - Server Error');
 });
+
+//404
+app.use(function(req,res){
+  res.type('text/plain');
+  res.status(404);
+  res.send('404 - Not Found');
+});
+
+
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');

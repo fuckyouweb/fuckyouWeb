@@ -10,7 +10,8 @@
     "formidable": "^1.0.17",
     "jquery-file-upload-middleware": "^0.1.7",
     "mongoose": "^4.0.2",
-    "multer": "^1.1.0"
+    "multer": "^1.1.0",
+    "nodemailer": "^1.10.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
