@@ -65,26 +65,26 @@ app.post('/api/login', function(req, res) {
     //     isnew = false;
     //   }
     // })
-    // var newuser = new User(req.body);
-    // newuser.aliveTime = new Date();
-    // newuser.save(function(err,newuser){
-    //   if(err) return console.error(err);
-    //   else{
-    //     if(newuser.hasOwnProperty()){
-    //       console.log(newuser.name+'this person is already exist!');
-    //     }else{
-    //       console.log('success save!'+newuser);
-    //     }        
-    //   }
-    // });
+    var newuser = new User(req.body);
+    newuser.aliveTime = new Date();
+    newuser.save(function(err,newuser){
+      if(err) return console.error(err);
+      else{
+        if(newuser.hasOwnProperty()){
+          console.log(newuser.name+'this person is already exist!');
+        }else{
+          console.log('success save!'+newuser);
+        }        
+      }
+    });
 
-    mail().send(checkuser);
+    //mail().send(checkuser);
 
-    // fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
-    //   res.setHeader('Cache-Control', 'no-cache');
-    //   res.json(login);
-    //   res.redirect(303,'index.html');
-    // });
+    fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
+      res.setHeader('Cache-Control', 'no-cache');
+      res.json(login);
+      res.redirect(303,'index.html');
+    });
   });
 });
 
