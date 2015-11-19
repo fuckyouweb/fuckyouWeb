@@ -4,7 +4,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer({dest:path.join(__dirname, '/public/authorphoto')});
+
 var mail = require('./public/js/mail/mail');
+//var myloadtest = require('./public/js/qa/myloadtest');
+
 var app = express();
 
 var LOGIN_FILE = path.join(__dirname, 'login.json');

@@ -48,6 +48,13 @@ module.exports = function(grunt){
 			options:{
 				jshintrc:'.jshintrc'
 			}
+		},
+
+		cafemocha:{
+			all:{
+				src:'public/js/qa/*.js',
+				options:{ui:'tdd'}
+			}
 		}
 
 		// watch:{
@@ -66,10 +73,11 @@ module.exports = function(grunt){
 	//grunt.loadNpmTasks('grunt-raml2html');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-cafe-mocha');
 
 	//告诉grunt当我们在终端中输入grunt时需要做些什么（注意先后顺序）
 	//grunt.registerTask('default',['jshint','uglify','watch']);
 	//grunt.registerTask('default',['raml2html']);
-	grunt.registerTask('default',['cssmin','jshint']);
+	grunt.registerTask('default',['cssmin','jshint','cafemocha']);
 
 }; 
