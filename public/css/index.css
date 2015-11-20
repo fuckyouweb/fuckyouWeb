@@ -339,37 +339,3 @@ footer ul li:last-child img {
   bottom: -23px;
   left: 60px;
 }
-.index_music {
-  width: 4rem;
-  height: 4rem;
-  background-color: #000;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 5rem;
-  right: 0;
-  text-align: center;
-  line-height: 5rem;
-}
-.index_music img {
-  width: 50%;
-  margin-top: 1rem;
-}
-.index_music_after:before {
-  content: '>';
-  width: 2rem;
-  height: 5rem;
-  line-height: 5rem;
-  color: #d8d8d8;
-  position: fixed;
-  right: 33rem;
-  font-size: 3rem;
-}
-.index_music_after {
-  width: 35rem;
-  height: 5rem;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #d8d8d8;
-  position: fixed;
-  bottom: 4.5rem;
-  right: 0;
-}

@@ -135,19 +135,59 @@ app.get('/api/comeon', function(req, res) {
   });
 });
 
+
+app.get('/logoshow',function(req,res){
+  fs.readFile('public/img/penmanbox.png','binary',function(error,file){
+  if(error){
+    res.writeHead(500,{'Content-Type':'text/plain'});
+    res.write(error+'\n');
+    res.end();
+  }else{
+    res.writeHead(200,{'Content-Type':'image/png'});
+    res.write(file,'binary');
+    res.end();
+  }
+});
+})
+
+
+
 //500
 app.use(function(err,req,res,next){
-  console.error(err.stack);
-  res.type('text/plain');
-  res.status(500);
-  res.send('500 - Server Error');
+  var body = '<html style="background-color:#15adbc">'+
+'<head>'+
+  '<meta charset="UTF-8">'+
+'</head>'+
+'<body>'+
+  '<div style="width:40%;margin-left:30%;">'+
+    '<img src="/logoshow" style="width:100%;">'+
+  '</div>'+
+  '<h1 style="text-align:center;color:#f8ecd4;">Error 500</h1>'+
+  '<h2 style="text-align:center;color:#f8ecd4;">Ginny try to save the web! Discourage her!</h2>'+
+'</body>'+
+'</html>';
+  res.writeHead(200,{'Content-Type':'text/html'});
+  res.write(body);
+  res.end();
 });
 
 //404
 app.use(function(req,res){
-  res.type('text/plain');
-  res.status(404);
-  res.send('404 - Not Found');
+  var body = '<html style="background-color:#15adbc">'+
+'<head>'+
+  '<meta charset="UTF-8">'+
+'</head>'+
+'<body>'+
+  '<div style="width:40%;margin-left:30%;">'+
+    '<img src="/logoshow" style="width:100%;">'+
+  '</div>'+
+  '<h1 style="text-align:center;color:#f8ecd4;">Error 404</h1>'+
+  '<h2 style="text-align:center;color:#f8ecd4;">Page is not here now!</h2>'+
+'</body>'+
+'</html>';
+  res.writeHead(200,{'Content-Type':'text/html'});
+  res.write(body);
+  res.end();
 });
 
 
