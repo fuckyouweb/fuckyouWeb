@@ -303,17 +303,41 @@ body {
 }
 footer {
   width: 100%;
-  position: fixed;
+  position: relative;
   bottom: 0;
   color: #eee;
   background-color: #000;
-  height: 3rem;
+  height: 4rem;
   text-align: center;
-  line-height: 1.5rem;
+  line-height: 2rem;
   z-index: 99;
 }
 footer a {
   color: #eee !important;
+}
+footer ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+footer ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 100%;
+}
+footer ul li img {
+  width: 60%;
+}
+footer ul li:last-child {
+  position: relative;
+}
+footer ul li:last-child img {
+  position: absolute;
+  bottom: -23px;
+  left: 60px;
 }
 .index_music {
   width: 4rem;

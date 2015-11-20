@@ -347,23 +347,35 @@ html,body{
 
 footer{
 	width: 100%;
-	position: fixed;
+	position: relative;
 	bottom: 0;
 	color: #eee;
 	background-color: #000;
-	height: 3rem;
+	height: 4rem;
 	text-align: center;
-	line-height: 1.5rem;
+	line-height: 2rem;
 	z-index: 99;
 	a{
 		color: #eee !important;
 	}
-	//display: none;
+	ul{
+		.flexbox();
+		li{
+			.flex(1);
+			img{
+				width: 60%;
+			}
+		}
+		li:last-child{
+			position: relative;
+			img{
+				position: absolute;
+				bottom: -23px;
+				left: 60px;
+			}
+		}
+	}
 }
-
-
-
-
 
 .index_music{
 	width: 4rem;

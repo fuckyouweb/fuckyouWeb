@@ -26,12 +26,16 @@ app.use(function(req,res,next){
 });
 
 //set sign cookie
-// var credentials = require('./public/js/credentials');
-// app.use(require('cookie-parser')(credentials.cookieSecret));
-
-
+//app.use(require('cookie-parser')(credentials.cookieSecret));
+var credential = require('./public/js/credential/credential');
+var mongoconnect = credential().mongo.development.connectionString;
+var mongoopts = {
+  server:{
+    socketOptions:{keepAlive:1}
+  }
+};
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/penmanbox');
+mongoose.connect(mongoconnect,mongoopts);
 
 var User = require('./db/user');
 var db = mongoose.connection;

@@ -5,6 +5,14 @@ function credential(){
 		mymail:{
 			user:'',
 			password:'',
+		},
+		mongo:{
+			development:{
+				connectionString:'mongodb://localhost/penmanbox',
+			},
+			production:{
+				connectionString:'mongodb://localhost/penmanbox'
+			}
 		}
 	}
 }
