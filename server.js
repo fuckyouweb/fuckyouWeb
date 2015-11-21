@@ -19,12 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//url+  ?test=1  start to test
-app.use(function(req,res,next){
-  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
-  next();
-});
-
 //set sign cookie
 //app.use(require('cookie-parser')(credentials.cookieSecret));
 var credential = require('./public/js/credential/credential');
@@ -38,6 +32,7 @@ var mongoose = require('mongoose');
 mongoose.connect(mongoconnect,mongoopts);
 
 var User = require('./db/user');
+var Work = require('./db/work');
 var db = mongoose.connection;
 db.on('error', function(){
     console.log('db open error');
@@ -47,7 +42,6 @@ db.once('open', function () {
     console.log('db open success');
     console.dir(arguments);
 });
-
 
 switch(app.get('env')){
   case 'development':
@@ -115,15 +109,29 @@ var comeonfile = upload.fields([
 app.post('/api/comeon',comeonfile,function(req,res,next){
   console.log(3);
   console.dir(req.files);
-  console.dir(req);
+  //console.dir('req='+req);
   // var file = req.files;
   // var date = new Date();
-  // console.log(req.files["file"][0]["filename"]);
-  // fs.renameSync(req.files["file"][0]["filename"],'test.jpg');
+  var filename = req.files["photo"][0]["filename"];
+  //console.log('filename='+filename);
+  //fs.renameSync(filename,'test.jpg');
   // res.writeHead(200,{'Content-Type':'text/html'});
   // res.write('receive image:<br/>');
   // res.write('<img src="/show"/>');
   // res.end();
+  var theme = req.body.theme;
+  var describe = req.body.describe;
+  var newwork = new Work({
+    'theme':theme,
+    'describe':describe,
+    'photo':filename
+  });
+    newwork.save(function(err,newwork){
+      if(err) return console.error(err);
+      else{
+          console.log('success work!'+newwork);       
+      }
+    });
   
 });
 

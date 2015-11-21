@@ -76,7 +76,7 @@ var ComeonNotePicShow = React.createClass({
 
 var ComeonContainer = React.createClass({
 	getInitialState: function() {
-    	return {data:[{'theme':'theme','describe':'describe','photo':'test2.jpg'}]};
+    	return {data:[{'theme':'theme','describe':'describe','photo':'authorphoto/38c390e36357609069b8de98e15dcc66'}]};
   	},
 	render:function(){
 		return (			
