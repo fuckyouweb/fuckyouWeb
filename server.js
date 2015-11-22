@@ -3,7 +3,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var upload = multer({dest:path.join(__dirname, '/public/authorphoto')});
+var upload = multer({dest:path.join(__dirname, '/authorphoto')});
 
 var mail = require('./public/js/mail/mail');
 //var myloadtest = require('./public/js/qa/myloadtest');
@@ -12,6 +12,8 @@ var app = express();
 
 var LOGIN_FILE = path.join(__dirname, 'login.json');
 var COMEON_FILE = path.join(__dirname, 'comeon.json');//authorphoto/test.jpg
+var PHOTO_PATH = path.join(__dirname,'/authorphoto');
+var PHOTO_NEWPATH = path.join(__dirname,'/diskphoto');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -79,10 +81,13 @@ app.post('/api/login', function(req, res) {
     //     isnew = false;
     //   }
     // })
+    /*save to db*/
     var newuser = new User(req.body);
     newuser.aliveTime = new Date();
     newuser.save(function(err,newuser){
-      if(err) return console.error(err);
+      if(err){
+        console.error(err);
+      }
       else{
         if(newuser.hasOwnProperty()){
           console.log(newuser.name+'this person is already exist!');
@@ -102,6 +107,25 @@ app.post('/api/login', function(req, res) {
   });
 });
 
+Date.prototype.Format = function(fmt)   
+{ //author: meizz   
+  var o = {   
+    "M+" : this.getMonth()+1,                 //月份   
+    "d+" : this.getDate(),                    //日   
+    "h+" : this.getHours(),                   //小时   
+    "m+" : this.getMinutes(),                 //分   
+    "s+" : this.getSeconds(),                 //秒   
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+    "S"  : this.getMilliseconds()             //毫秒   
+  };   
+  if(/(y+)/.test(fmt))   
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+  for(var k in o)   
+    if(new RegExp("("+ k +")").test(fmt))   
+  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+  return fmt;   
+} 
+
 var comeonfile = upload.fields([
   {name:'theme', maxCount: 1000},
   {name:'describe',maxCount:1000},
@@ -111,7 +135,7 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
   console.dir(req.files);
   //console.dir('req='+req);
   // var file = req.files;
-  // var date = new Date();
+  
   var filename = req.files["photo"][0]["filename"];
   //console.log('filename='+filename);
   //fs.renameSync(filename,'test.jpg');
@@ -121,17 +145,74 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
   // res.end();
   var theme = req.body.theme;
   var describe = req.body.describe;
-  var newwork = new Work({
-    'theme':theme,
-    'describe':describe,
-    'photo':filename
-  });
-    newwork.save(function(err,newwork){
-      if(err) return console.error(err);
-      else{
-          console.log('success work!'+newwork);       
-      }
-    });
+  var date = new Date();
+  
+  fs.readFile(PHOTO_PATH+'/'+filename,'binary',function(err,data){
+    console.log('start to read');
+    if(err){
+      console.error(err);
+    }else{
+      fs.readdir(PHOTO_NEWPATH, function(err,dircontent){//read the dir
+        if(err){
+          console.error(err);
+        }else{
+          var direxist = dircontent.map(function(value){//search for dir array
+            console.log('value='+value);
+            return (value == theme);
+          });
+          var PHOTO_NEWPATH_THEME = PHOTO_NEWPATH+'/'+theme;
+          if(direxist == 'false'){//the file is not exist
+            console.log(5);
+            fs.mkdir(PHOTO_NEWPATH_THEME,function(err){
+              if(err){
+                console.error(err);
+              }else{
+                console.log('mkdir success');
+                var PHOTO_NEWPATH_NAME = PHOTO_NEWPATH_THEME+'/'+theme+date;
+                fs.writeFile(PHOTO_NEWPATH_NAME,data,function(err){
+                  if(err){
+                    console.error(err);
+                  }else{
+                    console.log("File Saved !"); //文件被保存
+                  }
+                });
+              }
+            });//mkdir
+          }else{//direxist
+            console.log(6);
+            var PHOTO_NEWPATH_NAME = PHOTO_NEWPATH_THEME+'/'+theme+date;
+            fs.writeFile(PHOTO_NEWPATH_NAME,data,function(err){
+              if(err){
+                console.error(err);
+              }else{
+                console.log("File Saved !"); //文件被保存
+              }
+            });
+          }         
+        }
+      });
+    }
+  })
+  // fs.rename(PHOTO_PATH+'/'+filename,PHOTO_PATH+'/test.png',function(err){
+  //   if(err){
+  //      console.log(err);  
+  //   }else{
+  //      console.log('renamed complete');
+  //    }
+  // });
+  /*save to db*/
+  // var newwork = new Work({
+  //   'theme':theme,
+  //   'describe':describe,
+  //   'photo':filename
+  // });
+  // newwork.save(function(err,newwork){
+    // if(err){
+    //   console.error(err);
+    // }else{
+  //       console.log('success work!'+newwork);       
+  //}
+  // });
   
 });
 
