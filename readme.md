@@ -35,3 +35,5 @@ server端采用multer插件上传，可以通过console.dir(req.files)来查看�
 
 ###怎么判断定向的404
 server.js里面最后使用404中间件，url输入未找到时触发，可是之前的html也没发出特殊的请求，这是怎么判断的呢？由express服务器搜寻，没找到是定向404，不能自己在页面中写。
+
+###Date.prototype.Format写在哪里？
