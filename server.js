@@ -107,30 +107,36 @@ app.post('/api/login', function(req, res) {
   });
 });
 
-// Date.prototype.Format = function(fmt)   
-// { //author: meizz   
-//   var o = {   
-//     "M+" : this.getMonth()+1,                 //月份   
-//     "d+" : this.getDate(),                    //日   
-//     "h+" : this.getHours(),                   //小时   
-//     "m+" : this.getMinutes(),                 //分   
-//     "s+" : this.getSeconds(),                 //秒   
-//     "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-//     "S"  : this.getMilliseconds()             //毫秒   
-//   };   
-//   if(/(y+)/.test(fmt))   
-//     fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-//   for(var k in o)   
-//     if(new RegExp("("+ k +")").test(fmt))   
-//   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-//   return fmt;   
-// } 
+Date.prototype.Format = function(fmt)   
+{ //author: meizz   
+  var o = { 
+    //"y+" : this.getFullYear(),  
+    "M+" : this.getMonth()+1,                 //月份   
+    "d+" : this.getDate(),                    //日   
+    "h+" : this.getHours(),                   //小时   
+    "m+" : this.getMinutes(),                 //分   
+    "s+" : this.getSeconds(),                 //秒   
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+    "S"  : this.getMilliseconds()             //毫秒   
+  };   
+  if(/(y+)/.test(fmt))   
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+  for(var k in o)   
+    if(new RegExp("("+ k +")").test(fmt))   
+  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+  console.log('fmt='+fmt);
+  return fmt;   
+} 
 
 var comeonfile = upload.fields([
   {name:'theme', maxCount: 1000},
   {name:'describe',maxCount:1000},
   {name:'photo',maxCount:10000}]);
 app.post('/api/comeon',comeonfile,function(req,res,next){
+  // res.setHeader(200,{'Content-Type':'text/html'});
+  // res.sendStatus(200);
+  // res.send(2222);
+  // res.end();
   console.log(3);
   console.dir(req.files);
   //console.dir('req='+req);
@@ -139,16 +145,27 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
   var filename = req.files["photo"][0]["filename"];
   var mimetype = req.files["photo"][0]["mimetype"];
   var imgtype = mimetype.substring(6);
-  console.log(imgtype); 
-  //console.log('filename='+filename);
-  //fs.renameSync(filename,'test.jpg');
-  // res.writeHead(200,{'Content-Type':'text/html'});
-  // res.write('receive image:<br/>');
-  // res.write('<img src="/show"/>');
-  // res.end();
   var theme = req.body.theme;
   var describe = req.body.describe;
   var date = new Date();
+  date = date.Format('yyyyMMddhhmmss');
+
+  /*save to db*/
+  var savename = theme+date;
+  var newwork = new Work({
+    'theme':theme,
+    'describe':describe,
+    'photo':savename
+  });
+  newwork.save(function(err,newwork){
+    if(err){
+      console.error(err);
+    }else{
+      console.log('success work!'+newwork);       
+    }
+  });//newwork.save
+
+   
   
   fs.readFile(PHOTO_PATH+'/'+filename,'binary',function(err,data){
     console.log('start to read');
@@ -159,12 +176,16 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
         if(err){
           console.error(err);
         }else{
-          var direxist = dircontent.map(function(value){//search for dir array
-            console.log('value='+value);
-            return (value == theme);
+          var direxist = 0
+          dircontent.map(function(value){//search for dir array
+            var direxist = 0;
+            if(value == theme)
+              direxist += 1;
+              return direxist;
           });
           var PHOTO_NEWPATH_THEME = PHOTO_NEWPATH+'/'+theme;
-          if(direxist == 'false'){//the file is not exist
+          console.log(direxist);
+          if(!direxist){//the file is not exist
             console.log(5);
             fs.mkdir(PHOTO_NEWPATH_THEME,function(err){
               if(err){
@@ -191,33 +212,27 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
                 console.log("File Saved !"); //文件被保存
               }
             });
-          }         
-        }
+          }//direxist         
+        }//fs.readdir
       });
     }
-  })
-  // fs.rename(PHOTO_PATH+'/'+filename,PHOTO_PATH+'/test.png',function(err){
-  //   if(err){
-  //      console.log(err);  
-  //   }else{
-  //      console.log('renamed complete');
-  //    }
-  // });
-  /*save to db*/
-  // var newwork = new Work({
-  //   'theme':theme,
-  //   'describe':describe,
-  //   'photo':filename
-  // });
-  // newwork.save(function(err,newwork){
-    // if(err){
-    //   console.error(err);
-    // }else{
-  //       console.log('success work!'+newwork);       
-  //}
-  // });
-  
+  });
+  next();
 });
+
+app.post('/api/comeon',function(req,res){
+  /*rename img in authorphoto*/
+  var authorimg = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
+  fs.rename(PHOTO_PATH+'/'+filename,authorimg,function(err){
+    console.log(7);
+    if(err){
+       console.log(err);  
+    }else{
+       console.log('renamed complete');
+     }
+  });
+});
+
 
 app.get('/api/comeon', function(req, res) {
   console.log(2);

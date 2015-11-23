@@ -329,13 +329,13 @@ footer ul li {
   width: 100%;
 }
 footer ul li img {
-  width: 40%;
+  width: 70%;
 }
 footer ul li:last-child {
   position: relative;
 }
 footer ul li:last-child img {
   position: absolute;
-  bottom: 0px;
-  left: 140px;
+  bottom: 7%;
+  left: 15%;
 }
