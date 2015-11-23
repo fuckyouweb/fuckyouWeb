@@ -86,6 +86,14 @@ gen### OSX template
 .AppleDouble
 .LSOverride
 
+#special file
+public/js/credential/*.js
+public/js/qa/*.js
+log
+authorphoto
+diskphoto
+
+
 # Icon must end with two \r
 Icon
 
