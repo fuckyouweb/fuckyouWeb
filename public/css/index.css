@@ -96,6 +96,9 @@ body {
     position: relative;
     border: 0px solid #000000;
   }
+  .index_container_hot:nth-child(3) {
+    padding-bottom: 5rem;
+  }
   .index_container_line {
     border-collapse: collapse;
     background-color: #d8d8d8;
@@ -113,9 +116,8 @@ body {
     border-radius: 1rem;
     background-color: #d8d8d8;
   }
-  .index_container_hottwo_r1,
-  .index_container_hotthree_r1,
-  .index_container_hotthree_r2 {
+  .index_container_hot_r,
+  .index_container_hot_r1 {
     position: absolute;
     left: 1rem;
     top: -0.8rem;
@@ -124,7 +126,7 @@ body {
     border-radius: 1rem;
     background-color: #d8d8d8;
   }
-  .index_container_hotthree_r1 {
+  .index_container_hot_r1 {
     left: 3rem;
   }
   .index_container_picwrap {
@@ -163,15 +165,14 @@ body {
     width: 100%;
   }
   .index_container_describe {
-    height: 90%;
     padding-top: 3%;
   }
   .index_container_describe div {
     height: 40%;
     padding: 5%;
   }
-  .index_container_hotthree {
-    padding-bottom: 5rem;
+  .index_container_describe span {
+    white-space: nowrap;
   }
 }
 /*mobile css*/
@@ -293,7 +294,10 @@ body {
     height: 40%;
     padding: 5%;
   }
-  .index_container_hotthree {
+  .index_container_describe span {
+    white-space: nowrap;
+  }
+  .index_container_hot:nth-child(3) {
     padding-bottom: 5rem;
   }
 }

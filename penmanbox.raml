@@ -39,4 +39,38 @@ version:v1
 								"success":true,
 								"state":200
 							}
+
+
+/api/index
+	get:
+		queryParameters:
+		description:get imgs for three hot areas
+		responses:
+			200:
+				body:
+					application/json:
+						example:{
+							"data1":[
+								{
+									"name": "ginny",
+								    "theme": "华师校庆",
+								    "head":"img/roundhead.png",
+								    "photo":"img/img1_1.jpg"
+								},
+								{
+									"name": "ginny",
+								    "theme": "华师校庆",
+								    "head":"img/roundhead.png",
+								    "photo":"img/img1_2.jpg"
+								},
+								{
+									"name": "ginny",
+								    "theme": "华师校庆",
+								    "head":"img/roundhead.png",
+								    "photo":"img/img1_3.jpg"
+								}
+							],
+							"data2":[],
+							"data3":[]
+						}
 			

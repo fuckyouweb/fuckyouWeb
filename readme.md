@@ -43,3 +43,8 @@ server.js里面最后使用404中间件，url输入未找到时触发，可是�
 “Can’t set headers after they are sent.” => “不能发送headers因为已经发送过一次了” => 在处理HTTP请求时，服务器会先输出响应头，然后再输出主体内容，而一旦输出过一次响应头（比如执行过 res.writeHead() 或 res.write() 或 res.end()），你再尝试通过 res.setHeader() 或 res.writeHead() 来设置响应头时（有些方法比如 res.redirect() 会调用 res.writeHead()），就会报这个错误。
 （说明：express中的 res.header() 相当于 res.writeHead() ，res.send() 相当于 res.write() ）
 原因就是你程序有问题，重复作出响应，具体原因很多，需要自己根据以上的原则来排除。
+
+###返回对象数组在前端处理不太好
+在后台拼合数据，然后前端只要判断取数就行
+
+###通过fs转存图片发生错误

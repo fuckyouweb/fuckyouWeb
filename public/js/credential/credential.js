@@ -13,7 +13,11 @@ function credential(){
 			production:{
 				connectionString:'mongodb://localhost/penmanbox'
 			}
-		}
+		},
+		address:{
+			development:"localhost:http://localhost:",
+			production:""
+		}			
 	}
 }
 module.exports = credential;

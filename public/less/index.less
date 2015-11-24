@@ -124,6 +124,9 @@ html,body{
 		position: relative;
 		.border();
 	}
+	.index_container_hot:nth-child(3){
+		padding-bottom: 5rem;
+	}
 	// 热区分割线
 	.index_container_line{
 		.line();
@@ -140,9 +143,9 @@ html,body{
 		background-color: @color_gray;
 	}
 
-	.index_container_hottwo_r1,
-	.index_container_hotthree_r1,
-	.index_container_hotthree_r2
+	.index_container_hot_r,
+	.index_container_hot_r1,
+	//.index_container_hotthree_r2
 	{
 		position: absolute;
 		left: 1rem;
@@ -152,7 +155,7 @@ html,body{
 		border-radius: 1rem;
 		background-color: @color_gray;
 	}
-	.index_container_hotthree_r1{
+	.index_container_hot_r1{
 		left: 3rem;
 	}
 	.index_container_picwrap{
@@ -193,15 +196,15 @@ html,body{
 		}
 	}
 	.index_container_describe{
-		height: 90%;
+		//height: 90%;
 		padding-top: 3%;
 		div{
 			height: 40%;
 			padding: 5%;
 		}
-	}
-	.index_container_hotthree{
-		padding-bottom: 5rem;
+		span{
+			white-space: nowrap;
+		}
 	}
 }
 
@@ -335,8 +338,11 @@ html,body{
 			height: 40%;
 			padding: 5%;
 		}
+		span{
+			white-space: nowrap;
+		}
 	}
-	.index_container_hotthree{
+	.index_container_hot:nth-child(3){
 		padding-bottom: 5rem;
 	}
 }

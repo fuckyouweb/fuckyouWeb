@@ -11,9 +11,9 @@ var mail = require('./public/js/mail/mail');
 var app = express();
 
 var LOGIN_FILE = path.join(__dirname, 'login.json');
-var INDEX_FILE = path.join(__dirname, 'index.json');
-var PHOTO_PATH = path.join(__dirname,'/authorphoto');
-var PHOTO_NEWPATH = path.join(__dirname,'/diskphoto');
+//var INDEX_FILE = path.join(__dirname, 'index.json');
+var PHOTO_PATH = path.join(__dirname,'/public/authorphoto');
+//var PHOTO_NEWPATH = path.join(__dirname,'/public/diskphoto');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -55,6 +55,7 @@ switch(app.get('env')){
     }));
     break;
 }
+
 
 /*server for login*/
 app.get('/api/login', function(req, res) {
@@ -108,18 +109,48 @@ app.post('/api/login', function(req, res) {
   });
 });
 
+function Mywork(name,theme,photo){
+  this.name = name;
+  this.theme = theme;
+  this.photo = photo;
+}
+
+workOptions = {
+  themes:['抽象派','黑白派','印象派']
+}
 /*server for index*/
 app.get('/api/index', function(req, res) {
-  fs.readFile(INDEX_FILE, function(err, data) {
-    console.log('data='+data);
-    res.setHeader('Cache-Control', 'no-cache');
-    res.json(JSON.parse(data));
-  });
+  // fs.readFile(INDEX_FILE, function(err, data) {
+  //   console.log('data='+data);
+  //   res.setHeader('Cache-Control', 'no-cache');
+  //   res.json(JSON.parse(data));
+  // });
+  var themes = workOptions.themes;
+  var arr = new Array(3);
+  var indexjson = {'data1':[arr],'data2':[arr],'data3':[arr]};
+  
+  themes.forEach(function(theme){
+    var works = Work.getWorks(theme,function(err,works){
+      //console.log('works='+works);
+      if(err) console.error(err);
+      else{
+        works.forEach(function(value,index){
+          //console.dir(value);
+          indexjson.data1[index] = new Mywork(value.name,value.theme,'authorphoto/'+value.photo);
+          console.log('indexjson.data1[0].theme='+indexjson.data1[index].theme);
+        });
+      }
+    });
+  });//themes.forEach
+  
+  console.log('indexjson.data1='+indexjson.data1);
+    //res.setHeader('Cache-Control', 'no-cache');
+    res.json(indexjson);
 });
 
+
 /*server for comeon*/
-Date.prototype.Format = function(fmt)   
-{ //author: meizz   
+Date.prototype.Format = function(fmt){
   var o = { 
     //"y+" : this.getFullYear(),  
     "M+" : this.getMonth()+1,                 //月份   
@@ -155,18 +186,21 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
   
   var filename = req.files["photo"][0]["filename"];
   var mimetype = req.files["photo"][0]["mimetype"];
-  var imgtype = mimetype.substring(6);
+  var imgtype = mimetype.toLowerCase().substring(6);
   var theme = req.body.theme;
   var describe = req.body.describe;
   var date = new Date();
   date = date.Format('yyyyMMddhhmmss');
+
+  //change type for system
+  if(imgtype == 'jpeg') imgtype = 'jpg';
 
   /*save to db*/
   var savename = theme+date;
   var newwork = new Work({
     'theme':theme,
     'describe':describe,
-    'photo':savename,
+    'photo':savename + '.'+ imgtype,
     'hotrate':0
   });
   newwork.save(function(err,newwork){
@@ -177,63 +211,59 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
     }
   });//newwork.save   
   
-  fs.readFile(PHOTO_PATH+'/'+filename,'binary',function(err,data){
-    console.log('start to read');
-    if(err){
-      console.error(err);
-    }else{
-      fs.readdir(PHOTO_NEWPATH, function(err,dircontent){//read the dir
-        if(err){
-          console.error(err);
-        }else{
-          var direxist = 0
-          dircontent.map(function(value){//search for dir array
-            var direxist = 0;
-            if(value == theme)
-              direxist += 1;
-              return direxist;
-          });
-          var PHOTO_NEWPATH_THEME = PHOTO_NEWPATH+'/'+theme;
-          console.log(direxist);
-          if(!direxist){//the file is not exist
-            console.log(5);
-            fs.mkdir(PHOTO_NEWPATH_THEME,function(err){
-              if(err){
-                console.error(err);
-              }else{
-                console.log('mkdir success');
-                var PHOTO_NEWPATH_NAME = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
-                fs.writeFile(PHOTO_NEWPATH_NAME,data,function(err){
-                  if(err){
-                    console.error(err);
-                  }else{
-                    console.log("File Saved !"); //文件被保存
-                  }
-                });
-              }
-            });//mkdir
-          }else{//direxist
-            console.log(6);
-            var PHOTO_NEWPATH_NAME = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
-            fs.writeFile(PHOTO_NEWPATH_NAME,data,function(err){
-              if(err){
-                console.error(err);
-              }else{
-                console.log("File Saved !"); //文件被保存
-              }
-            });
-          }//direxist         
-        }//fs.readdir
-      });
-    }
-  });
-  next();
-});
-
-/*server for comeon*/
-app.post('/api/comeon',function(req,res){
+  // fs.readFile(PHOTO_PATH+'/'+filename,'binary',function(err,data){
+  //   console.log('start to read');
+  //   if(err){
+  //     console.error(err);
+  //   }else{
+  //     fs.readdir(PHOTO_NEWPATH, function(err,dircontent){//read the dir
+  //       if(err){
+  //         console.error(err);
+  //       }else{
+  //         var direxist = dircontent.map(function(value){//search for dir array
+  //                           var direxist = 0;
+  //                           if(value == theme)
+  //                             direxist += 1;
+  //                             return direxist;
+  //                         });
+                          
+  //         var PHOTO_NEWPATH_THEME = PHOTO_NEWPATH+'/'+theme;
+  //         console.log(typeof(direxist));
+  //         if(!direxist){//the file is not exist
+  //           console.log(5);
+  //           fs.mkdir(PHOTO_NEWPATH_THEME,function(err){
+  //             if(err){
+  //               console.error(err);
+  //             }else{
+  //               console.log('mkdir success');
+  //               var PHOTO_NEWPATH_NAME = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
+  //               fs.writeFile(PHOTO_NEWPATH_NAME,data,function(err){
+  //                 if(err){
+  //                   console.error(err);
+  //                 }else{
+  //                   console.log("File Saved !"); //文件被保存
+  //                 }
+  //               });
+  //             }
+  //           });//mkdir
+  //         }else{//direxist
+  //           console.log(6);
+  //           var PHOTO_NEWPATH_NAME = PHOTO_NEWPATH_THEME+'/'+theme+date;
+  //           fs.writeFile(PHOTO_NEWPATH_NAME,data,function(err){
+  //             if(err){
+  //               console.error(err);
+  //             }else{
+  //               console.log("File Saved !"); //文件被保存
+  //             }
+  //           });
+  //         }//direxist         
+  //       }//fs.readdir
+  //     });
+  //   }
+  // });//fs.readFile
+  
   /*rename img in authorphoto*/
-  var authorimg = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
+  var authorimg = PHOTO_PATH+'/'+theme+date+'.'+imgtype;
   fs.rename(PHOTO_PATH+'/'+filename,authorimg,function(err){
     console.log(7);
     if(err){
@@ -242,7 +272,23 @@ app.post('/api/comeon',function(req,res){
        console.log('renamed complete');
      }
   });
+  next();
 });
+
+
+/*server for comeon*/
+// app.post('/api/comeon',function(req,res){
+//   /*rename img in authorphoto*/
+//   var authorimg = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
+//   fs.rename(PHOTO_PATH+'/'+filename,authorimg,function(err){
+//     console.log(7);
+//     if(err){
+//        console.log(err);  
+//     }else{
+//        console.log('renamed complete');
+//      }
+//   });
+// });
 
 app.get('/api/comeon', function(req, res) {
   console.log(2);
@@ -287,6 +333,7 @@ app.use(function(err,req,res,next){
   res.write(body);
   res.end();
 });
+
 
 //404
 app.use(function(req,res){
