@@ -44,6 +44,19 @@
   header ul li:hover a {
     color: #15adbc !important;
   }
+  header ul li:nth-child(5) {
+    font-size: 1.5rem;
+    line-height: 6;
+  }
+  header .index_log:hover a:last-child {
+    color: #f47fb5 !important;
+  }
+  header .index_log:before {
+    content: '|';
+    position: relative;
+    left: 53px;
+    color: #fff;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 765px) {
   html {
@@ -82,5 +95,24 @@
   }
   header ul li:hover a {
     color: #15adbc !important;
+  }
+  header ul li:nth-child(5) {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    width: 128px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  header .index_log:hover a:last-child {
+    color: #f47fb5 !important;
+  }
+  header .index_log:before {
+    content: '|';
+    position: relative;
+    left: 43px;
+    color: #fff;
   }
 }

@@ -11,7 +11,7 @@ var mail = require('./public/js/mail/mail');
 var app = express();
 
 var LOGIN_FILE = path.join(__dirname, 'login.json');
-var COMEON_FILE = path.join(__dirname, 'comeon.json');//authorphoto/test.jpg
+var INDEX_FILE = path.join(__dirname, 'index.json');
 var PHOTO_PATH = path.join(__dirname,'/authorphoto');
 var PHOTO_NEWPATH = path.join(__dirname,'/diskphoto');
 
@@ -56,6 +56,7 @@ switch(app.get('env')){
     break;
 }
 
+/*server for login*/
 app.get('/api/login', function(req, res) {
   fs.readFile(LOGIN_FILE, function(err, data) {
     res.setHeader('Cache-Control', 'no-cache');
@@ -107,6 +108,16 @@ app.post('/api/login', function(req, res) {
   });
 });
 
+/*server for index*/
+app.get('/api/index', function(req, res) {
+  fs.readFile(INDEX_FILE, function(err, data) {
+    console.log('data='+data);
+    res.setHeader('Cache-Control', 'no-cache');
+    res.json(JSON.parse(data));
+  });
+});
+
+/*server for comeon*/
 Date.prototype.Format = function(fmt)   
 { //author: meizz   
   var o = { 
@@ -155,7 +166,8 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
   var newwork = new Work({
     'theme':theme,
     'describe':describe,
-    'photo':savename
+    'photo':savename,
+    'hotrate':0
   });
   newwork.save(function(err,newwork){
     if(err){
@@ -163,9 +175,7 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
     }else{
       console.log('success work!'+newwork);       
     }
-  });//newwork.save
-
-   
+  });//newwork.save   
   
   fs.readFile(PHOTO_PATH+'/'+filename,'binary',function(err,data){
     console.log('start to read');
@@ -220,6 +230,7 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
   next();
 });
 
+/*server for comeon*/
 app.post('/api/comeon',function(req,res){
   /*rename img in authorphoto*/
   var authorimg = PHOTO_NEWPATH_THEME+'/'+theme+date+'.'+imgtype;
@@ -232,7 +243,6 @@ app.post('/api/comeon',function(req,res){
      }
   });
 });
-
 
 app.get('/api/comeon', function(req, res) {
   console.log(2);

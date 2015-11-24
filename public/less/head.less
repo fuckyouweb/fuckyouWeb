@@ -39,6 +39,22 @@ header{
 				color: @color_green !important;
 			}
 		}
+		li:nth-child(5){
+			font-size: 1.5rem;
+			//vertical-align: bottom;
+			line-height: 6;
+		}
+	}
+	.index_log:hover{
+		a:last-child{
+			color: @color_pink_deep !important;
+		}
+	}
+	.index_log:before{
+		content: '|';
+	    position: relative;
+	    left: 53px;
+	    color: #fff;
 	}
 }
 }
@@ -77,9 +93,30 @@ header{
 				color: @color_green !important;
 			}
 		}
+		li:nth-child(5){
+			font-size: 1.5rem;
+			//vertical-align: bottom;
+			line-height: 1.5rem;
+			position: absolute;
+			top: 2rem;
+			right: 0;
+			width: 128px;
+			overflow: hidden;
+			white-space:nowrap;
+		}
+	}
+	.index_log:hover{
+		a:last-child{
+			color: @color_pink_deep !important;
+		}
+	}
+	.index_log:before{
+		content: '|';
+	    position: relative;
+	    left: 43px;
+	    color: #fff;
 	}
 }
-
 }
 
 
