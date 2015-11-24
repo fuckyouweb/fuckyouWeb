@@ -120,15 +120,10 @@ workOptions = {
 }
 /*server for index*/
 app.get('/api/index', function(req, res) {
-  // fs.readFile(INDEX_FILE, function(err, data) {
-  //   console.log('data='+data);
-  //   res.setHeader('Cache-Control', 'no-cache');
-  //   res.json(JSON.parse(data));
-  // });
   var themes = workOptions.themes;
   var arr = new Array(3);
   var indexjson = {'data1':[arr],'data2':[arr],'data3':[arr]};
-  
+  var cnt = 0;
   themes.forEach(function(theme){
     var works = Work.getWorks(theme,function(err,works){
       //console.log('works='+works);
@@ -139,13 +134,17 @@ app.get('/api/index', function(req, res) {
           indexjson.data1[index] = new Mywork(value.name,value.theme,'authorphoto/'+value.photo);
           console.log('indexjson.data1[0].theme='+indexjson.data1[index].theme);
         });
-      }
+      }//else
     });
+    cnt ++;
+    console.log('cnt='+cnt);
   });//themes.forEach
-  
+
+  if(cnt == 3){
   console.log('indexjson.data1='+indexjson.data1);
     //res.setHeader('Cache-Control', 'no-cache');
     res.json(indexjson);
+  }
 });
 
 
