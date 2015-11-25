@@ -46,7 +46,8 @@ var ComeonNoteForm = React.createClass({
 		  processData: false,  // 告诉jQuery不要去处理发送的数据
 		  contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
 		  success: function(value) {
-	      	console.log('value='+value);
+	      	if(value.code == '1')
+	      		alert('upload success!');
 	      }.bind(this),
 	      error: function(xhr, status, err) {
 	        console.error('/api/comeon', status, err.toString());
