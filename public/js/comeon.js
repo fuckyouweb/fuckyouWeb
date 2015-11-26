@@ -82,8 +82,26 @@ var ComeonNotePicShow = React.createClass({
 })
 
 var ComeonContainer = React.createClass({
+	loadFormFromServer: function() {
+	    $.ajax({
+	      url: this.props.url,
+	      dataType: 'json',
+	      cache: false,
+	      success: function(data){
+	        if(data.code == 0){
+	        	window.location = 'login.html';
+	        }
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+	  },
 	getInitialState: function() {
     	return {data:[{'theme':'theme','describe':'describe','photo':'authorphoto/38c390e36357609069b8de98e15dcc66'}]};
+  	},
+  	componentDidMount: function() {
+    	this.loadFormFromServer();
   	},
 	render:function(){
 		return (			

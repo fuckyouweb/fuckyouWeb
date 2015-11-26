@@ -4,9 +4,12 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer({dest:path.join(__dirname, 'public/authorphoto')});
+var cookie= require('cookie-parser');
+var session = require('express-session');
 
 var mail = require('./public/js/mail/mail');
 //var myloadtest = require('./public/js/qa/myloadtest');
+var credential = require('./public/js/credential/credential');
 
 var app = express();
 
@@ -20,10 +23,8 @@ app.set('port', (process.env.PORT || 3000));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookie(credential.cookieSecret));
 
-//set sign cookie
-//app.use(require('cookie-parser')(credentials.cookieSecret));
-var credential = require('./public/js/credential/credential');
 var mongoconnect = credential().mongo.development.connectionString;
 var mongoopts = {
   server:{
@@ -32,6 +33,16 @@ var mongoopts = {
 };
 var mongoose = require('mongoose');
 mongoose.connect(mongoconnect,mongoopts);
+
+var MongoStore = require('connect-mongo')(session);
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'penmanbox',
+    key: 'penmanbox',//cookie name
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 7}//7 days
+}));
 
 var User = require('./db/user');
 var Work = require('./db/work');
@@ -114,7 +125,8 @@ function Mywork(name,theme,photo,hotrate){
 }
 
 /*server for index*/
-app.get('/api/index', function(req, res) {
+app.get('/api/index', function(req, res,next) {
+  console.log('req.session.username='+req.session.username);
   workOptions = {
     themes:['抽象派','黑白派','印象派']
   }
@@ -125,26 +137,34 @@ app.get('/api/index', function(req, res) {
 
   themes.forEach(function(theme,number){
     var works = Work.getWorks(theme,function(err,works){
-      console.log('works='+works);
+      //console.log('works='+works);
       if(err) console.error(err);
       else{
         works.forEach(function(value,index){
           var nowdata = 'data'+(number+1);
-          console.log('nowdata='+nowdata);
+          //console.log('nowdata='+nowdata);
           indexjson[nowdata][index] = new Mywork(value.name,value.theme,'authorphoto/'+value.photo,value.hotrate);
         });
       }//else
       cnt++;
-      console.log('cnt='+cnt); 
+      //console.log('cnt='+cnt); 
       if(cnt == 3){
-      console.log('indexjson='+indexjson);
+      //console.log('indexjson='+indexjson);
       res.status(200);
       res.json(indexjson); 
     }    
     });      
   });//themes.forEach
+  //next();
 });
 
+app.get('/api/index', function(req, res){
+  console.log('index 2');
+  res.status(200);
+  res.send({
+    'aaa':'bbb'
+  })
+});
 
 /*server for theme*/
 app.get('/api/theme', function(req, res) {
@@ -159,18 +179,26 @@ app.get('/api/theme', function(req, res) {
 
 /*server for register*/
 app.post('/api/register',function(req,res){
-  console.log('register');
-  console.log(req.body);
+  //console.log('register');
+  //console.log(req.body);
   var usernow = req.body;
   User.checkUser(usernow,function(err,user){
+    
+    
+    console.log('user='+user);
     if(err) console.error(err);
     else{
+      var username = user[0].name;
+      var useremail = user[0].email;
       if(user.length == 0){//not match email and psd
         res.status(200);
         res.send({
           'code':0
         });
       }else{
+        //console.dir(user);
+        req.session.username = username;
+        req.session.useremail = useremail;
         res.status(200);
         res.send({
           'code':1
@@ -207,7 +235,7 @@ var comeonfile = upload.fields([
   {name:'describe',maxCount:1000},
   {name:'photo',maxCount:10000}]);
 
-app.post('/api/comeon',comeonfile,function(req,res,next){
+app.post('/api/comeon',comeonfile,function(req,res){
   console.log(3);
   console.dir(req.files);
   //console.dir('req='+req);
@@ -236,7 +264,8 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
     if(err){
       console.error(err);
     }else{
-      console.log('success work!'+newwork);   
+      console.log('success work!'+newwork);
+
       res.status('200');
       res.send({
         'code' :'1',
@@ -255,16 +284,25 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
        console.log('renamed complete');
      }
   });
-  //next();
 });
 
 app.get('/api/comeon', function(req, res) {
   console.log(2);
-  fs.readFile(COMEON_FILE, function(err, data) {
-    res.setHeader('Cache-Control', 'no-cache');
-    //res.json(JSON.parse(data));
-  });
+  console.log('req.session.email='+req.session.email)
+  if(req.session.email == undefined){
+    console.log('email undefined!');
+    //res.redirect('/login');
+    res.status('200');
+    res.send({
+      'code':0
+    })
+    //res.redirect('/login');
+  }
 });
+
+app.get('/login',function(res,req){
+  res.redirect('../public/login.html');
+})
 
 
 app.get('/logoshow',function(req,res){
