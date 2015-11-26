@@ -163,6 +163,7 @@ body {
   }
   .index_container_author img {
     width: 100%;
+    max-height: 3rem;
   }
   .index_container_describe {
     padding-top: 3%;
@@ -285,6 +286,7 @@ body {
   }
   .index_container_author img {
     width: 100%;
+    max-height: 3rem;
   }
   .index_container_describe {
     height: 90%;

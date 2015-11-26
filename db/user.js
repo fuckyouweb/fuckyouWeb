@@ -9,13 +9,22 @@ var userSchema = new mongoose.Schema({
 		type:String,
 		index: {unique: true}
 	},
-	psd:String,
+	psw:String,
 	workid:Number,//作品id
 	aliveTime:Date,//每次登陆时更新
 },{
 	minimize:false
 });
 
+userSchema.static('checkUser', function ( value,cb) {
+	console.log('value.email='+value.email+'  value.psw='+value.psw);
+    return this.find({"email":value.email,"psw":value.psw}).exec(cb);
+});
+
+userSchema.static('getUser', function (value,cb) {
+	console.log('value='+value);
+    return this.find({"email":value}).exec(cb);
+});
 //userSchema.set('autoIndex', true);
 
 // userSchema.static('getList',function(cb){

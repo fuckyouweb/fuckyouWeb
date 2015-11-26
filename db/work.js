@@ -17,6 +17,10 @@ workSchema.static('getWorks', function (WorkTheme, cb) {
     return this.find({"theme":WorkTheme}).exec(cb);
 });
 
+workSchema.static('getWorksList',function(cb){
+	return this.find().exec(cb);
+})
+
 // workSchema.static('linkProject', function (fileId, projectEntity) {
 //     return this.findOneAndUpdate({
 //         _id: fileId

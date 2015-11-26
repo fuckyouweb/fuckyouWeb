@@ -3,7 +3,7 @@ var Pic = React.createClass({
 		var name = this.props.name;
 		var theme = this.props.theme;
 		var head = this.props.head;
-		var photo = this.props.photo;
+		var photo = 'authorphoto/'+this.props.photo;
 		return (
 			<div className="index_container_picwrap">
 				<div className="index_container_pic">
@@ -25,7 +25,6 @@ var Pic = React.createClass({
 
 var Hot = React.createClass({
 	render:function(){
-		var hotrate = this.props.data[0].hotrate;
 		var Pics = this.props.data.map(function(value,index){
 			return (
 				<Pic key={index} name={value.name} theme={value.theme} head={value.head} photo={value.photo}/>
@@ -34,8 +33,6 @@ var Hot = React.createClass({
 		return (
 			<div className="index_container_hot">
 			<div className="index_container_line"></div>
-			<div className={hotrate != 1 ? "index_container_hot_r" : ""}></div>
-			<div className={hotrate == 3 ? "index_container_hot_r1" : ""}></div>
 			{Pics}
 			</div>
 		)
@@ -49,10 +46,9 @@ var HotContainer = React.createClass({
 	      dataType: 'json',
 	      cache:false,
 	      success: function(data) {
+	      	console.log('data='+data);
 	        this.setState({
-	        	data1:data.data1,
-	        	data2:data.data2,
-	        	data3:data.data3
+	        	data:data
 	        });
 	      }.bind(this),
 	      error: function(xhr, status, err) {
@@ -61,7 +57,7 @@ var HotContainer = React.createClass({
 	    });
 	},
 	getInitialState:function(){
-		return {data1:[{'area':1}],data2:[{'area':2}],data3:[{'area':3}]}
+		return {data:[]}
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
@@ -69,15 +65,13 @@ var HotContainer = React.createClass({
 	render:function(){
 		return(
 			<div>
-				<Hot data={this.state.data1}/>
-				<Hot data={this.state.data2}/>
-				<Hot data={this.state.data3}/>
+				<Hot data={this.state.data}/>
 			</div>
 		)
 	}
 })
 
 ReactDOM.render(
-	<HotContainer url="/api/index"/>,
+	<HotContainer url="/api/theme"/>,
 	document.getElementById('index_hot')
 )

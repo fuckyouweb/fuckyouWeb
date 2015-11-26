@@ -1,0 +1,56 @@
+@color_green:#15adbc;
+@color_pink:#F3C9DD;
+@color_pink_deep:#f47fb5;
+@color_gray:#D8D8D8;
+.border(@b:0px){
+	border:@b solid #000; 
+}
+.line(@l:100%){
+	border-collapse: collapse;
+	background-color: @color_gray;
+	width: @l;
+	height: 0.4rem;
+}
+
+html,body{
+	width: 100%;
+	height: 100%;
+	background-color: @color_green;
+}
+
+/*PC css*/
+@media screen and(min-width:765px){
+	.index_container{
+		margin: 0 auto;
+		.border();
+		width: 80%;
+		min-width: 64rem;
+	}
+
+	//热区统一样式
+	.index_container_hot{
+		height: auto !important;
+	}
+}
+
+/*mobile css*/
+@media screen and(min-width:320px) and (max-width:765px){
+	html{
+		font-size: 8px;
+	}
+	.index_container{
+		margin: 0 auto;
+		.border();
+		width: 100%;
+		min-width: 320px;
+		max-width: 640px;
+	}
+
+	//热区统一样式
+	.index_container_hot{
+		height: auto !important;
+	}
+}
+
+
+

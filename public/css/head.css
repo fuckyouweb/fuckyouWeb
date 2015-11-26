@@ -51,10 +51,10 @@
   header .index_log:hover a:last-child {
     color: #f47fb5 !important;
   }
-  header .index_log:before {
+  header .index_log a:first-child:before {
     content: '|';
     position: relative;
-    left: 53px;
+    left: 49px;
     color: #fff;
   }
 }

@@ -11,7 +11,7 @@ var mail = require('./public/js/mail/mail');
 var app = express();
 
 var LOGIN_FILE = path.join(__dirname, 'login.json');
-//var INDEX_FILE = path.join(__dirname, 'index.json');
+var INDEX_FILE = path.join(__dirname, 'index.json');
 var PHOTO_PATH = path.join(__dirname,'public/authorphoto');
 //var PHOTO_NEWPATH = path.join(__dirname,'/public/diskphoto');
 
@@ -66,87 +66,104 @@ app.get('/api/login', function(req, res) {
 });
 
 app.post('/api/login', function(req, res) {
-  fs.readFile(LOGIN_FILE, function(err, data) {
-    var isnew = false;
-    var login = JSON.parse(data);
-    var newlogin = req.body;
-    login.name = newlogin.name;
-    login.email = newlogin.email;
-    login.psw = newlogin.psw;
+  var isnew = false;
+  var login = {};
+  var newlogin = req.body;
+  login.name = newlogin.name;
+  login.email = newlogin.email;
+  login.psw = newlogin.psw;
+  console.log('login.psw='+login.psw);
 
-    var checkuser = newlogin.email;
+  var checkuser = newlogin.email;
 
-    // User.find({email:checkuser},function(err,users){
-    //   if(err) return console.error(err);
-    //   else{
-    //     console.log('this person is already exist!');
-    //     isnew = false;
-    //   }
-    // })
-    /*save to db*/
-    var newuser = new User(req.body);
-    newuser.aliveTime = new Date();
-    newuser.save(function(err,newuser){
-      if(err){
-        console.error(err);
-      }
-      else{
-        if(newuser.hasOwnProperty()){
-          console.log(newuser.name+'this person is already exist!');
-        }else{
-          console.log('success save!'+newuser);
-        }        
-      }
-    });
-
-    //mail().send(checkuser);
-
-    fs.writeFile(LOGIN_FILE, JSON.stringify(login, null, 4), function(err) {
-      res.setHeader('Cache-Control', 'no-cache');
-      res.json(login);
-      //res.redirect(303,'index.html');
-    });
+  // User.find({email:checkuser},function(err,users){
+  //   if(err) return console.error(err);
+  //   else{
+  //     console.log('this person is already exist!');
+  //     isnew = false;
+  //   }
+  // })
+  /*save to db*/
+  var newuser = new User(login);
+  console.log('newuser='+newuser);
+  newuser.aliveTime = new Date();
+  newuser.save(function(err,newuser){
+    if(err){
+      console.error(err);
+    }
+    else{
+      if(newuser.hasOwnProperty()){
+        console.log(newuser.name+'this person is already exist!');
+      }else{
+        console.log('success save!'+newuser);
+      }        
+    }
   });
+
+  //mail().send(checkuser);
+  
+  res.status('200');
+  res.json(login); 
 });
 
-function Mywork(name,theme,photo){
+function Mywork(name,theme,photo,hotrate){
   this.name = name;
   this.theme = theme;
   this.photo = photo;
+  this.hotrate = hotrate;
 }
 
-workOptions = {
-  themes:['抽象派','黑白派','印象派']
-}
 /*server for index*/
 app.get('/api/index', function(req, res) {
+  workOptions = {
+    themes:['抽象派','黑白派','印象派']
+  }
   var themes = workOptions.themes;
   var arr = new Array(3);
   var indexjson = {'data1':[arr],'data2':[arr],'data3':[arr]};
   var cnt = 0;
 
-  themes.forEach(function(theme){
+  themes.forEach(function(theme,number){
     var works = Work.getWorks(theme,function(err,works){
-      //console.log('works='+works);
+      console.log('works='+works);
       if(err) console.error(err);
       else{
         works.forEach(function(value,index){
-          //console.dir(value);
-          indexjson.data1[index] = new Mywork(value.name,value.theme,'authorphoto/'+value.photo);
-          console.log('indexjson.data1['+index+']='+indexjson.data1[index]);
-          //res.setHeader('Cache-Control', 'no-cache');
+          var nowdata = 'data'+(number+1);
+          console.log('nowdata='+nowdata);
+          indexjson[nowdata][index] = new Mywork(value.name,value.theme,'authorphoto/'+value.photo,value.hotrate);
         });
       }//else
+      cnt++;
+      console.log('cnt='+cnt); 
       if(cnt == 3){
-        console.log('indexjson='+indexjson);
-        res.json(indexjson); 
-      }      
-    });
-    cnt++;
-    console.log('cnt='+cnt);
+      console.log('indexjson='+indexjson);
+      res.status(200);
+      res.json(indexjson); 
+    }    
+    });      
   });//themes.forEach
-  //}
 });
+
+
+/*server for theme*/
+app.get('/api/theme', function(req, res) {
+  var works = Work.getWorksList(function(err,works){      
+    if(err) console.error(err);
+    else{
+      console.log('works='+works);
+      res.json(works);
+    }//else
+  });      
+});
+
+/*server for register*/
+app.post('/api/register',function(req,res){
+  console.log('register');
+  console.log(req.body);
+  var validuser = User.getUser('111@qq.com');
+  console.log(validuser);
+})
 
 
 /*server for comeon*/
@@ -209,7 +226,7 @@ app.post('/api/comeon',comeonfile,function(req,res,next){
       res.send({
         'code' :'1',
         'newwork':newwork
-      })    
+      });    
     }
   });//newwork.save   
   
@@ -254,40 +271,40 @@ app.get('/logoshow',function(req,res){
 //500
 app.use(function(err,req,res,next){
   var body = '<html style="background-color:#15adbc">'+
-'<head>'+
-  '<meta charset="UTF-8">'+
-'</head>'+
-'<body>'+
-  '<div style="width:40%;margin-left:30%;">'+
-    '<img src="/logoshow" style="width:100%;">'+
-  '</div>'+
-  '<h1 style="text-align:center;color:#f8ecd4;">Error 500</h1>'+
-  '<h2 style="text-align:center;color:#f8ecd4;">Ginny try to save the web! Discourage her!</h2>'+
-'</body>'+
-'</html>';
-  res.writeHead(200,{'Content-Type':'text/html'});
-  res.write(body);
-  res.end();
+  '<head>'+
+    '<meta charset="UTF-8">'+
+  '</head>'+
+  '<body>'+
+    '<div style="width:40%;margin-left:30%;">'+
+      '<img src="/logoshow" style="width:100%;">'+
+    '</div>'+
+    '<h1 style="text-align:center;color:#f8ecd4;">Error 500</h1>'+
+    '<h2 style="text-align:center;color:#f8ecd4;">Ginny try to save the web! Discourage her!</h2>'+
+  '</body>'+
+  '</html>';
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.write(body);
+    res.end();
 });
 
 
 //404
 app.use(function(req,res){
   var body = '<html style="background-color:#15adbc">'+
-'<head>'+
-  '<meta charset="UTF-8">'+
-'</head>'+
-'<body>'+
-  '<div style="width:40%;margin-left:30%;">'+
-    '<img src="/logoshow" style="width:100%;">'+
-  '</div>'+
-  '<h1 style="text-align:center;color:#f8ecd4;">Error 404</h1>'+
-  '<h2 style="text-align:center;color:#f8ecd4;">Page is not here now!</h2>'+
-'</body>'+
-'</html>';
-  res.writeHead(200,{'Content-Type':'text/html'});
-  res.write(body);
-  res.end();
+  '<head>'+
+    '<meta charset="UTF-8">'+
+  '</head>'+
+  '<body>'+
+    '<div style="width:40%;margin-left:30%;">'+
+      '<img src="/logoshow" style="width:100%;">'+
+    '</div>'+
+    '<h1 style="text-align:center;color:#f8ecd4;">Error 404</h1>'+
+    '<h2 style="text-align:center;color:#f8ecd4;">Page is not here now!</h2>'+
+  '</body>'+
+  '</html>';
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.write(body);
+    res.end();
 });
 
 
