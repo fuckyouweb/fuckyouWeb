@@ -17,13 +17,14 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.static('checkUser', function ( value,cb) {
+	console.log(22222);
 	console.log('value.email='+value.email+'  value.psw='+value.psw);
     return this.find({"email":value.email,"psw":value.psw}).exec(cb);
 });
 
-userSchema.static('getUser', function (value,cb) {
-	console.log('value='+value);
-    return this.find({"email":value}).exec(cb);
+userSchema.static('getUser', function (cb) {
+	//console.log('value='+value);
+    return this.find().exec(cb);
 });
 //userSchema.set('autoIndex', true);
 

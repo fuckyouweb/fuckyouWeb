@@ -11,9 +11,11 @@ var LoginShow = React.createClass({
 		      dataType: 'json',
 		      type: 'POST',
 		      data: form,
-		      success: function() {
-		      	console.log('post success');
-		  
+		      success: function(data) {
+		      	if(data.code == 0) 
+		      		alert('Email or password invalid!');
+		         else 
+		         	alert('Login success!');
 		      }.bind(this),
 		      error: function(xhr, status, err) {
 		        console.error(this.props.url, status, err.toString());

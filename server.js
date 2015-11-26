@@ -161,8 +161,23 @@ app.get('/api/theme', function(req, res) {
 app.post('/api/register',function(req,res){
   console.log('register');
   console.log(req.body);
-  var validuser = User.getUser('111@qq.com');
-  console.log(validuser);
+  var usernow = req.body;
+  User.checkUser(usernow,function(err,user){
+    if(err) console.error(err);
+    else{
+      if(user.length == 0){//not match email and psd
+        res.status(200);
+        res.send({
+          'code':0
+        });
+      }else{
+        res.status(200);
+        res.send({
+          'code':1
+        })
+      }
+    }
+  });
 })
 
 
