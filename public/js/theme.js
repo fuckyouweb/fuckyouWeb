@@ -27,7 +27,7 @@ var Hot = React.createClass({
 	render:function(){
 		var Pics = this.props.data.map(function(value,index){
 			return (
-				<Pic key={index} name={value.name} theme={value.theme} head={value.head} photo={value.photo}/>
+				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo}/>
 			);
 		});
 		return (
@@ -68,6 +68,12 @@ var HotContainer = React.createClass({
 				<Hot data={this.state.data}/>
 			</div>
 		)
+	}
+});
+
+var Search = React.createClass({
+	render:function(){
+		
 	}
 })
 

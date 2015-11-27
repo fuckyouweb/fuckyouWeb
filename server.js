@@ -90,8 +90,7 @@ app.post('/api/login', function(req, res) {
   /*connect to db,first to check,then save*/
   User.getUserByEmail(checkuser,function(err,userexist){
     if(err) console.error(err);
-    else{
-    
+    else{    
       if(userexist.length != 0){//exist
         console.log('userexist='+userexist);
         res.status(200);
@@ -107,6 +106,7 @@ app.post('/api/login', function(req, res) {
               console.log('success save!'+newuserEntity);
               req.session.username = newuserEntity.name;
               req.session.useremail = newuserEntity.email;
+              req.session.userid = newuserEntity._id;
               console.dir(req.session);   
               res.status('200');
               res.json(login); 
@@ -129,11 +129,13 @@ app.get('/api/index', function(req, res) {
   workOptions = {
     themes:['抽象派','黑白派','印象派']
   }
+  var userid = req.session.userid;
   var themes = workOptions.themes;
   var arr = new Array(3);
   var indexjson = {'data1':[arr],'data2':[arr],'data3':[arr]};
   var cnt = 0;
-  console.dir(req.session)
+  var authorname = null;
+
   themes.forEach(function(theme,number){
     var works = Work.getWorks(theme,function(err,works){
       //console.log('works='+works);
@@ -141,8 +143,8 @@ app.get('/api/index', function(req, res) {
       else{
         works.forEach(function(value,index){
           var nowdata = 'data'+(number+1);
-          //console.log('nowdata='+nowdata);
-          indexjson[nowdata][index] = new Mywork(value.name,value.theme,'authorphoto/'+value.photo,value.hotrate);
+          var authorname = (value.name ? value.name : '匿名' );
+          indexjson[nowdata][index] = new Mywork(authorname,value.theme,'authorphoto/'+value.photo,value.hotrate,authorname);
         });
       }//else
       cnt++;
@@ -158,11 +160,6 @@ app.get('/api/index', function(req, res) {
 
 /*server for judge the user login state*/
 app.get('/api/indexuser',function(req,res){
-  console.log(90);
-  console.log('req.session.useremail='+req.session.useremail);
-  //console.dir(cookie);
- // console.dir(req.Cookie);
-  console.dir(req.session);
   if(req.session.useremail == undefined){
     res.status(200);
     res.send({
@@ -191,24 +188,22 @@ app.get('/api/theme', function(req, res) {
 
 /*server for register*/
 app.post('/api/register',function(req,res){
-  //console.log('register');
-  //console.log(req.body);
   var usernow = req.body;
   User.checkUser(usernow,function(err,user){        
     console.log('user='+user);
     if(err) console.error(err);
     else{
-      var username = user[0].name;
-      var useremail = user[0].email;
-      if(user.length == 0){//not match email and psd
+      if(user.length == 0){//not match email and psd        
         res.status(200);
         res.send({
           'code':0
         });
       }else{
-        //console.dir(user);
-        req.session.username = username;
-        req.session.useremail = useremail;
+        req.session.username = user[0].name;
+        req.session.useremail = user[0].email;
+        req.session.userid = user[0].id;
+        console.dir(req.session);
+        console.log('req.session.userid='+req.session.userid);
         res.status(200);
         res.send({
           'code':2,
@@ -258,6 +253,8 @@ app.post('/api/comeon',comeonfile,function(req,res){
   var theme = req.body.theme;
   var describe = req.body.describe;
   var date = new Date();
+  var userid = req.session.userid;
+  var username = req.session.username;
   date = date.Format('yyyyMMddhhmmss');
 
   //change type for system
@@ -269,7 +266,9 @@ app.post('/api/comeon',comeonfile,function(req,res){
     'theme':theme,
     'describe':describe,
     'photo':savename + '.'+ imgtype,
-    'hotrate':0
+    'hotrate':0,
+    'userid':userid,
+    'username':username
   });
   newwork.save(function(err,newwork){
     if(err){
@@ -314,8 +313,6 @@ app.get('/api/comeon', function(req, res) {
     })
   }
 });
-
-
 
 app.get('/logoshow',function(req,res){
   fs.readFile('public/img/penmanbox.png','binary',function(error,file){

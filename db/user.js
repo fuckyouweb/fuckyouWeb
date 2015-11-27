@@ -10,7 +10,6 @@ var userSchema = new mongoose.Schema({
 		index: {unique: true}
 	},
 	psw:String,
-	workid:Number,//作品id
 	aliveTime:Date,//每次登陆时更新
 },{
 	minimize:false
@@ -29,7 +28,11 @@ userSchema.static('getUser', function (cb) {
 
 userSchema.static('getUserByEmail',function(value,cb){
 	return this.find({"email":value}).exec(cb);
-})
+});
+
+userSchema.static('getUserById',function(value,cb){
+	return this.find({"_id":value}).exec(cb);
+});
 //userSchema.set('autoIndex', true);
 
 // userSchema.static('getList',function(cb){

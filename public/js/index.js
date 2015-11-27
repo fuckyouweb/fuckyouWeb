@@ -27,6 +27,7 @@ var Hot = React.createClass({
 	render:function(){
 		var hotrate = this.props.data[0].hotrate;
 		var Pics = this.props.data.map(function(value,index){
+			console.log(value.name);
 			return (
 				<Pic key={index} name={value.name} theme={value.theme} head={value.head} photo={value.photo}/>
 			);

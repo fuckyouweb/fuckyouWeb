@@ -8,7 +8,9 @@ var workSchema = new mongoose.Schema({
 	describe:String,
 	head:String,
 	photo:String,  // theme+date
-	hotrate:Number
+	hotrate:Number,
+	userid:String,//userid
+	username:String
 },{
 	minimize:false
 });
