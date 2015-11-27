@@ -57,6 +57,9 @@
     left: 49px;
     color: #fff;
   }
+  header .index_log a:last-child {
+    margin-left: 1rem;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 765px) {
   html {

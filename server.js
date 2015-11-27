@@ -23,7 +23,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookie(credential.cookieSecret));
+app.use(cookie());
 
 var mongoconnect = credential().mongo.development.connectionString;
 var mongoopts = {
@@ -83,6 +83,10 @@ app.post('/api/login', function(req, res) {
   login.name = newlogin.name;
   login.email = newlogin.email;
   login.psw = newlogin.psw;
+  login.aliveTime = new Date();
+  // req.session.username = login.name;
+  // req.session.useremail = login.email;
+   
   console.log('login.psw='+login.psw);
 
   var checkuser = newlogin.email;
@@ -96,18 +100,16 @@ app.post('/api/login', function(req, res) {
   // })
   /*save to db*/
   var newuser = new User(login);
-  console.log('newuser='+newuser);
-  newuser.aliveTime = new Date();
-  newuser.save(function(err,newuser){
+ 
+  newuser.save(function(err,newuserEntity){
     if(err){
       console.error(err);
     }
     else{
-      if(newuser.hasOwnProperty()){
-        console.log(newuser.name+'this person is already exist!');
-      }else{
-        console.log('success save!'+newuser);
-      }        
+        console.log('success save!'+newuserEntity);
+        req.session.username = newuserEntity.name;
+        req.session.useremail = newuserEntity.email;
+        console.dir(req.session);       
     }
   });
 
@@ -125,8 +127,7 @@ function Mywork(name,theme,photo,hotrate){
 }
 
 /*server for index*/
-app.get('/api/index', function(req, res,next) {
-  console.log('req.session.username='+req.session.username);
+app.get('/api/index', function(req, res) {
   workOptions = {
     themes:['抽象派','黑白派','印象派']
   }
@@ -134,7 +135,7 @@ app.get('/api/index', function(req, res,next) {
   var arr = new Array(3);
   var indexjson = {'data1':[arr],'data2':[arr],'data3':[arr]};
   var cnt = 0;
-
+  console.dir(req.session)
   themes.forEach(function(theme,number){
     var works = Work.getWorks(theme,function(err,works){
       //console.log('works='+works);
@@ -155,16 +156,28 @@ app.get('/api/index', function(req, res,next) {
     }    
     });      
   });//themes.forEach
-  //next();
 });
 
-app.get('/api/index', function(req, res){
-  console.log('index 2');
-  res.status(200);
-  res.send({
-    'aaa':'bbb'
-  })
+/*server for judge the user login state*/
+app.get('/api/indexuser',function(req,res){
+  console.log(90);
+  console.log('req.session.useremail='+req.session.useremail);
+  //console.dir(cookie);
+ // console.dir(req.Cookie);
+  console.dir(req.session);
+  if(req.session.useremail == undefined){
+    res.status(200);
+    res.send({
+      'code':0
+    })
+  }else{
+    res.status(200);
+    res.send({
+      'code':1
+    })
+  }
 });
+
 
 /*server for theme*/
 app.get('/api/theme', function(req, res) {
@@ -291,18 +304,13 @@ app.get('/api/comeon', function(req, res) {
   console.log('req.session.email='+req.session.email)
   if(req.session.email == undefined){
     console.log('email undefined!');
-    //res.redirect('/login');
     res.status('200');
     res.send({
       'code':0
     })
-    //res.redirect('/login');
   }
 });
 
-app.get('/login',function(res,req){
-  res.redirect('../public/login.html');
-})
 
 
 app.get('/logoshow',function(req,res){
@@ -318,8 +326,6 @@ app.get('/logoshow',function(req,res){
   }
 });
 })
-
-
 
 //500
 app.use(function(err,req,res,next){
@@ -339,7 +345,6 @@ app.use(function(err,req,res,next){
     res.write(body);
     res.end();
 });
-
 
 //404
 app.use(function(req,res){

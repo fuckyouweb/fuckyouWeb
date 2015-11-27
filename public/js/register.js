@@ -22,7 +22,35 @@ var LoginShow = React.createClass({
 		      }.bind(this)
 		    });
 	},
+	loadFormFromServer: function() {
+	    $.ajax({
+	      url: '/api/indexuser',
+	      dataType: 'json',
+	      cache: false,
+	      success: function(data){//0-not,1-exist
+	        if(data.code == 1){
+	        	this.setState({
+	        		data:1
+	        	})
+	        }else{
+	        	this.setState({
+	        		data:0
+	        	})
+	        }
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+	  },
+	getInitialState: function() {
+    	return {};
+  	},
+  	componentDidMount: function() {
+    	this.loadFormFromServer();
+  	},
 	render:function(){
+		if(this.state.data == 1){ //show form
 		return (
 			<div className="login_allowloagin">
 				<div className="login_allowlogin_tranigle"></div>
@@ -38,8 +66,15 @@ var LoginShow = React.createClass({
 					</div>
 				</form>
 			</div>
-
 		)
+		}else{
+			return(
+				<div>
+				<a href="">Log in</a>
+				<a href="login.html">New user</a>
+				</div>
+			)
+		}
 	}
 });
 
