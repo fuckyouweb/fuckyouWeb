@@ -84,10 +84,6 @@ app.post('/api/login', function(req, res) {
   login.email = newlogin.email;
   login.psw = newlogin.psw;
   login.aliveTime = new Date();
-  // req.session.username = login.name;
-  // req.session.useremail = login.email;
-   
-  console.log('login.psw='+login.psw);
 
   var checkuser = newlogin.email;
 
@@ -107,17 +103,15 @@ app.post('/api/login', function(req, res) {
         var newuser = new User(login);       
         newuser.save(function(err,newuserEntity){
           if(err) console.error(err);
-          else{
-            
+          else{            
               console.log('success save!'+newuserEntity);
-                  req.session.username = newuserEntity.name;
-          req.session.useremail = newuserEntity.email;
-          console.dir(req.session);   
-          res.status('200');
-          res.json(login); 
+              req.session.username = newuserEntity.name;
+              req.session.useremail = newuserEntity.email;
+              console.dir(req.session);   
+              res.status('200');
+              res.json(login); 
           }
-        });
-          
+        });          
       }//else      
     }
   })
@@ -177,7 +171,8 @@ app.get('/api/indexuser',function(req,res){
   }else{
     res.status(200);
     res.send({
-      'code':1
+      'code':2,
+      'username':req.session.username
     })
   }
 });
@@ -199,9 +194,7 @@ app.post('/api/register',function(req,res){
   //console.log('register');
   //console.log(req.body);
   var usernow = req.body;
-  User.checkUser(usernow,function(err,user){
-    
-    
+  User.checkUser(usernow,function(err,user){        
     console.log('user='+user);
     if(err) console.error(err);
     else{
@@ -218,7 +211,8 @@ app.post('/api/register',function(req,res){
         req.session.useremail = useremail;
         res.status(200);
         res.send({
-          'code':1
+          'code':2,
+          'username':username
         })
       }
     }
@@ -305,12 +299,18 @@ app.post('/api/comeon',comeonfile,function(req,res){
 
 app.get('/api/comeon', function(req, res) {
   console.log(2);
+  console.dir(req.session);
   console.log('req.session.email='+req.session.email)
-  if(req.session.email == undefined){
+  if(req.session.useremail == undefined){
     console.log('email undefined!');
     res.status('200');
     res.send({
       'code':0
+    })
+  }else{
+    res.status('200');
+    res.send({
+      'code':2
     })
   }
 });

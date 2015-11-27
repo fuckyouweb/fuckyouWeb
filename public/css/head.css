@@ -60,6 +60,9 @@
   header .index_log a:last-child {
     margin-left: 1rem;
   }
+  header .index_log .header_welcome {
+    color: #15adbc;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 765px) {
   html {

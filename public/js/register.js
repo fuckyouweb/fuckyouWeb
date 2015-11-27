@@ -14,8 +14,16 @@ var LoginShow = React.createClass({
 		      success: function(data) {
 		      	if(data.code == 0) 
 		      		alert('Email or password invalid!');
-		         else 
-		         	alert('Login success!');
+		         else if(data.code == 0){ //no user
+		        	this.setState({
+		        		data:0
+		        	});
+		        }else{//
+		        	this.setState({
+		        		data:2,
+		        		user:data.username
+		        	})
+		        }
 		      }.bind(this),
 		      error: function(xhr, status, err) {
 		        console.error(this.props.url, status, err.toString());
@@ -28,13 +36,18 @@ var LoginShow = React.createClass({
 	      dataType: 'json',
 	      cache: false,
 	      success: function(data){//0-not,1-exist
-	        if(data.code == 1){
+	        if(data.code == 1){//cookie has user,redirect login
 	        	this.setState({
 	        		data:1
-	        	})
-	        }else{
+	        	});
+	        }else if(data.code == 0){ //no user
 	        	this.setState({
 	        		data:0
+	        	});
+	        }else{//
+	        	this.setState({
+	        		data:2,
+	        		user:data.username
 	        	})
 	        }
 	      }.bind(this),
@@ -42,7 +55,12 @@ var LoginShow = React.createClass({
 	        console.error(this.props.url, status, err.toString());
 	      }.bind(this)
 	    });
-	  },
+	},
+	chooseLogin:function(){
+		this.setState({
+			data:1
+		})
+	},
 	getInitialState: function() {
     	return {};
   	},
@@ -67,11 +85,17 @@ var LoginShow = React.createClass({
 				</form>
 			</div>
 		)
+		}else if(this.state.data == 0){
+			return(
+				<div>
+				<a onClick={this.chooseLogin}>Log in</a>
+				<a href="login.html">New user</a>
+				</div>
+			)
 		}else{
 			return(
 				<div>
-				<a href="">Log in</a>
-				<a href="login.html">New user</a>
+				<p className="header_welcome">Welcome {this.state.user} !</p>
 				</div>
 			)
 		}
