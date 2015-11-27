@@ -26,6 +26,10 @@ userSchema.static('getUser', function (cb) {
 	//console.log('value='+value);
     return this.find().exec(cb);
 });
+
+userSchema.static('getUserByEmail',function(value,cb){
+	return this.find({"email":value}).exec(cb);
+})
 //userSchema.set('autoIndex', true);
 
 // userSchema.static('getList',function(cb){

@@ -91,32 +91,36 @@ app.post('/api/login', function(req, res) {
 
   var checkuser = newlogin.email;
 
-  // User.find({email:checkuser},function(err,users){
-  //   if(err) return console.error(err);
-  //   else{
-  //     console.log('this person is already exist!');
-  //     isnew = false;
-  //   }
-  // })
-  /*save to db*/
-  var newuser = new User(login);
- 
-  newuser.save(function(err,newuserEntity){
-    if(err){
-      console.error(err);
-    }
+  /*connect to db,first to check,then save*/
+  User.getUserByEmail(checkuser,function(err,userexist){
+    if(err) console.error(err);
     else{
-        console.log('success save!'+newuserEntity);
-        req.session.username = newuserEntity.name;
-        req.session.useremail = newuserEntity.email;
-        console.dir(req.session);       
+    
+      if(userexist.length != 0){//exist
+        console.log('userexist='+userexist);
+        res.status(200);
+        res.send({
+          'code':0
+        });
+      }else{
+        /*save to db*/
+        var newuser = new User(login);       
+        newuser.save(function(err,newuserEntity){
+          if(err) console.error(err);
+          else{
+            
+              console.log('success save!'+newuserEntity);
+                  req.session.username = newuserEntity.name;
+          req.session.useremail = newuserEntity.email;
+          console.dir(req.session);   
+          res.status('200');
+          res.json(login); 
+          }
+        });
+          
+      }//else      
     }
-  });
-
-  //mail().send(checkuser);
-  
-  res.status('200');
-  res.json(login); 
+  })
 });
 
 function Mywork(name,theme,photo,hotrate){

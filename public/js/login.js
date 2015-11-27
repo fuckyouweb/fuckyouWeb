@@ -107,12 +107,18 @@ var LoginContainer = React.createClass({
 		      type: 'POST',
 		      data: form,
 		      success: function(value) {
-		      	console.log('value.name='+value.name);
-		        this.setState({data:{
-		        	'name': value.name,
-		        	'email':value.email,
-		        	'animateState':'true'
-		        }});
+		      	if(value.code == 0){
+		      		alert('You are our VIP,please choose login');
+		      		window.location = 'index.html';
+		      	}
+		      	else{
+			      	console.log('value.name='+value.name);
+			        this.setState({data:{
+			        	'name': value.name,
+			        	'email':value.email,
+			        	'animateState':'true'
+			        }});
+		        }
 		      }.bind(this),
 		      error: function(xhr, status, err) {
 		        console.error(this.props.url, status, err.toString());
