@@ -8,7 +8,22 @@
  - 获取搜索输入框的内容，发送请求
  - 后台按照主题进行筛选
  - react判断状态进行渲染
+ - 自动提示json文件
  
-home设计切图
-多次下拉判断成一次
+###home设计切图
+ - 更换用户头像
+ - 对图片渲染时带上id,ajax删除带id，修改时ajax带id，修改主题、描述
 
+###点击看大图
+react 浮层 {photo}＋{describe}
+
+###login
+setTimeout redirect
+
+###点赞
+
+comeon照片裁剪预览
+
+多次下拉判断成一次
+Mac抖动
+React遇到很多DOM需要懒加载吗
