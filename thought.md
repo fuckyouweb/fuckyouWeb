@@ -21,6 +21,7 @@ react 浮层 {photo}＋{describe}
 setTimeout redirect
 
 ###点赞
+数据库哪里存放用户的like？
 
 comeon照片裁剪预览
 
