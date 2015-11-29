@@ -85,6 +85,10 @@ app.post('/api/login', function(req, res) {
   login.psw = newlogin.psw;
   login.aliveTime = new Date();
 
+  var reslogin = {};
+  reslogin.name = newlogin.name;
+  reslogin.email = newlogin.email;
+
   var checkuser = newlogin.email;
 
   /*connect to db,first to check,then save*/
@@ -109,7 +113,7 @@ app.post('/api/login', function(req, res) {
               req.session.userid = newuserEntity._id;
               console.dir(req.session);   
               res.status('200');
-              res.json(login); 
+              res.json(reslogin); 
           }
         });          
       }//else      
@@ -117,9 +121,11 @@ app.post('/api/login', function(req, res) {
   })
 });
 
-function Mywork(name,theme,photo,hotrate){
-  this.name = name;
+function Mywork(authorname,id,theme,describe,photo,hotrate){
+  this.authorname = authorname;
+  this.id = id;
   this.theme = theme;
+  this.describe = describe;
   this.photo = photo;
   this.hotrate = hotrate;
 }
@@ -144,7 +150,7 @@ app.get('/api/index', function(req, res) {
         works.forEach(function(value,index){
           var nowdata = 'data'+(number+1);
           var authorname = (value.name ? value.name : '匿名' );
-          indexjson[nowdata][index] = new Mywork(authorname,value.theme,'authorphoto/'+value.photo,value.hotrate,authorname);
+          indexjson[nowdata][index] = new Mywork(authorname,value.id,value.theme,value.describe,'authorphoto/'+value.photo,value.hotrate,authorname);
         });
       }//else
       cnt++;
@@ -185,6 +191,17 @@ app.get('/api/theme', function(req, res) {
     }//else
   });      
 });
+
+app.post('/api/themesearch',function(req,res){
+  console.log('search');
+  var searchcontent = req.body.searchcontent;
+  Work.getWorks(searchcontent,function(err,works){
+    if(err) console.error(err);
+    else{
+      res.json(works);
+    }
+  })
+})
 
 /*server for register*/
 app.post('/api/register',function(req,res){

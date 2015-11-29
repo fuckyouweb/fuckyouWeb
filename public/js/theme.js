@@ -46,7 +46,7 @@ var HotContainer = React.createClass({
 	      dataType: 'json',
 	      cache:false,
 	      success: function(data) {
-	      	console.log('data='+data);
+	      	//console.log('data='+data);
 	        this.setState({
 	        	data:data
 	        });
@@ -72,10 +72,38 @@ var HotContainer = React.createClass({
 });
 
 var Search = React.createClass({
+	handlesearch:function(e){
+		var searchcontent = this.refs.searchcontent.value.trim();
+		$.ajax({
+		      url: '/api/themesearch',
+		      dataType: 'json',
+		      type: 'POST',
+		      data: {'searchcontent':searchcontent},
+		      success: function(data) {
+		      	console.log(data);
+		      }.bind(this),
+		      error: function(xhr, status, err) {
+		        console.error(this.props.url, status, err.toString());
+		      }.bind(this)
+		    });
+	},
+
 	render:function(){
-		
+		return(
+			<div>
+				<input type="text" placeholder="theme search" className="theme_search" ref="searchcontent"/>
+				<div className="theme_searchlogo" id="search" onClick={this.handlesearch} >
+					<img src="img/iconfont-search.png" />
+				</div>
+			</div>
+		)
 	}
-})
+});
+
+ReactDOM.render(
+	<Search />,
+	document.getElementById('index_log')
+)
 
 ReactDOM.render(
 	<HotContainer url="/api/theme"/>,
