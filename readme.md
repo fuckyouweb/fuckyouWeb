@@ -57,5 +57,5 @@ server.js里面最后使用404中间件，url输入未找到时触发，可是�
 ###神奇的req.session过期
 
 ###react新节点渲染默认找到第一个id
-怎样识别当前节点的id
+怎样识别当前节点的id, 让getElementById的位置节点display:none,还是会渲染,className = {show ?  '' :'disnone'}这个写法是错误的
 

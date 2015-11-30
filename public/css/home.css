@@ -52,6 +52,7 @@ body {
   height: 15rem;
   position: absolute;
   background-color: #d8d8d8;
+  z-index: 99;
   opacity: 0.8;
   top: 10rem;
   right: -22rem;
@@ -111,6 +112,7 @@ body {
   position: absolute;
   left: -2rem;
   top: 9.5rem;
+  z-index: 99;
 }
 .home_updateshow_close {
   display: none;
@@ -154,4 +156,7 @@ body {
   .index_container_describe div {
     padding: 2%;
   }
+}
+.disnone {
+  display: none;
 }

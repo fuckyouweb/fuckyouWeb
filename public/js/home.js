@@ -21,7 +21,9 @@ var Pic = React.createClass({
 	    }
 	},
 	handleupdateclose:function(){
+		console.log(5555);
 		this.setState({data :{ 'display':'0'}});
+		console.log('1111==='+this.state.data.display);
 	},
 	handleupdate:function(){
 		var id = this.props.id;
@@ -32,25 +34,24 @@ var Pic = React.createClass({
 		var describe = this.props.describe;
 		var updataadd = {
 			'id':id,
-			'display':this.state.data.display
+			'display':this.state.data.display,
 		}
 		ReactDOM.render(
-			<UpdataShow updataadd={updataadd}/>,
+			<UpdataShow updataadd={updataadd} handleclose={this.handleupdateclose}/>,
 			document.getElementById('home_updateshow')
 		)
 	},
 	getInitialState:function(){
-		return {data:{'display':'1'}};
+		return {data:{'display':'0'}};
 	},
-	// componentDidMount: function() {
-    	
- //  	},
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
 		var head = this.props.head;
 		var photo = 'authorphoto/'+this.props.photo;
 		var id = this.props.id;
+		var show = this.state.data.display;
+		console.log('show='+show);
 		return (
 			<div className="index_container_picwrap">
 				<div className="index_container_pic">
@@ -65,13 +66,24 @@ var Pic = React.createClass({
 						</div>
 					</div>
 				</div>
-				<div id="home_updateshow"> 
-			</div>
+				<UpdateContainer show={show}/>
 			</div>
 		)
 	}
 });
-
+var UpdateContainer = React.createClass({
+	render:function(){
+		var show = this.props.show;
+		console.log('up==='+show);
+		if(show != '0'){
+			return(
+				<div id="home_updateshow"></div>
+			)
+		}else{
+			return(<div></div>);
+		}
+	}
+})
 var UpdataShow = React.createClass({
 	handleSubmit:function(e){
 		e.preventDefault();
@@ -112,7 +124,7 @@ var UpdataShow = React.createClass({
 				</textarea>
 				<button type='submit' className="home_submit">ok!</button>
 			</form>
-			<div className="home_updateclose" onClick={this.props.handleupdateclose}>x</div>
+			<div className="home_updateclose" onClick={this.props.handleclose}>x</div>
 			</div>
 		)
 	}
