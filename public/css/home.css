@@ -47,6 +47,74 @@ body {
 .home_update {
   margin-left: 1rem;
 }
+.home_updateshow {
+  width: 20rem;
+  height: 15rem;
+  position: absolute;
+  background-color: #d8d8d8;
+  opacity: 0.8;
+  top: 10rem;
+  right: -22rem;
+  text-align: center;
+  border-radius: 1rem;
+}
+.home_updateshow input,
+.home_updateshow textarea {
+  width: 60%;
+  padding: 0 10%;
+  height: 2rem;
+  border: 0px solid #726F6F;
+  border-radius: 1rem;
+  word-wrap: break-word;
+  background-color: #fff;
+  resize: none;
+}
+.home_updateshow .home_describeinput {
+  height: 6rem;
+}
+.home_updateshow .home_submit {
+  width: 5rem;
+  height: 2rem;
+  background-color: #726F6F;
+  color: #d8d8d8;
+  text-align: center;
+  line-height: 1rem;
+  position: absolute;
+  border-radius: 1rem;
+  font-size: 2rem;
+  border: 0px solid #111;
+  left: calc(50% - 2.5rem);
+  bottom: 0.5rem;
+  cursor: pointer;
+}
+.home_updateshow .home_updateclose {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  background-color: #000;
+  opacity: 0.6;
+  color: #d8d8d8;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+.home_updateshow:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 1rem solid transparent;
+  border-right: 2rem solid #d8d8d8;
+  opacity: 0.8;
+  border-bottom: 1rem solid transparent;
+  position: absolute;
+  left: -2rem;
+  top: 9.5rem;
+}
+.home_updateshow_close {
+  display: none;
+}
 /*PC css*/
 @media screen and (min-width: 765px) {
   .index_container {

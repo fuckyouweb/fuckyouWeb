@@ -130,6 +130,7 @@ body {
     left: 3rem;
   }
   .index_container_picwrap {
+    position: relative;
     width: 30%;
     margin-left: 3%;
     margin-top: 2rem;

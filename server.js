@@ -205,15 +205,12 @@ app.post('/api/themesearch',function(req,res){
 
 /*server for home*/
 app.get('/api/home', function(req, res) {
-  console.log('home');
-  console.dir(req.session);
   var userid = req.session.userid || '';
   console.log('userid-----='+userid );
   if(userid != ''){
     var works = Work.getWorksByUserId(userid,function(err,works){      
       if(err) console.error(err);
       else{
-        console.log('works='+works);
         res.status(200);
         res.json(works);
       }//else
@@ -378,7 +375,25 @@ app.post('/api/deletework',function(req,res){
         'code':1
       })
     }
-  })
+  });
+});
+
+app.post('/api/updatework',function(req,res){
+  console.log('updatework');
+  console.dir(req.body);
+  var workid = req.body.id;
+  var theme = req.body.theme;
+  var describe = req.body.describe;
+  console.log('22222'+workid);
+  Work.updateWork(workid,theme,describe,function(err){
+    if(err) console.error(err);
+    else{
+      res.status(200);
+      res.send({
+        'code':1
+      })
+    }
+  });
 })
 
 //500

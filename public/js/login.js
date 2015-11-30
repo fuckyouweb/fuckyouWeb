@@ -54,8 +54,6 @@ var LoginAllowloginShow = React.createClass({
 // render show info
 var LoginAllowLogin= React.createClass({
 	render:function(){
-		//var len = this.props.data.length-1;
-		//console.log("len="+len);
 		var name = this.props.data.name;
 		var email = this.props.data.email;
 		return (
@@ -64,8 +62,7 @@ var LoginAllowLogin= React.createClass({
 				<div className="login_allowlogin_rectangle"></div>
 				<div className="login_allowlogin_roundleft"></div>
 				<div className="login_allowlogin_roundright"></div>
-				<LoginAllowloginShow name={name} email={email}/>
-				
+				<LoginAllowloginShow name={name} email={email}/>				
 			</div>
 		)
 	}

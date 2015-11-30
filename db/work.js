@@ -29,7 +29,15 @@ workSchema.static('getWorksByUserId', function (userid, cb) {
 
 workSchema.static('deleteWorkById',function(workid,cb){
 	return this.findByIdAndRemove(workid).exec(cb);	
-})
+});
+
+
+workSchema.static('updateWork', function (workid,theme,describe, cb) {
+    console.log('workid='+workid);
+    return this.update({
+        '_id': workid
+    }, {'theme': theme,'describe': describe}).exec(cb);
+});
 
 // workSchema.static('linkProject', function (fileId, projectEntity) {
 //     return this.findOneAndUpdate({
@@ -42,12 +50,6 @@ workSchema.static('deleteWorkById',function(workid,cb){
 //     return this.find({project: projectId,state:1}).exec(cb);
 // });
 
-// workSchema.static('updateWork', function (WorkId, cb) {
-//     return this.findOneAndUpdate({
-//         _id: WorkId
-//     }, {state: 2}, {'new': true}).exec(cb);
-
-// });
 
 var WorkModel = mongoose.model('Work',workSchema);
 module.exports = WorkModel;

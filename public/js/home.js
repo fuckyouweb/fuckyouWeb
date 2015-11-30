@@ -20,9 +20,31 @@ var Pic = React.createClass({
 		    });
 	    }
 	},
-	handleupdate:function(){
-
+	handleupdateclose:function(){
+		this.setState({data :{ 'display':'0'}});
 	},
+	handleupdate:function(){
+		var id = this.props.id;
+		this.setState({data :{ 'display':'1'}});
+		console.log('this.state.data.display='+this.state.data.display);
+		var id = this.props.id;
+		var theme = this.props.theme;
+		var describe = this.props.describe;
+		var updataadd = {
+			'id':id,
+			'display':this.state.data.display
+		}
+		ReactDOM.render(
+			<UpdataShow updataadd={updataadd}/>,
+			document.getElementById('home_updateshow')
+		)
+	},
+	getInitialState:function(){
+		return {data:{'display':'1'}};
+	},
+	// componentDidMount: function() {
+    	
+ //  	},
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
@@ -43,10 +65,58 @@ var Pic = React.createClass({
 						</div>
 					</div>
 				</div>
+				<div id="home_updateshow"> 
+			</div>
 			</div>
 		)
 	}
 });
+
+var UpdataShow = React.createClass({
+	handleSubmit:function(e){
+		e.preventDefault();
+		var theme = this.refs.theme.value.trim();
+		var describe= this.refs.describe.value.trim();
+		var id = this.props.updataadd.id;
+		var form = {
+			'theme':theme,
+			'describe':describe,
+			'id':id
+		}
+		$.ajax({
+	      url: '/api/updatework',
+	      dataType: 'json',
+	      type: 'POST',
+	      data:form,
+	      success: function(data) {
+	      	if(data.code == 1){
+	      		alert('update success!');
+	      		window.location.reload();
+	      	}
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+	},
+	render:function(){
+		var display = +this.props.updataadd.display;
+		console.log('display='+display);
+		return(
+			<div className={display ? "home_updateshow" : "home_updateshow_close"}>
+			<form onSubmit={this.handleSubmit}>
+				<div className="home_theme">theme:</div>
+				<input type='text' className="home_themeinput" ref="theme"/>
+				<div className="home_describe">describe:</div>
+				<textarea className="home_describeinput" ref="describe">
+				</textarea>
+				<button type='submit' className="home_submit">ok!</button>
+			</form>
+			<div className="home_updateclose" onClick={this.props.handleupdateclose}>x</div>
+			</div>
+		)
+	}
+})
 
 var AuthorInfo = React.createClass({
 	render:function(){
@@ -71,7 +141,7 @@ var Hot = React.createClass({
 		if(haswork){
 			var Pics = this.props.data.map(function(value,index){
 				return (
-					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} id={value._id}/>
+					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} id={value._id} describe={value.describe}/>
 				);
 			});
 		}
