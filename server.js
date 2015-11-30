@@ -136,7 +136,6 @@ app.get('/api/index', function(req, res) {
   workOptions = {
     themes:['抽象派','黑白派','印象派']
   }
-  var userid = req.session.userid;
   var themes = workOptions.themes;
   var arr = new Array(3);
   var indexjson = {'data1':[arr],'data2':[arr],'data3':[arr]};
@@ -367,6 +366,19 @@ app.get('/logoshow',function(req,res){
     res.end();
   }
 });
+})
+
+app.post('/api/deletework',function(req,res){
+  var workid = req.body.workid;
+  Work.deleteWorkById(workid,function(err){
+    if(err) console.error(err);
+    else{
+      res.status(200);
+      res.send({
+        'code':1
+      })
+    }
+  })
 })
 
 //500

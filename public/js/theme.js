@@ -11,7 +11,7 @@ var Pic = React.createClass({
 				</div>
 				<div className="index_container_word">
 					<div className="index_container_author">
-						<img src={photo} />
+						<img src={head} />
 					</div>
 					<div className="index_container_describe">
 						<div className="index_container_boss">boss:{name}</div>

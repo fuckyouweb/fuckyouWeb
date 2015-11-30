@@ -27,6 +27,10 @@ workSchema.static('getWorksByUserId', function (userid, cb) {
     return this.find({"userid":userid}).exec(cb);
 });
 
+workSchema.static('deleteWorkById',function(workid,cb){
+	return this.findByIdAndRemove(workid).exec(cb);	
+})
+
 // workSchema.static('linkProject', function (fileId, projectEntity) {
 //     return this.findOneAndUpdate({
 //         _id: fileId

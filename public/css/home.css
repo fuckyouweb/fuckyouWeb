@@ -1,14 +1,51 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #15adbc;
+}
 .home_nowork {
   text-align: center;
 }
 .home_no {
   display: none;
 }
-html,
-body {
+.home_anthorinfo .home_head {
+  width: 20%;
+  width: 10%;
+  margin-left: 45%;
+  padding-bottom: 3rem;
+  display: inline-block;
+}
+.home_anthorinfo .home_head img {
   width: 100%;
-  height: 100%;
-  background-color: #15adbc;
+}
+.home_anthorinfo .home_changehead {
+  display: inline-block;
+  width: 5rem;
+  height: 2rem;
+  line-height: 2rem;
+  background-color: #d8d8d8;
+  border-radius: 2rem;
+  text-align: center;
+  vertical-align: top;
+  margin-left: 2rem;
+  cursor: pointer;
+}
+.home_button {
+  width: 16rem;
+}
+.home_delete,
+.home_update {
+  display: inline-block;
+  width: 5rem;
+  height: 1rem;
+  background-color: #d8d8d8;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.home_update {
+  margin-left: 1rem;
 }
 /*PC css*/
 @media screen and (min-width: 765px) {
@@ -20,6 +57,12 @@ body {
   }
   .index_container_hot {
     height: auto !important;
+  }
+  .index_container_word {
+    text-align: center !important;
+  }
+  .index_container_describe div {
+    padding: 2%;
   }
 }
 /*mobile css*/
@@ -36,5 +79,11 @@ body {
   }
   .index_container_hot {
     height: auto !important;
+  }
+  .index_container_word {
+    text-align: center !important;
+  }
+  .index_container_describe div {
+    padding: 2%;
   }
 }

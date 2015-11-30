@@ -48,6 +48,9 @@ var ComeonNoteForm = React.createClass({
 		  success: function(value) {
 	      	if(value.code == '1')
 	      		alert('upload success!');
+	      		setTimeout(function(){
+	      			window.location = 'home.html';
+	      		},1000);
 	      }.bind(this),
 	      error: function(xhr, status, err) {
 	        console.error('/api/comeon', status, err.toString());
