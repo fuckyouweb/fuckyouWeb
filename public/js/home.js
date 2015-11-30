@@ -24,6 +24,30 @@ var Pic = React.createClass({
 });
 
 var Hot = React.createClass({
+	loadFormFromServer: function() {
+	    $.ajax({
+	      url: '/api/theme',
+	      dataType: 'json',
+	      cache: false,
+	      success: function(data) {
+	        this.setState({data: data});
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+	  },
+	getInitialState: function() {
+    	return {data: []};
+  	},
+  	componentDidMount: function() {
+  		this.loadFormFromServer();
+    	var searchdata = $.pubsub('subcsribe',function(data){
+    		this.setState({
+	    		'data':searchdata
+	    	});
+    	});
+  	},
 	render:function(){
 		var Pics = this.props.data.map(function(value,index){
 			return (
@@ -70,41 +94,9 @@ var HotContainer = React.createClass({
 	}
 });
 
-var Search = React.createClass({
-	handlesearch:function(e){
-		var searchcontent = this.refs.searchcontent.value.trim();
-		$.ajax({
-		      url: '/api/themesearch',
-		      dataType: 'json',
-		      type: 'POST',
-		      data: {'searchcontent':searchcontent},
-		      success: function(data) {
-		      	console.log(data);
-		      	$.pubsub('subcsribe',data);
-		      }.bind(this),
-		      error: function(xhr, status, err) {
-		        console.error(this.props.url, status, err.toString());
-		      }.bind(this)
-		    });
-	},
-	render:function(){
-		return(
-			<div>
-				<input type="text" placeholder="theme search" className="theme_search" ref="searchcontent"/>
-				<div className="theme_searchlogo" id="search" onClick={this.handlesearch}>
-					<img src="img/iconfont-search.png" />
-				</div>
-			</div>
-		)
-	}
-});
-
 ReactDOM.render(
-	<Search />,
-	document.getElementById('index_log')
-)
-
-ReactDOM.render(
-	<HotContainer url="/api/theme"/>,
+	<HotContainer url="/api/home"/>,
 	document.getElementById('index_hot')
 )
+
+
