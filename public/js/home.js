@@ -24,39 +24,20 @@ var Pic = React.createClass({
 });
 
 var Hot = React.createClass({
-	loadFormFromServer: function() {
-	    $.ajax({
-	      url: '/api/theme',
-	      dataType: 'json',
-	      cache: false,
-	      success: function(data) {
-	        this.setState({data: data});
-	      }.bind(this),
-	      error: function(xhr, status, err) {
-	        console.error(this.props.url, status, err.toString());
-	      }.bind(this)
-	    });
-	  },
-	getInitialState: function() {
-    	return {data: []};
-  	},
-  	componentDidMount: function() {
-  		this.loadFormFromServer();
-    	var searchdata = $.pubsub('subcsribe',function(data){
-    		this.setState({
-	    		'data':searchdata
-	    	});
-    	});
-  	},
 	render:function(){
-		var Pics = this.props.data.map(function(value,index){
-			return (
-				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo}/>
-			);
-		});
+		var haswork = this.props.data.length;
+		console.log(haswork);
+		if(haswork){
+			var Pics = this.props.data.map(function(value,index){
+				return (
+					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo}/>
+				);
+			});
+		}
 		return (
 			<div className="index_container_hot">
-			<div className="index_container_line"></div>
+			<div className={haswork ? "index_container_line" : ''}></div>
+			<div className={haswork ? "home_no" : "home_nowork"}>居然一个作品都没有，你也是够了。。。</div>
 			{Pics}
 			</div>
 		)
@@ -70,9 +51,16 @@ var HotContainer = React.createClass({
 	      dataType: 'json',
 	      cache:false,
 	      success: function(data) {
-	        this.setState({
-	        	data:data
-	        });
+	      	console.log(data.code);
+	      	if(data.code == 0){
+	      		this.setState({
+	      			data:[]
+	      		})
+	      	}else{
+		        this.setState({
+		        	data:data
+		        });
+	        }
 	      }.bind(this),
 	      error: function(xhr, status, err) {
 	        console.error(this.props.url, status, err.toString());

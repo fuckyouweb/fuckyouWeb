@@ -5,7 +5,6 @@ var LoginShow = React.createClass({
 			'email':this.refs.email.value.trim(),
 			'psw':this.refs.psw.value.trim()
 		}
-		console.log(form);
 		$.ajax({
 		      url: this.props.url,
 		      dataType: 'json',

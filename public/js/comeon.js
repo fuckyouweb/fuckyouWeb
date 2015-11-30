@@ -89,7 +89,10 @@ var ComeonContainer = React.createClass({
 	      cache: false,
 	      success: function(data){
 	        if(data.code == 0){
-	        	window.location = 'login.html';
+	        	alert('你还没登录或注册！');
+	        	setTimeout(function(){
+	        		window.location = 'login.html';
+	        	},1000);
 	        }
 	      }.bind(this),
 	      error: function(xhr, status, err) {

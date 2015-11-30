@@ -118,6 +118,9 @@ var LoginContainer = React.createClass({
 			        	'email':value.email,
 			        	'animateState':'true'
 			        }});
+			        setTimeout(function(){
+	        			window.location = 'index.html';
+	        		},1000);
 		        }
 		      }.bind(this),
 		      error: function(xhr, status, err) {

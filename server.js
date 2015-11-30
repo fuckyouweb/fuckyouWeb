@@ -16,6 +16,7 @@ var app = express();
 var LOGIN_FILE = path.join(__dirname, 'login.json');
 var INDEX_FILE = path.join(__dirname, 'index.json');
 var PHOTO_PATH = path.join(__dirname,'public/authorphoto');
+var HEAD_PATH = path.join(__dirname,'public/head');
 //var PHOTO_NEWPATH = path.join(__dirname,'/public/diskphoto');
 
 app.set('port', (process.env.PORT || 3000));
@@ -203,6 +204,29 @@ app.post('/api/themesearch',function(req,res){
   })
 })
 
+/*server for home*/
+app.get('/api/home', function(req, res) {
+  console.log('home');
+  console.dir(req.session);
+  var userid = req.session.userid || '';
+  console.log('userid-----='+userid );
+  if(userid != ''){
+    var works = Work.getWorksByUserId(userid,function(err,works){      
+      if(err) console.error(err);
+      else{
+        console.log('works='+works);
+        res.status(200);
+        res.json(works);
+      }//else
+    }); 
+  } else{
+    res.status(200);
+    res.send({
+      'code':0
+    })
+  }    
+});
+
 /*server for register*/
 app.post('/api/register',function(req,res){
   var usernow = req.body;
@@ -224,7 +248,7 @@ app.post('/api/register',function(req,res){
         res.status(200);
         res.send({
           'code':2,
-          'username':username
+          'username':user[0].name
         })
       }
     }
@@ -270,8 +294,8 @@ app.post('/api/comeon',comeonfile,function(req,res){
   var theme = req.body.theme;
   var describe = req.body.describe;
   var date = new Date();
-  var userid = req.session.userid;
-  var username = req.session.username;
+  var userid = req.session.userid || '';
+  var username = req.session.username || '';
   date = date.Format('yyyyMMddhhmmss');
 
   //change type for system
@@ -317,7 +341,7 @@ app.get('/api/comeon', function(req, res) {
   console.log(2);
   console.dir(req.session);
   console.log('req.session.email='+req.session.email)
-  if(req.session.useremail == undefined){
+  if(req.session.useremail == undefined || req.session.useremail == ''){
     console.log('email undefined!');
     res.status('200');
     res.send({

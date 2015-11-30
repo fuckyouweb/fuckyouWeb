@@ -60,6 +60,11 @@ var HotContainer = React.createClass({
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
+    	var searchdata = $.pubsub('subcsribe',function(data){
+    		this.setState({
+	    		'data':searchdata
+	    	});
+    	});
   	},
 	render:function(){
 		return(
