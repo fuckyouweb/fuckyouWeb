@@ -47,7 +47,11 @@ body {
 .home_update {
   margin-left: 1rem;
 }
+.home_updateshow_close{
+  display: none;
+}
 .home_updateshow {
+  display: block;
   width: 20rem;
   height: 15rem;
   position: absolute;
