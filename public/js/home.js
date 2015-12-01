@@ -50,7 +50,7 @@ var Pic = React.createClass({
 		var head = this.props.head;
 		var photo = 'authorphoto/'+this.props.photo;
 		var id = this.props.id;
-		var show = this.state.data.display;
+		var show = +this.state.data.display;
 		console.log('show='+show);
 		return (
 			<div className="index_container_picwrap">
@@ -71,19 +71,18 @@ var Pic = React.createClass({
 		)
 	}
 });
+
 var UpdateContainer = React.createClass({
 	render:function(){
 		var show = this.props.show;
-		console.log('up==='+show);
-		if(show != '0'){
-			return(
-				<div id="home_updateshow"></div>
-			)
-		}else{
-			return(<div></div>);
-		}
+		console.log('conshow='+show);
+		if(!show)
+			return (<div id="home_updateshow"></div>);
+		else
+			return	(<div></div>);
 	}
 })
+
 var UpdataShow = React.createClass({
 	handleSubmit:function(e){
 		e.preventDefault();

@@ -57,5 +57,13 @@ server.js里面最后使用404中间件，url输入未找到时触发，可是�
 ###神奇的req.session过期
 
 ###react新节点渲染默认找到第一个id
-怎样识别当前节点的id, 让getElementById的位置节点display:none,还是会渲染,className = {show ?  '' :'disnone'}这个写法是错误的
+怎样识别当前节点的id, 让getElementById的位置节点display:none,还是会渲染,className = {show ?  '' :'disnone'}这个写法是错误的,改写id状态改变也会默认添加到第一个上面
 
+###用户删除后服务器文件夹里的文件？
+怎样删除？
+
+###react报错
+当数据来自于搜索结果或者新的组件被添加到数据流里，在这种情况下，每个子节点需要保持唯一的标识。可以给每个子节点添加key属性。
+
+###返回数据后重新刷新
+用了原生js的reload，应该不好，最好用react的方式，暂时没做
