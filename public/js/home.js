@@ -1,7 +1,7 @@
 var Pic = React.createClass({
 	handledelete:function(){
 		if(confirm('Are you sure to delete?!!')){
-			var id = this.props.id;
+			var id = this.props.containID;
 			console.log(id);
 			$.ajax({
 		      url: '/api/deletework',
@@ -29,7 +29,7 @@ var Pic = React.createClass({
 		//var id = this.props.id;
 		this.setState({data :{ 'display':'1'}});
 		console.log('this.state.data.display='+this.state.data.display);
-		var id = this.props.containId;
+		var id = this.props.containID;
 		var theme = this.props.theme;
 		var describe = this.props.describe;
 		var updataadd = {
@@ -51,7 +51,7 @@ var Pic = React.createClass({
 		var theme = this.props.theme;
 		var head = this.props.head;
 		var photo = 'authorphoto/'+this.props.photo;
-		var id = this.props.id;
+		var id = this.props.containID;
 		var show = +this.state.data.display;
 		console.log('show='+show);
 		return (
@@ -79,10 +79,10 @@ var UpdateContainer = React.createClass({
 		var show = this.props.show;
 		console.log('conshow='+show);
 		var dom_id  = "home_updateshow_" + this.props.container;
-		if(!show)
+		//if(!show)
 			return (<div id={dom_id}></div>);
-		else
-			return	(<div></div>);
+		//else
+		//	return	(<div></div>);
 	}
 })
 
@@ -168,7 +168,7 @@ var Hot = React.createClass({
 		if(haswork){
 			var Pics = this.props.data.map(function(value,index){
 				return (
-					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} id={value._id} describe={value.describe}/>
+					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} containID={value._id} describe={value.describe}/>
 				);
 			});
 		}
