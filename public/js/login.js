@@ -39,8 +39,6 @@ var LoginAllowloginShow = React.createClass({
 	render:function(){
 		var name = this.props.name;
 		var email = this.props.email;
-		//var name = '123';
-		//var email = '456';
 		return (
 			<div className="login_allowlogin_show">通行证
 				<div className="login_allowlogin_showname login_allowlogin_showword">昵称：{name}</div>
@@ -56,18 +54,15 @@ var LoginAllowloginShow = React.createClass({
 // render show info
 var LoginAllowLogin= React.createClass({
 	render:function(){
-		var len = this.props.data.length-1;
-		//console.log("len="+len);
-		var name = this.props.data[len].name;
-		var email = this.props.data[len].email;
+		var name = this.props.data.name;
+		var email = this.props.data.email;
 		return (
-			<div className="login_allowloagin" id="login_allowloagin">
+			<div className={this.props.data.animateState ? "login_allowloagin animate":"login_allowloagin"} id="login_allowloagin">
 				<div className="login_allowlogin_tranigle"></div>
 				<div className="login_allowlogin_rectangle"></div>
 				<div className="login_allowlogin_roundleft"></div>
 				<div className="login_allowlogin_roundright"></div>
-				<LoginAllowloginShow name={name} email={email}/>
-				
+				<LoginAllowloginShow name={name} email={email}/>				
 			</div>
 		)
 	}
@@ -77,8 +72,8 @@ var LoginAllowLogin= React.createClass({
 var LoginSorrow = React.createClass({
 	render:function(){
 		return (
-			<div className="login_sorrow" id="login_sorrow">
-				<img src="img/iconfont-zhuanwan.png" />
+			<div className={this.props.data?"login_sorrow animate":"login_sorrow"} id="login_sorrow">
+				<img src="img/iconfont-zhuanwan 2.png" />
 			</div>
 		);
 	}
@@ -108,10 +103,22 @@ var LoginContainer = React.createClass({
 		      dataType: 'json',
 		      type: 'POST',
 		      data: form,
-		      success: function(data) {
-		        this.setState({data: data});
-		        $('#login_sorrow').addClass('animate');
-		        $('#login_allowloagin').addClass('animate');
+		      success: function(value) {
+		      	if(value.code == 0){
+		      		alert('You are our VIP,please choose login');
+		      		window.location = 'index.html';
+		      	}
+		      	else{
+			      	console.log('value.name='+value.name);
+			        this.setState({data:{
+			        	'name': value.name,
+			        	'email':value.email,
+			        	'animateState':'true'
+			        }});
+			        setTimeout(function(){
+	        			window.location = 'index.html';
+	        		},1000);
+		        }
 		      }.bind(this),
 		      error: function(xhr, status, err) {
 		        console.error(this.props.url, status, err.toString());
@@ -119,17 +126,16 @@ var LoginContainer = React.createClass({
 		    });
 	},
 	getInitialState: function() {
-    	return {data: [{'name':'1','email':'2'}]};
+    	return {data: {'name':'1','email':'2','animateState':'false'}};
   	},
   	componentDidMount: function() {
     	this.loadFormFromServer();
   	},
 	render:function(){
-		console.log(this.state.data)
 		return (
 			<div>
 			<LoginAllowLogin data={this.state.data}/>
-			<LoginSorrow/>
+			<LoginSorrow data={this.state.data.animateState}/>
 			<div className='login_writelogin'>
 				<LoginWriteloginForm onLoginFormSubmit={this.handleLoginFormSubmit}/>
 			</div>

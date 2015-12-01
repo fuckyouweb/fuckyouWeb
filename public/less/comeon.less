@@ -11,8 +11,121 @@
 html,body{
 	width: 100%;
 	height: 100%;
-	font-size:10px;
 	background-color: @color_green;
+}
+
+@media screen and (min-width:765px) {
+	html{
+		font-size:10px;
+	}
+	.comeon_note{
+		z-index: 5;
+		position: relative;
+		width: 35rem;
+		height: 25rem;
+		border-radius: 3rem;
+		border:2px solid #726F6F;
+		background-color: @color_gray;
+		margin: 0 auto;
+		margin-top: 1rem;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		padding: 2rem;
+		font-size: 1.6rem;
+		input,textarea{
+			width: 40%;
+			height: 2rem;
+			border:0px solid #726F6F;
+			border-radius: 1rem;
+			padding: 0 1rem;
+			word-wrap:break-word;
+			background-color: #fff;
+			resize:none;
+		}
+		.comeon_note_describeinput{
+			height: 6rem;
+		}
+		.comeon_note_submit{
+			width: 5rem;
+			height: 5rem;
+			background-color: #726F6F;
+			color:@color_gray;
+			text-align: center;
+			line-height: 5rem;
+			position: absolute;
+			border-radius: 2.5rem;
+			font-size:2rem;
+			border:0px solid #111;
+			left: 47%;
+			bottom: 0.5rem;
+		}
+		.comeon_pic_show{
+			width: 40%;
+			height: 16rem;
+			border:2px dotted #726F6F;
+			right: 2rem;
+			position: absolute;
+			top:2rem;
+			img{
+				width: 100%;
+			}
+		}
+	}
+}
+
+@media screen and (min-width:320px) and (max-width:765px){
+	html{
+		font-size: 8px;
+	}
+	.comeon_note{
+		z-index: 5;
+		position: relative;
+		width: 100%;
+		height: 25rem;
+		border-radius: 3rem;
+		border:2px solid #726F6F;
+		background-color: @color_gray;
+		margin: 0 auto;
+		margin-top: 1rem;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		padding: 2rem;
+		font-size: 1.6rem;
+		input,textarea{
+			width: 80%;
+			height: 2rem;
+			border:0px solid #726F6F;
+			border-radius: 1rem;
+			padding: 0 1rem;
+			word-wrap:break-word;
+			background-color: #fff;
+			resize:none;
+		}
+		input[type="submit"]{
+			display: none;
+		}
+		.comeon_note_describeinput{
+			height: 6rem;
+		}
+		.comeon_note_submit{
+			width: 5rem;
+			height: 5rem;
+			background-color: #726F6F;
+			color:@color_gray;
+			text-align: center;
+			line-height: 5rem;
+			position: absolute;
+			border-radius: 2.5rem;
+			font-size:2rem;
+			border:0px solid #111;
+			left: 47%;
+			bottom: 0.5rem;
+		}
+		.comeon_pic_show{
+			display: none;
+		}
+}
+
 }
 .container{
 	width: 100%;
@@ -144,55 +257,3 @@ html,body{
 	}
 }
 
-.comeon_note{
-	z-index: 5;
-	position: relative;
-	width: 35rem;
-	height: 25rem;
-	border-radius: 3rem;
-	border:2px solid #726F6F;
-	background-color: @color_gray;
-	margin: 0 auto;
-	margin-top: 1rem;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	padding: 2rem;
-	font-size: 1.6rem;
-	input,textarea{
-		width: 40%;
-		height: 2rem;
-		border:0px solid #726F6F;
-		border-radius: 1rem;
-		padding: 0 1rem;
-		word-wrap:break-word;
-		background-color: #fff;
-	}
-	.comeon_note_describeinput{
-		height: 6rem;
-	}
-	.comeon_note_submit{
-		width: 5rem;
-		height: 5rem;
-		background-color: #726F6F;
-		color:@color_gray;
-		text-align: center;
-		line-height: 5rem;
-		position: absolute;
-		border-radius: 2.5rem;
-		font-size:2rem;
-		border:0px solid #111;
-		left: 47%;
-		bottom: 0.5rem;
-	}
-	.comeon_pic_show{
-		width: 40%;
-		height: 16rem;
-		border:2px dotted #726F6F;
-		right: 2rem;
-		position: absolute;
-		top:2rem;
-		img{
-			width: 100%;
-		}
-	}
-}
