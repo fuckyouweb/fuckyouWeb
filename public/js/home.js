@@ -26,19 +26,20 @@ var Pic = React.createClass({
 		console.log('1111==='+this.state.data.display);
 	},
 	handleupdate:function(){
-		var id = this.props.id;
+		//var id = this.props.id;
 		this.setState({data :{ 'display':'1'}});
 		console.log('this.state.data.display='+this.state.data.display);
-		var id = this.props.id;
+		var id = this.props.containId;
 		var theme = this.props.theme;
 		var describe = this.props.describe;
 		var updataadd = {
 			'id':id,
-			'display':this.state.data.display,
-		}
+			'display':this.state.data.display
+		};
+		var dom_container = document.getElementById("home_updateshow_"+id);
 		ReactDOM.render(
-			<UpdataShow updataadd={updataadd} handleclose={this.handleupdateclose}/>,
-			document.getElementById('home_updateshow')
+			<UpdataShow updataadd={updataadd} key={id} handleclose={this.handleupdateclose}/>,
+			dom_container
 		)
 	},
 	getInitialState:function(){
@@ -67,7 +68,7 @@ var Pic = React.createClass({
 						</div>
 					</div>
 				</div>
-				<UpdateContainer show={show}/>
+				<UpdateContainer show={show} container={id}/>
 			</div>
 		)
 	}
@@ -77,8 +78,9 @@ var UpdateContainer = React.createClass({
 	render:function(){
 		var show = this.props.show;
 		console.log('conshow='+show);
+		var dom_id  = "home_updateshow_" + this.props.container;
 		if(!show)
-			return (<div id="home_updateshow"></div>);
+			return (<div id={dom_id}></div>);
 		else
 			return	(<div></div>);
 	}
@@ -94,7 +96,7 @@ var UpdataShow = React.createClass({
 			'theme':theme,
 			'describe':describe,
 			'id':id
-		}
+		};
 		$.ajax({
 	      url: '/api/updatework',
 	      dataType: 'json',
@@ -111,11 +113,18 @@ var UpdataShow = React.createClass({
 	      }.bind(this)
 	    });
 	},
+	handleClick: function () {
+		this.setState({data:{display:0}});
+		$("#home_updateshow_"+this.props.updataadd.id).html("")
+	},
+	getInitialState: function () {
+		return{data:{display:this.props.updataadd}}
+	},
 	render:function(){
-		var display = +this.props.updataadd.display;
-		console.log('display='+display);
+		//var display = +this.props.updataadd.display;
+		//console.log('display='+display);
 		return(
-			<div className={display ? "home_updateshow" : "home_updateshow_close"}>
+			<div className={this.state.data.display?"home_updateshow":"home_updateshow_close"}>
 			<form onSubmit={this.handleSubmit}>
 				<div className="home_theme">theme:</div>
 				<input type='text' className="home_themeinput" ref="theme"/>
@@ -124,7 +133,7 @@ var UpdataShow = React.createClass({
 				</textarea>
 				<button type='submit' className="home_submit">ok!</button>
 			</form>
-			<div className="home_updateclose" onClick={this.props.handleclose}>x</div>
+			<div className="home_updateclose" onClick={this.handleClick}>x</div>
 			</div>
 		)
 	}
