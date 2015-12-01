@@ -68,10 +68,6 @@ var ComeonNoteForm = React.createClass({
 				<div className="comeon_note_pic">uploadpicture:(size&lt;200k)</div>
 				
 				<input id='file_pic' type="file" ref="photo"/>
-<<<<<<< HEAD
-				<input type="submit" value="Upload file"/>
-=======
->>>>>>> 94e7111e8a51cebe6684320cae778278059aa4df
 				<button type='submit' className="comeon_note_submit">ok!</button>
 			</form>
 		)

@@ -31,15 +31,35 @@ var Hot = React.createClass({
 			);
 		});
 		return (
+			<div className="index_container">
 			<div className="index_container_hot">
 			<div className="index_container_line"></div>
 			{Pics}
 			</div>
+			</div>
+			
 		)
 	}
 });
 
 var HotContainer = React.createClass({
+	handlesearch:function(e){
+		var searchcontent = this.refs.searchcontent.value.trim();
+		$.ajax({
+		      url: '/api/themesearch',
+		      dataType: 'json',
+		      type: 'POST',
+		      data: {'searchcontent':searchcontent},
+		      success: function(data) {
+		      	this.setState({
+		      		data:data
+		      	})
+		      }.bind(this),
+		      error: function(xhr, status, err) {
+		        console.error(this.props.url, status, err.toString());
+		      }.bind(this)
+		    });
+	},
 	loadFormFromServer:function(){
 		$.ajax({
 	      url: this.props.url,
@@ -60,56 +80,33 @@ var HotContainer = React.createClass({
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
-    	var searchdata = $.pubsub('subcsribe',function(data){
-    		this.setState({
-	    		'data':searchdata
-	    	});
-    	});
   	},
 	render:function(){
 		return(
 			<div>
+			<header>
+				<ul className='index_head'>
+					<li className='index_head_pen'><a href="index.html">PenManBox</a></li>
+					<li className='index_head_theme'><a href="theme.html">theme</a></li>
+					<li className='index_head_comeon'><a href="comeon.html">来一发</a></li>
+					<li className='index_head_home'><a href="home.html">home</a></li>
+					<li className="index_log" id="index_log">
+						<div>
+							<input type="text" placeholder="theme search" className="theme_search" ref="searchcontent"/>
+							<div className="theme_searchlogo" id="search" onClick={this.handlesearch}>
+								<img src="img/iconfont-search.png" />
+							</div>
+						</div>
+					</li>
+				</ul>
+			</header>
 				<Hot data={this.state.data}/>
 			</div>
 		)
 	}
 });
 
-var Search = React.createClass({
-	handlesearch:function(e){
-		var searchcontent = this.refs.searchcontent.value.trim();
-		$.ajax({
-		      url: '/api/themesearch',
-		      dataType: 'json',
-		      type: 'POST',
-		      data: {'searchcontent':searchcontent},
-		      success: function(data) {
-		      	console.log(data);
-		      	$.pubsub('subcsribe',data);
-		      }.bind(this),
-		      error: function(xhr, status, err) {
-		        console.error(this.props.url, status, err.toString());
-		      }.bind(this)
-		    });
-	},
-	render:function(){
-		return(
-			<div>
-				<input type="text" placeholder="theme search" className="theme_search" ref="searchcontent"/>
-				<div className="theme_searchlogo" id="search" onClick={this.handlesearch}>
-					<img src="img/iconfont-search.png" />
-				</div>
-			</div>
-		)
-	}
-});
-
-ReactDOM.render(
-	<Search />,
-	document.getElementById('index_log')
-)
-
 ReactDOM.render(
 	<HotContainer url="/api/theme"/>,
-	document.getElementById('index_hot')
+	document.getElementById('container')
 )
