@@ -133,14 +133,20 @@ var UpdataShow = React.createClass({
 var AuthorInfo = React.createClass({
 	render:function(){
 		var haswork = this.props.haswork;
-		return(
-			<div className="home_anthorinfo">
+		if(haswork)
+			return (
+				<div className="home_anthorinfo">
 				<div className="home_head">
 					<img src="head/penmanbox_dog.png"/>
 				</div>
 				<div className="home_changehead">换头</div>
-				<div className={haswork ? "index_container_line" : ''}></div>
-				<div className={haswork ? "home_no" : "home_nowork"}>居然一个作品都没有，你也是够了。。。</div>
+				<div className="index_container_line" ></div>
+			</div>
+			);
+		else
+		return(
+			<div className="home_anthorinfo">
+				<div className="home_nowork">居然一个作品都没有，你也是够了。。。</div>
 			</div>
 		)
 	}

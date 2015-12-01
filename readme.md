@@ -67,3 +67,17 @@ server.js里面最后使用404中间件，url输入未找到时触发，可是�
 
 ###返回数据后重新刷新
 用了原生js的reload，应该不好，最好用react的方式，暂时没做
+
+###React遇到很多DOM需要懒加载吗
+不需要
+
+###将log和pic组件分开弊端
+不能在登录之后马上显示，最好建立通信，log组件能通知其他所有组件已经登录
+
+###组件加style?
+react组件添加的是数据，样式怎么改？
+var divStyle = {  
+    color: 'white',  
+    WebkitTransition: 'all'  
+}   
+React.renderComponent(<div style={divStyle}>Hello</div>)  

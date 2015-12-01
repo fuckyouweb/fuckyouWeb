@@ -1,4 +1,39 @@
 var Pic = React.createClass({
+	handleclose:function(){
+		this.setState({
+			data:{
+				'coverclose':0
+			}
+		});
+		console.log('handleclose='+this.state.data.coverclose);
+	},
+	handleImgClick:function(){
+		this.setState({
+			data:{
+				'coverclose':1
+			}
+		})
+	},
+	componentDidMount: function() {
+		var scrollTop=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+		var theme = this.props.theme;
+		var describe = this.describe;
+		var photo = this.props.photo;
+		var close = +this.state.data.coverclose;
+		console.log('this.state.data.coverclose='+(!close));
+    	if(this.state.data.coverclose){
+    		console.log('if');
+    		ReactDOM.render(
+				<Cover theme={theme} describe={describe} photo={photo} top={scrollTop} handlecoverclose={this.handleclose}/>,
+				document.getElementById('index_cover')
+			)
+    	}else{
+    		console.log('else');
+    	}
+  	},
+	getInitialState: function() {
+    	return {data: {'coverclose':0}};
+  	},
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
@@ -6,12 +41,12 @@ var Pic = React.createClass({
 		var photo = this.props.photo;
 		return (
 			<div className="index_container_picwrap">
-				<div className="index_container_pic">
+				<div className="index_container_pic" onClick={this.handleImgClick}>
 					<img src={photo} />
 				</div>
 				<div className="index_container_word">
 					<div className="index_container_author">
-						<img src={head} />
+						<img src={head}/>
 					</div>
 					<div className="index_container_describe">
 						<div className="index_container_boss">boss:{name}</div>
@@ -23,13 +58,39 @@ var Pic = React.createClass({
 	}
 });
 
+var Cover = React.createClass({
+	handlecoverclose:function(){
+		this.props.coverclose();
+	},
+	render:function(){
+		var theme = this.props.theme;
+		var describe = this.props.describe;
+		var photo = this.props.photo;
+		var top = this.props.top;
+		var coverStyle = {
+			'top':top
+		}
+		return (
+			<div className="index_cover" style={coverStyle}>
+				<div className="index_cover_pic">
+					<img src ={photo}/>
+				</div>
+				<div className="index_cover_word">
+					<div className="index_cover_theme">theme:{theme}</div>
+					<div className="index_cover_describe">describe:{describe}</div>
+				</div>
+				<div className="index_close" onClick={this.handlecoverclose}>x</div>
+			</div>
+		)
+	}
+})
+
 var Hot = React.createClass({
 	render:function(){
 		var hotrate = this.props.data[0].hotrate;
 		var Pics = this.props.data.map(function(value,index){
-			console.log(value.name);
 			return (
-				<Pic key={index} name={value.name} theme={value.theme} head={value.head} photo={value.photo}/>
+				<Pic key={index} name={value.authorname} theme={value.theme} describe={value.describe} head={value.head} photo={value.photo}/>
 			);
 		});
 		return (
@@ -70,6 +131,7 @@ var HotContainer = React.createClass({
 	render:function(){
 		return(
 			<div>
+			<div id="index_cover"></div>
 				<Hot data={this.state.data1}/>
 				<Hot data={this.state.data2}/>
 				<Hot data={this.state.data3}/>

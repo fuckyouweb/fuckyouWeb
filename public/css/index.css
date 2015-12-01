@@ -96,7 +96,7 @@ body {
     position: relative;
     border: 0px solid #000000;
   }
-  .index_container_hot:nth-child(3) {
+  .index_container_hot:last-child {
     padding-bottom: 5rem;
   }
   .index_container_line {
@@ -175,6 +175,56 @@ body {
   }
   .index_container_describe span {
     white-space: nowrap;
+  }
+  .index_cover {
+    width: 80%;
+    background-color: #d8d8d8;
+    opacity: 0.9;
+    position: absolute;
+    z-index: 199;
+    left: 10%;
+  }
+  .index_cover .index_cover_pic {
+    width: 60%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .index_cover img {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  .index_cover .index_cover_word {
+    display: inline-block;
+    width: 30%;
+  }
+  .index_cover .index_cover_theme,
+  .index_cover .index_cover_describe {
+    background-color: #eee;
+    border-radius: 1rem;
+    font-size: 2rem;
+    vertical-align: top;
+    margin-left: 10%;
+    position: relative;
+    height: 5rem;
+    line-height: 5rem;
+  }
+  .index_cover .index_cover_describe {
+    margin-top: 3rem;
+    height: 15rem;
+    line-height: 5rem;
+  }
+  .index_cover .index_close {
+    background-color: #000;
+    opacity: 0.8;
+    color: #d8d8d8;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    line-height: 3rem;
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 /*mobile css*/
@@ -300,7 +350,7 @@ body {
   .index_container_describe span {
     white-space: nowrap;
   }
-  .index_container_hot:nth-child(3) {
+  .index_container_hot:last-child {
     padding-bottom: 5rem;
   }
 }
@@ -317,7 +367,6 @@ footer {
   height: 4rem;
   text-align: center;
   line-height: 2rem;
-  z-index: 99;
 }
 footer a {
   color: #eee !important;

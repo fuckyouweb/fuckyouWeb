@@ -124,7 +124,7 @@ html,body{
 		position: relative;
 		.border();
 	}
-	.index_container_hot:nth-child(3){
+	.index_container_hot:last-child{
 		padding-bottom: 5rem;
 	}
 	// 热区分割线
@@ -208,6 +208,56 @@ html,body{
 			white-space: nowrap;
 		}
 	}
+	.index_cover{
+		width: 80%;
+		background-color: @color_gray;
+		opacity: 0.9;
+		position: absolute;
+		z-index: 199;
+		left: 10%;
+		.index_cover_pic{
+			width: 60%;
+			display: inline-block;
+			vertical-align: top;
+		}
+		img{
+			margin:0 auto;
+			max-width: 100%;
+		}
+		.index_cover_word{
+			display: inline-block;
+			width: 30%;
+		}
+		.index_cover_theme,.index_cover_describe{
+		    background-color: #eee;
+		    border-radius: 1rem;
+		    font-size: 2rem;
+		    vertical-align: top;
+		    margin-left: 10%;
+		    position: relative;
+		    height: 5rem;
+		    line-height:5rem; 
+		}
+		.index_cover_describe{
+			margin-top: 3rem;
+			height: 15rem;
+		    line-height:5rem;
+		}
+		.index_close{
+			background-color: #000;
+			opacity: 0.8;
+			color:@color_gray;
+			width: 3rem;
+			height: 3rem;
+			text-align: center;
+			line-height: 3rem;
+			font-size: 2rem;
+			position: absolute;
+			top:0;
+			right: 0;
+		}
+	}
+
 }
 
 /*mobile css*/
@@ -345,7 +395,7 @@ html,body{
 			white-space: nowrap;
 		}
 	}
-	.index_container_hot:nth-child(3){
+	.index_container_hot:last-child{
 		padding-bottom: 5rem;
 	}
 }
@@ -363,7 +413,6 @@ footer{
 	height: 4rem;
 	text-align: center;
 	line-height: 2rem;
-	z-index: 99;
 	a{
 		color: #eee !important;
 	}
