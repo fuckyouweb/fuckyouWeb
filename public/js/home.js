@@ -44,6 +44,7 @@ var Pic = React.createClass({
 	getInitialState:function(){
 		return {data:{'display':'0'}};
 	},
+	
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
