@@ -46,7 +46,12 @@
   }
   header ul li:nth-child(5) {
     font-size: 1.5rem;
-    line-height: 6;
+  }
+  header ul li:nth-child(5) span {
+    white-space: nowrap;
+  }
+  header ul li:nth-child(5) div > span:last-child {
+    color: #d8d8d8;
   }
   header .index_log:hover a:last-child {
     color: #f47fb5 !important;

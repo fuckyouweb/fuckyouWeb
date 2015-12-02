@@ -9,7 +9,7 @@ var workSchema = new mongoose.Schema({
 	head:String,
 	photo:String,  // theme+date
 	hotrate:Number,
-	userid:String,//userid
+	userid:String,
 	username:String
 },{
 	minimize:false
@@ -33,23 +33,10 @@ workSchema.static('deleteWorkById',function(workid,cb){
 
 
 workSchema.static('updateWork', function (workid,theme,describe, cb) {
-    console.log('workid='+workid);
     return this.update({
         '_id': workid
     }, {'theme': theme,'describe': describe}).exec(cb);
 });
-
-// workSchema.static('linkProject', function (fileId, projectEntity) {
-//     return this.findOneAndUpdate({
-//         _id: fileId
-//     }, {project: projectEntity}, {'new': true}).exec(function () {
-//     });
-// });
-
-// workSchema.static('getListByProject', function (projectId, cb) {
-//     return this.find({project: projectId,state:1}).exec(cb);
-// });
-
 
 var WorkModel = mongoose.model('Work',workSchema);
 module.exports = WorkModel;

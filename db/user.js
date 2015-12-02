@@ -16,13 +16,10 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.static('checkUser', function ( value,cb) {
-	console.log(22222);
-	console.log('value.email='+value.email+'  value.psw='+value.psw);
     return this.find({"email":value.email,"psw":value.psw}).exec(cb);
 });
 
 userSchema.static('getUser', function (cb) {
-	//console.log('value='+value);
     return this.find().exec(cb);
 });
 
@@ -33,27 +30,6 @@ userSchema.static('getUserByEmail',function(value,cb){
 userSchema.static('getUserById',function(value,cb){
 	return this.find({"_id":value}).exec(cb);
 });
-//userSchema.set('autoIndex', true);
-
-// userSchema.static('getList',function(cb){
-// 	return this.find().sort({releaseTime:-1}).exec(cb);
-// });
-
-// userSchema.static('delUser',function(userId,cb){
-// 	return this.findByIdAndRemove(userId).exec(cb);
-// });
-
-// userSchema.static('getUser',function(userId,cb){
-// 	return this.findById(userId,function(err,userEntity){
-// 		if(userEntity){
-
-// 		}
-// 	})
-// });
-
-// userSchema.static('updateUser',function(newUser,cb){
-
-// });
 
 var UserModel = mongoose.model('User',userSchema);
 module.exports = UserModel;

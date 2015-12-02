@@ -25,7 +25,6 @@ var Pic = React.createClass({
 		console.log('1111==='+this.state.data.display);
 	},
 	handleUpdate:function(){
-		//var id = this.props.id;
 		this.setState({data :{ 'display':'1'}});
 		console.log('this.state.data.display='+this.state.data.display);
 		var id = this.props.containID;
@@ -120,8 +119,6 @@ var UpdataShow = React.createClass({
 		return{data:{display:this.props.updateAdd}}
 	},
 	render:function(){
-		//var display = +this.props.updateAdd.display;
-		//console.log('display='+display);
 		return(
 			<div className={this.state.data.display?"home_updateshow":"home_updateshow_close"}>
 			<form onSubmit={this.handleSubmit}>
@@ -163,7 +160,6 @@ var AuthorInfo = React.createClass({
 var Hot = React.createClass({
 	render:function(){
 		var haswork = this.props.data.length;
-		//console.log(haswork);
 		if(haswork){
 			var Pics = this.props.data.map(function(value,index){
 				return (

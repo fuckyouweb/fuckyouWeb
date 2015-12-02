@@ -3,11 +3,15 @@
  - 后台按照主题进行筛选
  - react两个组件通信
  - react判断状态进行渲染
- - 自动提示json文件
+ 自动提示json文件
  
 ###home设计切图
- - 更换用户头像
+更换用户头像
  - 对图片渲染时带上id,ajax删除带id，修改时ajax带id，修改主题、描述
+
+login登出
+
+路由切分
 
 ###点击看大图
 react 浮层 {photo}＋{describe}
@@ -18,6 +22,6 @@ react 浮层 {photo}＋{describe}
 comeon照片裁剪预览
 
 多次下拉判断成一次
-Mac抖动
+
 
 

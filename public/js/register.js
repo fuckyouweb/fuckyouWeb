@@ -29,6 +29,23 @@ var LoginShow = React.createClass({
 		      }.bind(this)
 		    });
 	},
+	handleLeave:function(){
+		if(confirm("你确定要离开我嘛T^T")){
+			$.ajax({
+		      url: '/api/userleave',
+		      dataType: 'json',
+		      cache: false,
+		      success: function(data){//1-leave
+		      	if(data.code == 1){
+		        	window.location.reload();
+		      	}
+		      }.bind(this),
+		      error: function(xhr, status, err) {
+		        console.error(this.props.url, status, err.toString());
+		      }.bind(this)
+		    });
+		}
+	},
 	loadFormFromServer: function() {
 	    $.ajax({
 	      url: '/api/indexuser',
@@ -94,7 +111,8 @@ var LoginShow = React.createClass({
 		}else{
 			return(
 				<div>
-				<p className="header_welcome">Welcome {this.state.user} !</p>
+				<span className="header_welcome">Welcome {this.state.user} !</span>
+				<span onClick={this.handleLeave}>  离开</span>
 				</div>
 			)
 		}

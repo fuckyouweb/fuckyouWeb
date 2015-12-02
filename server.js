@@ -17,7 +17,6 @@ var LOGIN_FILE = path.join(__dirname, 'login.json');
 var INDEX_FILE = path.join(__dirname, 'index.json');
 var PHOTO_PATH = path.join(__dirname,'public/authorphoto');
 var HEAD_PATH = path.join(__dirname,'public/head');
-//var PHOTO_NEWPATH = path.join(__dirname,'/public/diskphoto');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -67,7 +66,6 @@ switch(app.get('env')){
     }));
     break;
 }
-
 
 /*server for login*/
 app.get('/api/login', function(req, res) {
@@ -128,7 +126,7 @@ function Mywork(authorname,id,theme,describe,photo,hotrate){
   this.theme = theme;
   this.describe = describe;
   this.photo = photo;
-  this.hotrate = hotrate;
+  //this.hotrate = hotrate;
 }
 
 /*server for index*/
@@ -144,19 +142,16 @@ app.get('/api/index', function(req, res) {
 
   themes.forEach(function(theme,number){
     var works = Work.getWorks(theme,function(err,works){
-      //console.log('works='+works);
       if(err) console.error(err);
       else{
         works.forEach(function(value,index){
           var nowdata = 'data'+(number+1);
           var authorname = (value.name ? value.name : '匿名' );
-          indexjson[nowdata][index] = new Mywork(authorname,value.id,value.theme,value.describe,'authorphoto/'+value.photo,value.hotrate,authorname);
+          indexjson[nowdata][index] = new Mywork(authorname,value.id,value.theme,value.describe,'authorphoto/'+value.photo);
         });
       }//else
       cnt++;
-      //console.log('cnt='+cnt); 
       if(cnt == 3){
-      //console.log('indexjson='+indexjson);
       res.status(200);
       res.json(indexjson); 
     }    
@@ -180,20 +175,29 @@ app.get('/api/indexuser',function(req,res){
   }
 });
 
+app.get('/api/userleave',function(req,res){
+    req.session.destroy(function (err) {
+      if (err) {
+        console.error(err);
+      } else {
+          res.status(200).send({
+              code: 1
+          });
+      }
+  });
+});
 
 /*server for theme*/
 app.get('/api/theme', function(req, res) {
   var works = Work.getWorksList(function(err,works){      
     if(err) console.error(err);
     else{
-      console.log('works='+works);
       res.json(works);
     }//else
   });      
 });
 
 app.post('/api/themesearch',function(req,res){
-  console.log('search');
   var searchcontent = req.body.searchcontent;
   Work.getWorks(searchcontent,function(err,works){
     if(err) console.error(err);
@@ -206,7 +210,6 @@ app.post('/api/themesearch',function(req,res){
 /*server for home*/
 app.get('/api/home', function(req, res) {
   var userid = req.session.userid || '';
-  console.log('userid-----='+userid );
   if(userid != ''){
     var works = Work.getWorksByUserId(userid,function(err,works){      
       if(err) console.error(err);
@@ -279,11 +282,6 @@ var comeonfile = upload.fields([
   {name:'photo',maxCount:10000}]);
 
 app.post('/api/comeon',comeonfile,function(req,res){
-  console.log(3);
-  console.dir(req.files);
-  //console.dir('req='+req);
-  // var file = req.files;
-  
   var filename = req.files["photo"][0]["filename"];
   var mimetype = req.files["photo"][0]["mimetype"];
   var imgtype = mimetype.toLowerCase().substring(6);
@@ -324,9 +322,8 @@ app.post('/api/comeon',comeonfile,function(req,res){
   /*rename img in authorphoto*/
   var authorimg = PHOTO_PATH+'/'+theme+date+'.'+imgtype;
   fs.rename(PHOTO_PATH+'/'+filename,authorimg,function(err){
-    console.log(7);
     if(err){
-       console.log(err);  
+       console.error(err);  
     }else{
        console.log('renamed complete');
      }
@@ -334,11 +331,7 @@ app.post('/api/comeon',comeonfile,function(req,res){
 });
 
 app.get('/api/comeon', function(req, res) {
-  console.log(2);
-  console.dir(req.session);
-  console.log('req.session.email='+req.session.email)
   if(req.session.useremail == undefined || req.session.useremail == ''){
-    console.log('email undefined!');
     res.status('200');
     res.send({
       'code':0
@@ -379,12 +372,8 @@ app.post('/api/deletework',function(req,res){
 });
 
 app.post('/api/updatework',function(req,res){
-  console.log('updatework');
-  console.dir(req.body);
   var workid = req.body.id;
   var theme = req.body.theme;
-  var describe = req.body.describe;
-  console.log('22222'+workid);
   Work.updateWork(workid,theme,describe,function(err){
     if(err) console.error(err);
     else{
