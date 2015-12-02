@@ -1,39 +1,12 @@
+var _cover = null; //组件句柄
+
 var Pic = React.createClass({
-	handleclose:function(){
-		this.setState({
-			data:{
-				'coverclose':0
-			}
-		});
-		console.log('handleclose='+this.state.data.coverclose);
-	},
 	handleImgClick:function(){
-		this.setState({
-			data:{
-				'coverclose':1
-			}
-		});
-	},
-	componentDidMount: function() {
-		var scrollTop=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
 		var theme = this.props.theme;
-		var describe = this.describe;
 		var photo = this.props.photo;
-		var close = +this.state.data.coverclose;
-		console.log('this.state.data.coverclose='+(!close));
-   //  	if(this.state.data.coverclose){
-   //  		console.log('if');
-   //  		ReactDOM.render(
-			// 	<Cover theme={theme} describe={describe} photo={photo} top={scrollTop} handlecoverclose={this.handleclose}/>,
-			// 	document.getElementById('index_cover')
-			// )
-   //  	}else{
-   //  		console.log('else');
-   //  	}
-  	},
-	getInitialState: function() {
-    	return {data: {'coverclose':0}};
-  	},
+		var describe = this.props.describe;
+		return _cover.handleCoverShow(photo,theme,describe);
+	},	
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
@@ -59,16 +32,15 @@ var Pic = React.createClass({
 });
 
 var Cover = React.createClass({
-	handlecoverclose:function(){
-		this.props.coverclose();
-	},
 	render:function(){
-		var theme = this.props.theme;
-		var describe = this.props.describe;
-		var photo = this.props.photo;
-		var top = this.props.top;
+		var theme = this.props.coverdata.theme;
+		var describe = this.props.coverdata.describe;
+		var photo = this.props.coverdata.photo;
+		var top = this.props.coverdata.top;
+		var coverclose = this.props.coverdata.coverclose;
 		var coverStyle = {
-			'top':top
+			transform:'translateX(0%)',
+			top:top
 		}
 		return (
 			<div className="index_cover" style={coverStyle}>
@@ -105,16 +77,37 @@ var Hot = React.createClass({
 });
 
 var HotContainer = React.createClass({
+	handleCoverClose:function(){//浮层隐藏
+		this.setState({
+			coverdata:{
+				'coverclose':0,
+			}
+		});
+	},
+	handleCoverShow:function(photo,theme,describe){//浮层显示
+		var scrollTop=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+		this.setState({
+			coverdata:{
+				'coverclose':1,
+				'theme':theme,
+				'describe':describe,
+				'photo':photo,
+				'top':scrollTop
+			}
+		});
+	},
 	loadFormFromServer:function(){
 		$.ajax({
 	      url: this.props.url,
 	      dataType: 'json',
 	      cache:false,
 	      success: function(data) {
-	        this.setState({
+	        this.setState({data:
+	        	{
 	        	data1:data.data1,
 	        	data2:data.data2,
 	        	data3:data.data3
+	        	}
 	        });
 	      }.bind(this),
 	      error: function(xhr, status, err) {
@@ -123,7 +116,8 @@ var HotContainer = React.createClass({
 	    });
 	},
 	getInitialState:function(){
-		return {data1:[{'area':1}],data2:[{'area':2}],data3:[{'area':3}]}
+		_cover = this;
+		return {data:{data1:[{'area':1}],data2:[{'area':2}],data3:[{'area':3}]},coverdata:{}}
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
@@ -131,10 +125,10 @@ var HotContainer = React.createClass({
 	render:function(){
 		return(
 			<div>
-			<div id="index_cover"></div>
-				<Hot data={this.state.data1}/>
-				<Hot data={this.state.data2}/>
-				<Hot data={this.state.data3}/>
+			<Cover coverdata={this.state.coverdata}/>
+				<Hot data={this.state.data.data1}/>
+				<Hot data={this.state.data.data2}/>
+				<Hot data={this.state.data.data3}/>
 			</div>
 		)
 	}

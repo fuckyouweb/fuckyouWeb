@@ -177,6 +177,8 @@ body {
     white-space: nowrap;
   }
   .index_cover {
+    -webkit-transform: translateX(-200%);
+    transform: translateX(-200%);
     width: 80%;
     background-color: #d8d8d8;
     opacity: 0.9;
