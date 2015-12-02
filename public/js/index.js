@@ -12,7 +12,7 @@ var Pic = React.createClass({
 			data:{
 				'coverclose':1
 			}
-		})
+		});
 	},
 	componentDidMount: function() {
 		var scrollTop=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
@@ -21,15 +21,15 @@ var Pic = React.createClass({
 		var photo = this.props.photo;
 		var close = +this.state.data.coverclose;
 		console.log('this.state.data.coverclose='+(!close));
-    	if(this.state.data.coverclose){
-    		console.log('if');
-    		ReactDOM.render(
-				<Cover theme={theme} describe={describe} photo={photo} top={scrollTop} handlecoverclose={this.handleclose}/>,
-				document.getElementById('index_cover')
-			)
-    	}else{
-    		console.log('else');
-    	}
+   //  	if(this.state.data.coverclose){
+   //  		console.log('if');
+   //  		ReactDOM.render(
+			// 	<Cover theme={theme} describe={describe} photo={photo} top={scrollTop} handlecoverclose={this.handleclose}/>,
+			// 	document.getElementById('index_cover')
+			// )
+   //  	}else{
+   //  		console.log('else');
+   //  	}
   	},
 	getInitialState: function() {
     	return {data: {'coverclose':0}};

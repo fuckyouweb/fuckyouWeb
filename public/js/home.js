@@ -1,13 +1,12 @@
 var Pic = React.createClass({
-	handledelete:function(){
+	handleDelete:function(){
 		if(confirm('Are you sure to delete?!!')){
-			var id = this.props.containID;
-			console.log(id);
+			var workid = this.props.containID;
 			$.ajax({
 		      url: '/api/deletework',
 		      dataType: 'json',
 		      type: 'POST',
-		      data:{'workid':id},
+		      data:{'workid':workid},
 		      success: function(data) {
 		      	if(data.code == 1){
 		      		alert('delete success!');
@@ -20,25 +19,25 @@ var Pic = React.createClass({
 		    });
 	    }
 	},
-	handleupdateclose:function(){
+	handleUpdateClose:function(){
 		console.log(5555);
 		this.setState({data :{ 'display':'0'}});
 		console.log('1111==='+this.state.data.display);
 	},
-	handleupdate:function(){
+	handleUpdate:function(){
 		//var id = this.props.id;
 		this.setState({data :{ 'display':'1'}});
 		console.log('this.state.data.display='+this.state.data.display);
 		var id = this.props.containID;
 		var theme = this.props.theme;
 		var describe = this.props.describe;
-		var updataadd = {
+		var updateAdd = {
 			'id':id,
 			'display':this.state.data.display
 		};
 		var dom_container = document.getElementById("home_updateshow_"+id);
 		ReactDOM.render(
-			<UpdataShow updataadd={updataadd} key={id} handleclose={this.handleupdateclose}/>,
+			<UpdataShow updateAdd={updateAdd} key={id} handleclose={this.handleUpdateClose}/>,
 			dom_container
 		)
 	},
@@ -63,8 +62,8 @@ var Pic = React.createClass({
 					<div className="index_container_describe">
 						<div className="index_container_theme">theme:{theme}</div>
 						<div className="home_button">
-							<div className="home_delete" id={id} onClick={this.handledelete}>删除</div>
-							<div className="home_update" id={id} onClick={this.handleupdate}>修改</div>
+							<div className="home_delete" id={id} onClick={this.handleDelete}>删除</div>
+							<div className="home_update" id={id} onClick={this.handleUpdate}>修改</div>
 						</div>
 					</div>
 				</div>
@@ -91,7 +90,7 @@ var UpdataShow = React.createClass({
 		e.preventDefault();
 		var theme = this.refs.theme.value.trim();
 		var describe= this.refs.describe.value.trim();
-		var id = this.props.updataadd.id;
+		var id = this.props.updateAdd.id;
 		var form = {
 			'theme':theme,
 			'describe':describe,
@@ -115,13 +114,13 @@ var UpdataShow = React.createClass({
 	},
 	handleClick: function () {
 		this.setState({data:{display:0}});
-		$("#home_updateshow_"+this.props.updataadd.id).html("")
+		$("#home_updateshow_"+this.props.updateAdd.id).html("")
 	},
 	getInitialState: function () {
-		return{data:{display:this.props.updataadd}}
+		return{data:{display:this.props.updateAdd}}
 	},
 	render:function(){
-		//var display = +this.props.updataadd.display;
+		//var display = +this.props.updateAdd.display;
 		//console.log('display='+display);
 		return(
 			<div className={this.state.data.display?"home_updateshow":"home_updateshow_close"}>
