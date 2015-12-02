@@ -10,7 +10,7 @@ var Pic = React.createClass({
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
-		var head = this.props.head;
+		var head = 'head/penmanbox_dog.png';
 		var photo = 'authorphoto/'+this.props.photo;
 		return (
 			<div className="index_container_picwrap">

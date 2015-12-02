@@ -136,6 +136,9 @@ var UpdataShow = React.createClass({
 })
 
 var AuthorInfo = React.createClass({
+	handleChangeHead:function(){
+		alert("功能尚未开启，你还是先当一只狗吧～");
+	},
 	render:function(){
 		var haswork = this.props.haswork;
 		if(haswork)
@@ -144,7 +147,7 @@ var AuthorInfo = React.createClass({
 				<div className="home_head">
 					<img src="head/penmanbox_dog.png"/>
 				</div>
-				<div className="home_changehead">换头</div>
+				<div className="home_changehead" onClick={this.handleChangeHead}>换头</div>
 				<div className="index_container_line" ></div>
 			</div>
 			);
