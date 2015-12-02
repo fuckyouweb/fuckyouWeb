@@ -32,6 +32,9 @@ var Pic = React.createClass({
 });
 
 var Cover = React.createClass({
+	handlecoverclose:function(){
+		_cover.handleCoverClose();
+	},
 	render:function(){
 		var data = this.props.coverdata;
 		var theme = data.theme;
@@ -39,9 +42,17 @@ var Cover = React.createClass({
 		var photo = data.photo;
 		var top = data.top;
 		var coverclose = data.coverclose;
-		var coverStyle = {
-			transform:'translateX(0%)',
-			top:top
+		var coverStyle;
+		if(coverclose){//=1,show
+			coverStyle = {
+				transform:'translateX(0%)',
+				top:top
+			}
+		}else{//=0,hidden
+			coverStyle = {
+				transform:'translateX(200%)',
+				top:top
+			}
 		}
 		return (
 			<div className="index_cover" style={coverStyle}>
