@@ -9,7 +9,6 @@ body {
   height: 100%;
   position: relative;
 }
-/*PC css*/
 @media screen and (min-width: 765px) {
   html {
     font-size: 10px;

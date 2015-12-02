@@ -33,11 +33,12 @@ var Pic = React.createClass({
 
 var Cover = React.createClass({
 	render:function(){
-		var theme = this.props.coverdata.theme;
-		var describe = this.props.coverdata.describe;
-		var photo = this.props.coverdata.photo;
-		var top = this.props.coverdata.top;
-		var coverclose = this.props.coverdata.coverclose;
+		var data = this.props.coverdata;
+		var theme = data.theme;
+		var describe = data.describe;
+		var photo = data.photo;
+		var top = data.top;
+		var coverclose = data.coverclose;
 		var coverStyle = {
 			transform:'translateX(0%)',
 			top:top

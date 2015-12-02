@@ -78,7 +78,7 @@ var LoginShow = React.createClass({
 				<form onSubmit={this.handleSubmit}>
 					<div className="login_allowlogin_show"><p>通行证</p>						
 						<input type="text" placeholder="your email" className="login_allowlogin_showword" ref="email"/>
-						<input type="text" placeholder="your password" className="login_allowlogin_showword" ref="psw"/>
+						<input type="password" placeholder="your password" className="login_allowlogin_showword" ref="psw"/>
 						<button type="submit" className="login_writelogin_submit">Touch!</button>
 					</div>
 				</form>

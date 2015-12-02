@@ -9,7 +9,8 @@ body {
   height: 100%;
   position: relative;
 }
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   border: 1px solid #d8d8d8;
 }
 /*PC css*/

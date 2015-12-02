@@ -27,8 +27,8 @@ var LoginWriteloginForm = React.createClass({
 		<form className="login_writelogin_form" onSubmit={this.handleSubmit}>
 			<input type='text' name='yourname' className='login_writelogin_name login_inputstyle' placeholder='your name:' ref='name'/>
 			<input type='text' name='youremail' className='login_writelogin_email login_inputstyle' placeholder='your e-mail:' ref='email'/>
-			<input type='text' name='yourpsw' className='login_writelogin_psw login_inputstyle' placeholder='your password:' ref='psw'/> 
-			<input type='text' name='yourpswconfirm' className='login_writelogin_pswconfirm login_inputstyle' placeholder='your password again:' ref='pswconfirm'/>
+			<input type='password' name='yourpsw' className='login_writelogin_psw login_inputstyle' placeholder='your password:' ref='psw'/> 
+			<input type='password' name='yourpswconfirm' className='login_writelogin_pswconfirm login_inputstyle' placeholder='your password again:' ref='pswconfirm'/>
 			<button type='submit'className='login_writelogin_submit'>Touch!</button>
 		</form>
 		)
@@ -97,7 +97,6 @@ var LoginContainer = React.createClass({
 	/*load the message form server or just from temp json*/
 	handleLoginFormSubmit:function(forminfo){
 		var form = forminfo;
-		//this.setState = form;
 		 $.ajax({
 		      url: this.props.url,
 		      dataType: 'json',
