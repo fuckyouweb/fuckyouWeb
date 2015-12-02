@@ -45,11 +45,17 @@ var Cover = React.createClass({
 		var coverStyle;
 		if(coverclose){//=1,show
 			coverStyle = {
+				MozTransform:'translateX(0%)',
+				OTransform:'translateX(0%)',
+				WebkitTransform:'translateX(0%)',
 				transform:'translateX(0%)',
 				top:top
 			}
 		}else{//=0,hidden
 			coverStyle = {
+				MozTransform:'translateX(200%)',
+				OTransform:'translateX(200%)',
+				WebkitTransform:'translateX(200%)',
 				transform:'translateX(200%)',
 				top:top
 			}
@@ -67,7 +73,7 @@ var Cover = React.createClass({
 			</div>
 		)
 	}
-})
+});
 
 var Hot = React.createClass({
 	render:function(){

@@ -41,7 +41,7 @@ var Pic = React.createClass({
 		)
 	},
 	getInitialState:function(){
-		return {data:{'display':'0'}};
+		return {data:{'display':'1'}};
 	},
 	
 	render:function(){

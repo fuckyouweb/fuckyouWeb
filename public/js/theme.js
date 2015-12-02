@@ -1,4 +1,12 @@
+var _cover = null; //组件句柄
+
 var Pic = React.createClass({
+	handleImgClick:function(){
+		var theme = this.props.theme;
+		var photo = 'authorphoto/'+this.props.photo;
+		var describe = this.props.describe;
+		return _cover.handleCoverShow(photo,theme,describe);
+	},
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
@@ -6,7 +14,7 @@ var Pic = React.createClass({
 		var photo = 'authorphoto/'+this.props.photo;
 		return (
 			<div className="index_container_picwrap">
-				<div className="index_container_pic">
+				<div className="index_container_pic" onClick={this.handleImgClick}>
 					<img src={photo} />
 				</div>
 				<div className="index_container_word">
@@ -18,6 +26,50 @@ var Pic = React.createClass({
 						<div className="index_container_theme">theme:{theme}</div>
 					</div>
 				</div>
+			</div>
+		)
+	}
+});
+
+var Cover = React.createClass({
+	handlecoverclose:function(){
+		_cover.handleCoverClose();
+	},
+	render:function(){
+		var data = this.props.coverdata;
+		var theme = data.theme;
+		var describe = data.describe;
+		var photo = data.photo;
+		var top = data.top;
+		var coverclose = data.coverclose;
+		var coverStyle;
+		if(coverclose){//=1,show
+			coverStyle = {
+				MozTransform:'translateX(0%)',
+				OTransform:'translateX(0%)',
+				WebkitTransform:'translateX(0%)',
+				transform:'translateX(0%)',
+				top:top
+			}
+		}else{//=0,hidden
+			coverStyle = {
+				MozTransform:'translateX(200%)',
+				OTransform:'translateX(200%)',
+				WebkitTransform:'translateX(200%)',
+				transform:'translateX(200%)',
+				top:top
+			}
+		}
+		return (
+			<div className="index_cover" style={coverStyle}>
+				<div className="index_cover_pic">
+					<img src ={photo}/>
+				</div>
+				<div className="index_cover_word">
+					<div className="index_cover_theme">theme:{theme}</div>
+					<div className="index_cover_describe">describe:{describe}</div>
+				</div>
+				<div className="index_close" onClick={this.handlecoverclose}>x</div>
 			</div>
 		)
 	}
@@ -43,6 +95,25 @@ var Hot = React.createClass({
 });
 
 var HotContainer = React.createClass({
+	handleCoverClose:function(){//浮层隐藏
+		this.setState({
+			coverdata:{
+				'coverclose':0,
+			}
+		});
+	},
+	handleCoverShow:function(photo,theme,describe){//浮层显示
+		var scrollTop=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+		this.setState({
+			coverdata:{
+				'coverclose':1,
+				'theme':theme,
+				'describe':describe,
+				'photo':photo,
+				'top':scrollTop
+			}
+		});
+	},
 	handlesearch:function(e){
 		var searchcontent = this.refs.searchcontent.value.trim();
 		$.ajax({
@@ -76,7 +147,8 @@ var HotContainer = React.createClass({
 	    });
 	},
 	getInitialState:function(){
-		return {data:[]}
+		_cover = this;
+		return {data:[],coverdata:{}}
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
@@ -100,6 +172,7 @@ var HotContainer = React.createClass({
 					</li>
 				</ul>
 			</header>
+				<Cover coverdata={this.state.coverdata}/>
 				<Hot data={this.state.data}/>
 			</div>
 		)
