@@ -374,6 +374,7 @@ app.post('/api/deletework',function(req,res){
 app.post('/api/updatework',function(req,res){
   var workid = req.body.id;
   var theme = req.body.theme;
+  var describe = req.body.describe;
   Work.updateWork(workid,theme,describe,function(err){
     if(err) console.error(err);
     else{
