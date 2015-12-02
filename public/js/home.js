@@ -20,7 +20,6 @@ var Pic = React.createClass({
 	    }
 	},
 	handleUpdateClose:function(){
-		console.log(5555);
 		this.setState({data :{ 'display':'0'}});
 		console.log('1111==='+this.state.data.display);
 	},
@@ -111,9 +110,11 @@ var UpdataShow = React.createClass({
 	      }.bind(this)
 	    });
 	},
-	handleClick: function () {
+	handleCloseClick: function () {
 		this.setState({data:{display:0}});
-		$("#home_updateshow_"+this.props.updateAdd.id).html("")
+		//$("#home_updateshow_"+this.props.updateAdd.id).html("")
+		var a = this.getDOMNode();
+		console.dir(a);
 	},
 	getInitialState: function () {
 		return{data:{display:this.props.updateAdd}}
@@ -129,7 +130,7 @@ var UpdataShow = React.createClass({
 				</textarea>
 				<button type='submit' className="home_submit">ok!</button>
 			</form>
-			<div className="home_updateclose" onClick={this.handleClick}>x</div>
+			<div className="home_updateclose" onClick={this.handleCloseClick}>x</div>
 			</div>
 		)
 	}

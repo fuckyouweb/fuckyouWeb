@@ -68,7 +68,7 @@ var Cover = React.createClass({
 				<div className="index_cover_word">
 					<div className="index_cover_theme">theme:{theme}</div>
 					<div className="index_cover_describe">describe:{describe}</div>
-				</div>
+				</div>					
 				<div className="index_close" onClick={this.handlecoverclose}>x</div>
 			</div>
 		)
