@@ -51,7 +51,18 @@ router.post('/',comeonfile,function(req,res){
         'newwork':newwork
       });    
     }
-  });//newwork.save   
+  });//newwork.save  
+  //  Work.addWork(newwork,function(err){
+  //   console.log('add');
+  //   if(err) console.error(err);
+  //   else{
+  //     res.status('200');
+  //     res.send({
+  //       'code' :'1',
+  //       'newwork':newwork
+  //     });
+  //   }
+  // });  
   
   /*rename img in authorphoto*/
   var authorimg = PHOTO_PATH+'/'+theme+date+'.'+imgtype;

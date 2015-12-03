@@ -76,10 +76,8 @@ var ComeonNoteForm = React.createClass({
 
 var ComeonNotePicShow = React.createClass({
 	render:function(){
-		var len = this.props.data.length;
-		var photo = this.props.data[len-1].photo;
 		return(
-			<div className="comeon_pic_show" ><img src={photo}/></div>
+			<div className="comeon_pic_show" ><img src='head/penmanbox_dog.png'/></div>
 		)
 	}
 })

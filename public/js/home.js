@@ -1,7 +1,9 @@
+var _updatecover = null;
+
 var Pic = React.createClass({
 	handleDelete:function(){
 		if(confirm('Are you sure to delete?!!')){
-			var workid = this.props.containID;
+			var workid = this.props.workid;
 			$.ajax({
 		      url: '/api/home/deletework',
 		      dataType: 'json',
@@ -19,38 +21,22 @@ var Pic = React.createClass({
 		    });
 	    }
 	},
-	handleUpdateClose:function(){
-		this.setState({data :{ 'display':'0'}});
-		console.log('1111==='+this.state.data.display);
+	handleUpdate:function(event){
+		var e = event || window.event;
+        var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+        var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+        var ex = e.pageX || e.clientX + scrollX;
+        var ey = e.pageY || e.clientY + scrollY;
+		//var ex = e.screenX,ey = e.screenY;
+		var workid = this.props.workid;
+		return _updatecover.handleCovershow(workid,ex,ey);
 	},
-	handleUpdate:function(){
-		this.setState({data :{ 'display':'1'}});
-		console.log('this.state.data.display='+this.state.data.display);
-		var id = this.props.containID;
-		var theme = this.props.theme;
-		var describe = this.props.describe;
-		var updateAdd = {
-			'id':id,
-			'display':this.state.data.display
-		};
-		var dom_container = document.getElementById("home_updateshow_"+id);
-		ReactDOM.render(
-			<UpdataShow updateAdd={updateAdd} key={id} handleclose={this.handleUpdateClose}/>,
-			dom_container
-		)
-	},
-	getInitialState:function(){
-		return {data:{'display':'1'}};
-	},
-	
 	render:function(){
 		var name = this.props.name;
 		var theme = this.props.theme;
 		var head = this.props.head;
 		var photo = 'authorphoto/'+this.props.photo;
-		var id = this.props.containID;
-		var show = +this.state.data.display;
-		console.log('show='+show);
+		var workid = this.props.workid;
 		return (
 			<div className="index_container_picwrap">
 				<div className="index_container_pic">
@@ -60,35 +46,22 @@ var Pic = React.createClass({
 					<div className="index_container_describe">
 						<div className="index_container_theme">theme:{theme}</div>
 						<div className="home_button">
-							<div className="home_delete" id={id} onClick={this.handleDelete}>删除</div>
-							<div className="home_update" id={id} onClick={this.handleUpdate}>修改</div>
+							<div className="home_delete" workid={workid} onClick={this.handleDelete}>删除</div>
+							<div className="home_update" workid={workid} onClick={this.handleUpdate}>修改</div>
 						</div>
 					</div>
 				</div>
-				<UpdateContainer show={show} container={id}/>
 			</div>
 		)
 	}
 });
-
-var UpdateContainer = React.createClass({
-	render:function(){
-		var show = this.props.show;
-		console.log('conshow='+show);
-		var dom_id  = "home_updateshow_" + this.props.container;
-		//if(!show)
-			return (<div id={dom_id}></div>);
-		//else
-		//	return	(<div></div>);
-	}
-})
 
 var UpdataShow = React.createClass({
 	handleSubmit:function(e){
 		e.preventDefault();
 		var theme = this.refs.theme.value.trim();
 		var describe= this.refs.describe.value.trim();
-		var id = this.props.updateAdd.id;
+		var id = this.props.updatecover.workid;
 		var form = {
 			'theme':theme,
 			'describe':describe,
@@ -111,17 +84,26 @@ var UpdataShow = React.createClass({
 	    });
 	},
 	handleCloseClick: function () {
-		this.setState({data:{display:0}});
-		//$("#home_updateshow_"+this.props.updateAdd.id).html("")
-		var a = this.getDOMNode();
-		console.dir(a);
-	},
-	getInitialState: function () {
-		return{data:{display:this.props.updateAdd}}
+		_updatecover.handleCoverClose();
 	},
 	render:function(){
+		var coverclose = this.props.updatecover.coverclose;
+		var top = this.props.updatecover.top-50;
+		var left = this.props.updatecover.left-50;
+		var coverStyle;
+		if(coverclose){//=1,show
+			coverStyle = {
+				left:left,
+				top:top
+			}
+		}else{//=0,hidden
+			coverStyle = {
+				left:'-100%',
+				top:top
+			}
+		}
 		return(
-			<div className={this.state.data.display?"home_updateshow":"home_updateshow_close"}>
+			<div className="home_updateshow" style={coverStyle}>
 			<form onSubmit={this.handleSubmit}>
 				<div className="home_theme">theme:</div>
 				<input type='text' className="home_themeinput" ref="theme"/>
@@ -167,7 +149,7 @@ var Hot = React.createClass({
 		if(haswork){
 			var Pics = this.props.data.map(function(value,index){
 				return (
-					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} containID={value._id} describe={value.describe}/>
+					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} workid={value._id} describe={value.describe}/>
 				);
 			});
 		}
@@ -203,8 +185,26 @@ var HotContainer = React.createClass({
 	      }.bind(this)
 	    });
 	},
+	handleCovershow:function(workid,ex,ey){
+		var workid = workid;
+		var ex = ex,ey = ey;
+		this.setState({
+			updatecover:{
+				workid:workid,
+				coverclose:1,
+				top:ey,
+				left:ex
+			}
+		});
+	},
+	handleCoverClose:function(){//浮层隐藏
+		this.setState({
+			updatecover:{coverclose:0}
+		});
+	},
 	getInitialState:function(){
-		return {data:[]}
+		_updatecover = this;
+		return {data:[],updatecover:{coverclose:0,top:0,left:0}}
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
@@ -212,6 +212,7 @@ var HotContainer = React.createClass({
 	render:function(){
 		return(
 			<div>
+				<UpdataShow updatecover={this.state.updatecover}/>
 				<Hot data={this.state.data}/>
 			</div>
 		)
