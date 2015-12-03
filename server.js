@@ -131,7 +131,7 @@ function Mywork(authorname,id,theme,describe,photo,hotrate){
 
 /*server for index*/
 app.get('/api/index', function(req, res) {
-  workOptions = {
+  var workOptions = {
     themes:['抽象派','黑白派','印象派']
   }
   var themes = workOptions.themes;
@@ -160,7 +160,7 @@ app.get('/api/index', function(req, res) {
 });
 
 /*server for judge the user login state*/
-app.get('/api/indexuser',function(req,res){
+app.get('/api/usercome',function(req,res){
   if(req.session.useremail == undefined){
     res.status(200);
     res.send({
@@ -197,7 +197,7 @@ app.get('/api/theme', function(req, res) {
   });      
 });
 
-app.post('/api/themesearch',function(req,res){
+app.post('/api/theme',function(req,res){
   var searchcontent = req.body.searchcontent;
   Work.getWorks(searchcontent,function(err,works){
     if(err) console.error(err);
@@ -205,7 +205,7 @@ app.post('/api/themesearch',function(req,res){
       res.json(works);
     }
   })
-})
+});
 
 /*server for home*/
 app.get('/api/home', function(req, res) {
@@ -252,7 +252,7 @@ app.post('/api/register',function(req,res){
       }
     }
   });
-})
+});
 
 
 /*server for comeon*/
@@ -305,19 +305,29 @@ app.post('/api/comeon',comeonfile,function(req,res){
     'userid':userid,
     'username':username
   });
-  newwork.save(function(err,newwork){
-    if(err){
-      console.error(err);
-    }else{
-      console.log('success work!'+newwork);
-
+  // newwork.save(function(err,newwork){
+  //   if(err){
+  //     console.error(err);
+  //   }else{
+  //     console.log('success work!'+newwork);
+  //     // res.status('200');
+  //     // res.send({
+  //     //   'code' :'1',
+  //     //   'newwork':newwork
+  //     // });    
+  //   }
+  // });//newwork.save  
+  
+  Work.addWork(newwork,function(err){
+    if(err) console.error(err);
+    else{
       res.status('200');
       res.send({
         'code' :'1',
         'newwork':newwork
-      });    
+      });
     }
-  });//newwork.save   
+  }) 
   
   /*rename img in authorphoto*/
   var authorimg = PHOTO_PATH+'/'+theme+date+'.'+imgtype;
@@ -335,12 +345,14 @@ app.get('/api/comeon', function(req, res) {
     res.status('200');
     res.send({
       'code':0
-    })
+    });
+    res.end();
   }else{
     res.status('200');
     res.send({
       'code':2
-    })
+    });
+    res.end();
   }
 });
 

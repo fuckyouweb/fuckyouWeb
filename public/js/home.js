@@ -3,7 +3,7 @@ var Pic = React.createClass({
 		if(confirm('Are you sure to delete?!!')){
 			var workid = this.props.containID;
 			$.ajax({
-		      url: '/api/deletework',
+		      url: '/api/home/deletework',
 		      dataType: 'json',
 		      type: 'POST',
 		      data:{'workid':workid},
@@ -95,7 +95,7 @@ var UpdataShow = React.createClass({
 			'id':id
 		};
 		$.ajax({
-	      url: '/api/updatework',
+	      url: '/api/home/updatework',
 	      dataType: 'json',
 	      type: 'POST',
 	      data:form,

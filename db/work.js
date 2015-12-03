@@ -27,10 +27,13 @@ workSchema.static('getWorksByUserId', function (userid, cb) {
     return this.find({"userid":userid}).exec(cb);
 });
 
+workSchema.static('addWork',function(work){
+	return work.save();
+});
+
 workSchema.static('deleteWorkById',function(workid,cb){
 	return this.findByIdAndRemove(workid).exec(cb);	
 });
-
 
 workSchema.static('updateWork', function (workid,theme,describe, cb) {
     return this.update({

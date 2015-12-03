@@ -117,7 +117,7 @@ var HotContainer = React.createClass({
 	handlesearch:function(e){
 		var searchcontent = this.refs.searchcontent.value.trim();
 		$.ajax({
-		      url: '/api/themesearch',
+		      url: '/api/theme',
 		      dataType: 'json',
 		      type: 'POST',
 		      data: {'searchcontent':searchcontent},

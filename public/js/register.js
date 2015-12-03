@@ -48,7 +48,7 @@ var LoginShow = React.createClass({
 	},
 	loadFormFromServer: function() {
 	    $.ajax({
-	      url: '/api/indexuser',
+	      url: '/api/usercome',
 	      dataType: 'json',
 	      cache: false,
 	      success: function(data){//0-not,1-exist
