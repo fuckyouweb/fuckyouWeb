@@ -6,9 +6,11 @@ body {
 /*PC css*/
 @media screen and (min-width: 765px) {
   html {
-    font-size: 10px;
+    font-size: 12px;
   }
   .index_container {
+    overflow: hidden;
+    position: relative;
     margin: 0 auto;
     border: 0px solid #000000;
     width: 80%;
@@ -109,7 +111,7 @@ body {
   .index_container_line:before {
     content: '';
     position: absolute;
-    left: -1rem;
+    left: rem;
     top: -0.8rem;
     width: 2rem;
     height: 2rem;
@@ -119,7 +121,7 @@ body {
   .index_container_hot_r,
   .index_container_hot_r1 {
     position: absolute;
-    left: 1rem;
+    left: 2rem;
     top: -0.8rem;
     width: 2rem;
     height: 2rem;
@@ -127,7 +129,7 @@ body {
     background-color: #d8d8d8;
   }
   .index_container_hot_r1 {
-    left: 3rem;
+    left: 4rem;
   }
   .index_container_picwrap {
     position: relative;
@@ -237,6 +239,8 @@ body {
     font-size: 8px;
   }
   .index_container {
+    overflow: hidden;
+    position: relative;
     margin: 0 auto;
     border: 0px solid #000000;
     width: 100%;

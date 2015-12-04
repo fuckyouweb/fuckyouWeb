@@ -25,7 +25,7 @@
     width: 100%;
     list-style: none;
     display: inline-block;
-    font-size: 2rem;
+    font-size: 20px !important;
   }
   header ul li a {
     color: #eee !important;
@@ -36,7 +36,7 @@
     -ms-flex: 2;
     flex: 2;
     width: 100%;
-    font-size: 2.5rem;
+    font-size: 25px !important;
   }
   header ul li:first-child a {
     color: #15adbc !important;
@@ -45,7 +45,7 @@
     color: #15adbc !important;
   }
   header ul li:nth-child(5) {
-    font-size: 1.5rem;
+    font-size: 15px !important;
   }
   header ul li:nth-child(5) span {
     white-space: nowrap;
@@ -116,14 +116,9 @@
     width: 128px;
     overflow: hidden;
     white-space: nowrap;
+    color: #fff;
   }
   header .index_log:hover a:last-child {
     color: #f47fb5 !important;
-  }
-  header .index_log:before {
-    content: '|';
-    position: relative;
-    left: 43px;
-    color: #fff;
   }
 }

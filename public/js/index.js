@@ -77,7 +77,9 @@ var Cover = React.createClass({
 
 var Hot = React.createClass({
 	render:function(){
-		var hotrate = this.props.data[0].hotrate;
+		var hotrate = this.props.area;
+		console.log('hotrate='+hotrate);
+		var data = 'data'+hotrate;
 		var Pics = this.props.data.map(function(value,index){
 			return (
 				<Pic key={index} name={value.authorname} theme={value.theme} describe={value.describe} head={value.head} photo={value.photo}/>
@@ -127,6 +129,7 @@ var HotContainer = React.createClass({
 	        	data3:data.data3
 	        	}
 	        });
+	        console.log('data1='+this.state.data.data1[0].describe);
 	      }.bind(this),
 	      error: function(xhr, status, err) {
 	        console.error(this.props.url, status, err.toString());
@@ -135,7 +138,7 @@ var HotContainer = React.createClass({
 	},
 	getInitialState:function(){
 		_cover = this;
-		return {data:{data1:[{'area':1}],data2:[{'area':2}],data3:[{'area':3}]},coverdata:{}}
+		return {data:{data1:[],data2:[],data3:[]},coverdata:{}}
 	},
 	componentDidMount: function() {
     	this.loadFormFromServer();
@@ -144,9 +147,9 @@ var HotContainer = React.createClass({
 		return(
 			<div>
 			<Cover coverdata={this.state.coverdata}/>
-				<Hot data={this.state.data.data1}/>
-				<Hot data={this.state.data.data2}/>
-				<Hot data={this.state.data.data3}/>
+				<Hot data={this.state.data.data1} area={1}/>
+				<Hot data={this.state.data.data2} area={2}/>
+				<Hot data={this.state.data.data3} area={3}/>
 			</div>
 		)
 	}

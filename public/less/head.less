@@ -22,14 +22,14 @@ header{
 			.flex();
 			list-style: none;
 			display: inline-block;
-			font-size: 2rem;
+			font-size: 20px !important;
 			a{
 				color: #eee !important;
 			}
 		}
 		li:first-child{
 			.flex(2);
-			font-size: 2.5rem;
+			font-size: 25px !important;
 			a{
 				color:@color_green !important;
 			}
@@ -40,7 +40,7 @@ header{
 			}
 		}
 		li:nth-child(5){
-			font-size: 1.5rem;
+			font-size: 15px !important;
 			span{
 				white-space: nowrap;
 			}
@@ -113,18 +113,13 @@ header{
 			width: 128px;
 			overflow: hidden;
 			white-space:nowrap;
+			color:#fff;
 		}
 	}
 	.index_log:hover{
 		a:last-child{
 			color: @color_pink_deep !important;
 		}
-	}
-	.index_log:before{
-		content: '|';
-	    position: relative;
-	    left: 43px;
-	    color: #fff;
 	}
 }
 }

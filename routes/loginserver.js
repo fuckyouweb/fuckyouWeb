@@ -4,7 +4,7 @@ var router = express.Router();
 var User = require('../db/user');
 var fs = require('fs');
 var path = require('path');
-//var INDEX_FILE = path.join(__dirname, '../index.json');
+var mail = require('../public/js/mail/mail');
 
 router.get('/', function(req, res) {
   var data = {
@@ -30,6 +30,8 @@ router.post('/', function(req, res) {
   reslogin.email = newlogin.email;
 
   var checkuser = newlogin.email;
+
+  mail(checkuser);
 
   /*connect to db,first to check,then save*/
   User.getUserByEmail(checkuser,function(err,userexist){

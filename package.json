@@ -8,6 +8,7 @@
     "chai": "^3.4.0",
     "connect-mongo": "^0.8.2",
     "cookie-parser": "^1.4.0",
+    "csurf": "^1.8.3",
     "express": "^4.4.5",
     "express-logger": "0.0.3",
     "express-session": "^1.12.1",

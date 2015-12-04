@@ -11,7 +11,6 @@ var Pic = React.createClass({
 		      data:{'workid':workid},
 		      success: function(data) {
 		      	if(data.code == 1){
-		      		alert('delete success!');
 		      		window.location.reload();
 		      	}
 		      }.bind(this),
@@ -27,7 +26,6 @@ var Pic = React.createClass({
         var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
         var ex = e.pageX || e.clientX + scrollX;
         var ey = e.pageY || e.clientY + scrollY;
-		//var ex = e.screenX,ey = e.screenY;
 		var workid = this.props.workid;
 		return _updatecover.handleCovershow(workid,ex,ey);
 	},
@@ -74,7 +72,6 @@ var UpdataShow = React.createClass({
 	      data:form,
 	      success: function(data) {
 	      	if(data.code == 1){
-	      		alert('update success!');
 	      		window.location.reload();
 	      	}
 	      }.bind(this),

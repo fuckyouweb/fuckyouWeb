@@ -32,7 +32,7 @@ var Pic = React.createClass({
 });
 
 var Cover = React.createClass({
-	handlecoverclose:function(){
+	handleClose:function(){
 		_cover.handleCoverClose();
 	},
 	render:function(){
@@ -69,7 +69,7 @@ var Cover = React.createClass({
 					<div className="index_cover_theme">theme:{theme}</div>
 					<div className="index_cover_describe">describe:{describe}</div>
 				</div>
-				<div className="index_close" onClick={this.handlecoverclose}>x</div>
+				<div className="index_close" onClick={this.handleClose}>x</div>
 			</div>
 		)
 	}
@@ -79,16 +79,16 @@ var Hot = React.createClass({
 	render:function(){
 		var Pics = this.props.data.map(function(value,index){
 			return (
-				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo}/>
+				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} describe={value.describe}/>
 			);
 		});
 		return (
-			<div className="index_container">
+			
 			<div className="index_container_hot">
 			<div className="index_container_line"></div>
 			{Pics}
 			</div>
-			</div>
+			
 			
 		)
 	}
@@ -172,8 +172,10 @@ var HotContainer = React.createClass({
 					</li>
 				</ul>
 			</header>
+				<div className="index_container">
 				<Cover coverdata={this.state.coverdata}/>
 				<Hot data={this.state.data}/>
+				</div>
 			</div>
 		)
 	}

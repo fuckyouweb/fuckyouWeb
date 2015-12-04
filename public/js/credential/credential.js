@@ -3,8 +3,8 @@ function credential(){
 	return{
 		cookieSecret:'put your cookie key here',
 		mymail:{
-			user:'2',
-			password:'',
+			user:'2991923157',
+			password:'123qweasdzxc',
 		},
 		mongo:{
 			development:{

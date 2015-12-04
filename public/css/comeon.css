@@ -6,7 +6,7 @@ body {
 }
 @media screen and (min-width: 765px) {
   html {
-    font-size: 10px;
+    font-size: 12px;
   }
   .comeon_note {
     z-index: 5;

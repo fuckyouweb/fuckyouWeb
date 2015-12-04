@@ -16,7 +16,7 @@ input[type="password"] {
 /*PC css*/
 @media screen and (min-width: 765px) {
   html {
-    font-size: 10px;
+    font-size: 12px;
   }
   .login_allowloagin.animate {
     -webkit-animation: shake 1s 3 3s forwards;
