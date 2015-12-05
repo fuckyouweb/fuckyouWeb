@@ -9,13 +9,13 @@ var session = require('express-session');
 
 var mail = require('./public/js/mail/mail');
 var credential = require('./public/js/credential/credential');
+var config = require('./config/index');
 
 var app = express();
+app = config(app);
 
 var PHOTO_PATH = path.join(__dirname,'public/authorphoto');
 var HEAD_PATH = path.join(__dirname,'public/head');
-
-app.set('port', (process.env.PORT || 3000));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
