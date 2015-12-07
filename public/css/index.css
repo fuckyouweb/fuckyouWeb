@@ -9,8 +9,8 @@ body {
     font-size: 12px;
   }
   .index_container {
-    overflow: hidden;
     position: relative;
+    overflow-x: hidden;
     margin: 0 auto;
     border: 0px solid #000000;
     width: 80%;

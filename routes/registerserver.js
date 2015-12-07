@@ -18,13 +18,12 @@ router.post('/api/register',function(req,res){
         req.session.username = user[0].name;
         req.session.useremail = user[0].email;
         req.session.userid = user[0].id;
-        console.dir(req.session);
         console.log('req.session.userid='+req.session.userid);
         res.status(200);
         res.send({
           'code':2,
           'username':user[0].name
-        })
+        });
       }
     }
   });

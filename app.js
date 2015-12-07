@@ -73,6 +73,8 @@ switch(app.get('env')){
     break;
 }
 
+//app.use('/admin',admin);
+
 app.use('/',index);
 app.use('/',userstate);
 app.use('/',register);

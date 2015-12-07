@@ -20,14 +20,9 @@ var Pic = React.createClass({
 		    });
 	    }
 	},
-	handleUpdate:function(event){
-		var e = event || window.event;
-        var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
-        var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-        var ex = e.pageX || e.clientX + scrollX;
-        var ey = e.pageY || e.clientY + scrollY;
+	handleUpdate:function(){	
 		var workid = this.props.workid;
-		return _updatecover.handleCovershow(workid,ex,ey);
+		return _updatecover.handleCovershow(workid);
 	},
 	render:function(){
 		var name = this.props.name;
@@ -85,17 +80,22 @@ var UpdataShow = React.createClass({
 	},
 	render:function(){
 		var coverclose = this.props.updatecover.coverclose;
-		var top = this.props.updatecover.top-50;
-		var left = this.props.updatecover.left-50;
+		var top = this.props.updatecover.top;
 		var coverStyle;
 		if(coverclose){//=1,show
 			coverStyle = {
-				left:left,
+				MozTransform:'translateX(0%)',
+				OTransform:'translateX(0%)',
+				WebkitTransform:'translateX(0%)',
+				transform:'translateX(0%)',
 				top:top
 			}
 		}else{//=0,hidden
 			coverStyle = {
-				left:'-100%',
+				MozTransform:'translateX(200%)',
+				OTransform:'translateX(200%)',
+				WebkitTransform:'translateX(200%)',
+				transform:'translateX(200%)',
 				top:top
 			}
 		}
@@ -166,7 +166,6 @@ var HotContainer = React.createClass({
 	      dataType: 'json',
 	      cache:false,
 	      success: function(data) {
-	      	console.log(data);
 	      	if(data.code == 0){
 	      		this.setState({
 	      			data:[]
@@ -182,15 +181,14 @@ var HotContainer = React.createClass({
 	      }.bind(this)
 	    });
 	},
-	handleCovershow:function(workid,ex,ey){
+	handleCovershow:function(workid){
 		var workid = workid;
-		var ex = ex,ey = ey;
+		var scrollTop = Math.max(document.documentElement.scrollTop,document.body.scrollTop);
 		this.setState({
 			updatecover:{
 				workid:workid,
 				coverclose:1,
-				top:ey,
-				left:ex
+				top:scrollTop,
 			}
 		});
 	},

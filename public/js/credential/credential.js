@@ -11,7 +11,7 @@ function credential(){
 				connectionString:'mongodb://localhost/penmanbox',
 			},
 			production:{
-				connectionString:'mongodb://localhost/penmanbox'
+				connectionString:'mongodb:test:test@115.28.90.166/penmanbox'
 			}
 		},
 		address:{

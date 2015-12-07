@@ -29,7 +29,9 @@ comeon照片裁剪预览
 ###管理页
 token和session验证
 
-移动端页面改版
+ - 移动端页面改版
+
+ home页面register和展示是分开的两个组件,最好建立通信
 
 SEO
 

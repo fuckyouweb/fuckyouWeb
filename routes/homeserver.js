@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var Work = require('../db/work');
+var path = require('path');
+var fs = require('fs');
 
 router.get('/', function(req, res) {
   console.log('home------');  
@@ -24,14 +26,18 @@ router.get('/', function(req, res) {
 
 router.post('/deletework',function(req,res){
   var workid = req.body.workid;
-  Work.deleteWorkById(workid,function(err){
+  Work.deleteWorkById(workid,function(err,works){
+    var photo = works.photo;
     if(err) console.error(err);
     else{
       res.status(200);
       res.send({
         'code':1
-      })
+      });
     }
+    fs.unlink(path.join(__dirname,'../public/authorphoto',photo),function(err){
+      if(err) console.error(err);
+    });
   });
 });
 

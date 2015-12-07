@@ -19,6 +19,7 @@ body {
     display: inline-block;
     line-height: 0 !important;
     cursor: default !important;
+    position: relative;
   }
   .theme_search {
     cursor: default !important;
@@ -32,10 +33,10 @@ body {
     padding-left: 1rem;
   }
   .theme_searchlogo {
-    width: 1.8%;
+    width: 2rem;
     position: absolute;
-    left: 89%;
-    top: 1.7rem;
+    left: 90%;
+    top: 1.5rem;
   }
   .theme_searchlogo img {
     width: 100%;
@@ -68,10 +69,10 @@ body {
     padding-left: 1rem;
   }
   .theme_searchlogo {
-    width: 1.8%;
+    width: 2rem;
     position: absolute;
-    left: 89%;
-    top: 1.7rem;
+    top: 1.5rem;
+    right: 0;
   }
   .theme_searchlogo img {
     width: 100%;

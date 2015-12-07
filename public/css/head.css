@@ -112,6 +112,7 @@
     right: 0;
     white-space: nowrap;
     color: #fff;
+    position: relative;
   }
   header .index_log:hover a:last-child {
     color: #f47fb5 !important;
