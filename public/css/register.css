@@ -128,7 +128,7 @@ input[type="password"] {
     z-index: 9;
   }
   .login_allowlogin_show {
-    margin-top: 4rem;
+    margin-top: 2rem;
     left: 5rem;
     font-size: 2rem;
     font-weight: bolder;
@@ -138,9 +138,9 @@ input[type="password"] {
     font-size: 1.5rem;
     font-weight: normal;
     text-align: left;
-    margin-left: 2rem;
-    margin-top: 2rem;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    margin: 0 auto;
   }
   .login_allowlogin_photo {
     width: 30%;
@@ -190,7 +190,7 @@ input[type="password"] {
   }
   .login_writelogin_submit {
     position: absolute;
-    width: 2rem;
+    width: 6rem;
     height: 2rem;
     text-align: center;
     line-height: 2rem;
@@ -199,8 +199,11 @@ input[type="password"] {
     font-size: 1rem;
     border-radius: 1rem;
     border: 0px solid #fff;
-    left: calc(50% - 1rem);
+    left: calc(50% - 3rem);
     bottom: 2%;
+  }
+  form {
+    color: #000;
   }
 }
 /*

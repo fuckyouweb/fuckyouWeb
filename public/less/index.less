@@ -202,7 +202,7 @@ html,body{
 	}
 	.index_container_describe{
 		//height: 90%;
-		padding-top: 3%;
+		padding-top: 2%;
 		div{
 			height: 40%;
 			padding: 5%;
@@ -261,6 +261,37 @@ html,body{
 			position: absolute;
 			top:0;
 			right: 0;
+		}
+	}
+
+	footer{
+		width: 100%;
+		position: relative;
+		bottom: 0;
+		color: #eee;
+		background-color: #000;
+		height: 4rem;
+		text-align: center;
+		line-height: 2rem;
+		a{
+			color: #eee !important;
+		}
+		ul{
+			.flexbox();
+			li{
+				.flex(1);
+				img{
+					width: 70%;
+				}
+			}
+			li:last-child{
+				position: relative;
+				img{
+					position: absolute;
+					bottom: 7%;
+					left: 15%;
+				}
+			}
 		}
 	}
 
@@ -394,7 +425,7 @@ html,body{
 	}
 	.index_container_describe{
 		height: 90%;
-		padding-top: 3%;
+		padding-top: 2%;
 		div{
 			height: 40%;
 			padding: 5%;
@@ -403,8 +434,28 @@ html,body{
 			white-space: nowrap;
 		}
 	}
-	.index_container_hot:last-child{
-		padding-bottom: 5rem;
+	footer{
+		width: 100%;
+		position: relative;
+		bottom: 0;
+		color: #eee;
+		background-color: #000;
+		height: 8rem;
+		text-align: center;
+		line-height: 2rem;
+		a{
+			color: #eee !important;
+		}
+		ul{
+			width: 100%;
+			overflow: hidden;
+			li{
+				width: 100%;
+			}
+			li:last-child{
+				display: none;
+			}
+		}
 	}
 }
 .container{
@@ -412,34 +463,5 @@ html,body{
 	background-color: @color_green;
 }
 
-footer{
-	width: 100%;
-	position: relative;
-	bottom: 0;
-	color: #eee;
-	background-color: #000;
-	height: 4rem;
-	text-align: center;
-	line-height: 2rem;
-	a{
-		color: #eee !important;
-	}
-	ul{
-		.flexbox();
-		li{
-			.flex(1);
-			img{
-				width: 70%;
-			}
-		}
-		li:last-child{
-			position: relative;
-			img{
-				position: absolute;
-				bottom: 7%;
-				left: 15%;
-			}
-		}
-	}
-}
+
 

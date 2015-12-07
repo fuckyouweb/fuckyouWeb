@@ -11,10 +11,10 @@
 
  - login登出
 
-路由切分
+ - 路由切分
 
 ###点击看大图
-react 浮层 {photo}＋{describe}
+ - react 浮层 {photo}＋{describe}
 
 ###点赞
 数据库哪里存放用户的like？
@@ -22,6 +22,16 @@ react 浮层 {photo}＋{describe}
 comeon照片裁剪预览
 
 多次下拉判断成一次
+
+###用户专页
+别人可看的页面
+
+###管理页
+token和session验证
+
+移动端页面改版
+
+SEO
 
 
 

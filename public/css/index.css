@@ -170,7 +170,7 @@ body {
     max-height: 3rem;
   }
   .index_container_describe {
-    padding-top: 3%;
+    padding-top: 2%;
   }
   .index_container_describe div {
     height: 40%;
@@ -231,6 +231,43 @@ body {
     position: absolute;
     top: 0;
     right: 0;
+  }
+  footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    color: #eee;
+    background-color: #000;
+    height: 4rem;
+    text-align: center;
+    line-height: 2rem;
+  }
+  footer a {
+    color: #eee !important;
+  }
+  footer ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  footer ul li {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+  }
+  footer ul li img {
+    width: 70%;
+  }
+  footer ul li:last-child {
+    position: relative;
+  }
+  footer ul li:last-child img {
+    position: absolute;
+    bottom: 7%;
+    left: 15%;
   }
 }
 /*mobile css*/
@@ -349,7 +386,7 @@ body {
   }
   .index_container_describe {
     height: 90%;
-    padding-top: 3%;
+    padding-top: 2%;
   }
   .index_container_describe div {
     height: 40%;
@@ -358,48 +395,31 @@ body {
   .index_container_describe span {
     white-space: nowrap;
   }
-  .index_container_hot:last-child {
-    padding-bottom: 5rem;
+  footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    color: #eee;
+    background-color: #000;
+    height: 8rem;
+    text-align: center;
+    line-height: 2rem;
+  }
+  footer a {
+    color: #eee !important;
+  }
+  footer ul {
+    width: 100%;
+    overflow: hidden;
+  }
+  footer ul li {
+    width: 100%;
+  }
+  footer ul li:last-child {
+    display: none;
   }
 }
 .container {
   width: 100%;
   background-color: #15adbc;
-}
-footer {
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  color: #eee;
-  background-color: #000;
-  height: 4rem;
-  text-align: center;
-  line-height: 2rem;
-}
-footer a {
-  color: #eee !important;
-}
-footer ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-footer ul li {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  width: 100%;
-}
-footer ul li img {
-  width: 70%;
-}
-footer ul li:last-child {
-  position: relative;
-}
-footer ul li:last-child img {
-  position: absolute;
-  bottom: 7%;
-  left: 15%;
 }
