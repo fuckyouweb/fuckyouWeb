@@ -6,7 +6,6 @@ var path = require('path');
 var fs = require('fs');
 
 router.get('/', function(req, res) {
-  console.log('home------');  
   var userid = req.session.userid || '';
   if(userid != ''){
     var works = Work.getWorksByUserId(userid,function(err,works){      
