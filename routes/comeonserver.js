@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
     res.status('200');
     res.send({
       'code':0
-    }).end();
+    });
   }else{
     res.status('200');
     res.send({

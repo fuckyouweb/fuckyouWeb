@@ -7,6 +7,7 @@ var multer = require('multer');
 var upload = multer({dest:path.join(__dirname, '../public/authorphoto')});
 var PHOTO_PATH = path.join(__dirname,'../public/authorphoto');
 var Work = require('../db/work');
+var fs = require('fs');
 
 var comeonfile = upload.fields([
   {name:'theme', maxCount: 1000},
@@ -23,7 +24,6 @@ router.post('/',comeonfile,function(req,res){
   var userid = req.session.userid || '';
   var username = req.session.username || '';
   date = date.Format('yyyyMMddhhmmss');
-  console.log('date====='+date);
 
   //change type for system
   if(imgtype == 'jpeg') imgtype = 'jpg';
