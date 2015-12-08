@@ -40,7 +40,7 @@ var ComeonNoteForm = React.createClass({
 		fd.append('photo',photo);
 
 		$.ajax({
-		  url: '/api/comeon',
+		  url: '/upload',
 		  type: "POST",
 		  data: fd,
 		  processData: false,  // 告诉jQuery不要去处理发送的数据
@@ -53,7 +53,7 @@ var ComeonNoteForm = React.createClass({
 	      		},1000);
 	      }.bind(this),
 	      error: function(xhr, status, err) {
-	        console.error('/api/comeon', status, err.toString());
+	        console.error('/upload', status, err.toString());
 	      }.bind(this)
 		}); 
 	},

@@ -81,3 +81,7 @@ var divStyle = {
     WebkitTransition: 'all'  
 }   
 React.renderComponent(<div style={divStyle}>Hello</div>)  
+
+
+###上传模块切分时bug
+原因：自动提交了一次get请求，导致setHeader报错

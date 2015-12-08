@@ -11,13 +11,12 @@ var LoginShow = React.createClass({
 		      type: 'POST',
 		      data: form,
 		      success: function(data) {
-		      	if(data.code == 0) 
+		      	if(data.code == 0) {
 		      		alert('Email or password invalid!');
-		         else if(data.code == 0){ //no user
 		        	this.setState({
 		        		data:0
 		        	});
-		        }else{//
+		        }else{
 		        	this.setState({
 		        		data:2,
 		        		user:data.username

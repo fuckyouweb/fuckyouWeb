@@ -22,7 +22,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookie());
 
-var mongoconnect = credential().mongo.development.connectionString;
+var mongoconnect = null;
+switch(process.argv[2]){
+  case 'dev':
+    mongoconnect = credential().mongo.development.connectionString;
+    app.use(require('morgan')('dev'));
+    break;
+  default:
+    mongoconnect = credential().mongo.production.connectionString;
+    app.use(require('express-logger')({
+      path:__dirname + '/log/requests.log'
+    }));
+    break;
+}
+
 var mongoopts = {
   server:{
     socketOptions:{keepAlive:1}
@@ -50,7 +63,8 @@ var login = require('./routes/loginserver');
 var register = require('./routes/registerserver');
 var theme = require('./routes/themeserver');
 var home = require('./routes/homeserver');
-var comeon = require('./routes/comeonserver');
+//var comeon = require('./routes/comeonserver');
+//var upload = require('./routes/uploadserver');
 
 var db = mongoose.connection;
 db.on('error', function(){
@@ -62,38 +76,28 @@ db.once('open', function () {
     console.dir(arguments);
 });
 
-switch(app.get('env')){
-  case 'development':
-    app.use(require('morgan')('dev'));
-    break;
-  case 'production':
-    app.use(require('express-logger')({
-      path:__dirname + '/log/requests.log'
-    }));
-    break;
-}
-
 //app.use('/admin',admin);
 
 app.use('/',index);
 app.use('/',userstate);
 app.use('/',register);
-app.use('/index',index);
-app.use('/index',userstate);
-app.use('/index',register);
+app.use('/api/index',index);
+app.use('/api/index',userstate);
+app.use('/api/index',register);
 app.use('/api/login',login);
 app.use('/api/home',home);
 app.use('/api/home',userstate);
 app.use('/api/home',register);
 app.use('/api/theme',theme);
 //app.use('/api/comeon',comeon);
+//app.use('/upload',upload);
 
 var comeonfile = upload.fields([
   {name:'theme', maxCount: 1000},
   {name:'describe',maxCount:1000},
   {name:'photo',maxCount:10000}]);
 
-app.post('/api/comeon',comeonfile,function(req,res){
+app.post('/upload',comeonfile,function(req,res){
   var filename = req.files["photo"][0]["filename"];
   var mimetype = req.files["photo"][0]["mimetype"];
   var imgtype = mimetype.toLowerCase().substring(6);
