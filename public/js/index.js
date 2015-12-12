@@ -78,7 +78,6 @@ var Cover = React.createClass({
 var Hot = React.createClass({
 	render:function(){
 		var hotrate = this.props.area;
-		console.log('hotrate='+hotrate);
 		var data = 'data'+hotrate;
 		var Pics = this.props.data.map(function(value,index){
 			return (
@@ -129,7 +128,6 @@ var HotContainer = React.createClass({
 	        	data3:data.data3
 	        	}
 	        });
-	        console.log('data1='+this.state.data.data1[0].describe);
 	      }.bind(this),
 	      error: function(xhr, status, err) {
 	        console.error(this.props.url, status, err.toString());

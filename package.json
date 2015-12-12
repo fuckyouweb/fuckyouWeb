@@ -9,6 +9,7 @@
     "connect-mongo": "^0.8.2",
     "cookie-parser": "^1.4.0",
     "csurf": "^1.8.3",
+    "expect.js": "^0.3.1",
     "express": "^4.4.5",
     "express-logger": "0.0.3",
     "express-session": "^1.12.1",
@@ -28,7 +29,10 @@
     "grunt-contrib-cssmin": "x",
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-exec": "^0.4.6",
-    "grunt-raml2html": "^0.3.2"
+    "grunt-raml2html": "^0.3.2",
+    "superagent": "^1.5.0",
+    "mocha": "2.3.4",
+    "expect.js": "0.3.1"
   },
   "scripts": {
     "test": "mocha -u tdd",

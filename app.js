@@ -13,7 +13,7 @@ var credential = require('./public/js/credential/credential');
 
 var app = express();
 //app = config(app);
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 4000));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -38,6 +38,10 @@ switch(process.argv[2]){
     }));
     break;
 }
+
+
+// var logger = require('morgan');
+// app.use(logger());
 
 var mongoopts = {
   server:{
@@ -100,9 +104,7 @@ app.use('/upload',upload);
 
 app.get('/admin',function(req,res){
   console.log('render admin');
-  res.render('login',function(err){
-    if(err) console.error(err);
-  });
+  res.render('login');
 });
 
 app.get('/logoshow',function(req,res){

@@ -2,9 +2,8 @@ doctype html
 html
   head
     title= appTitle
-    script(type="text/javascript", src="/js/jquery-2.0.3.min.js")
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='css/lib/bootstrap.min.css')
+    link(rel='stylesheet', href='css/lib/bootstrap-theme.min.css')
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body
     #wrap
@@ -16,7 +15,6 @@ html
         block page
         block header
           div
-            include includes/menu
         block alert
           div.alert.alert-warning.hidden
         .content
