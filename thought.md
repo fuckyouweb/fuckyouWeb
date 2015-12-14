@@ -27,11 +27,13 @@ comeon照片裁剪预览
 别人可看的页面
 
 ###管理页
+login
+admin
 token和session验证
 
  - 移动端页面改版
 
- home页面register和展示是分开的两个组件,最好建立通信
+home页面register和展示是分开的两个组件,最好建立通信
 
 SEO
 
