@@ -10,9 +10,7 @@ router.get('/',function(req,res){
 });
 
 router.post('/login',function(req,res){
-  console.log('4545');
-  console.dir(req.body);
-  // var newadmin = new Admin(req.body);       
+  var newadmin = new Admin(req.body);       
   //       newadmin.save(function(err,newadminEntity){
   //         if(err) console.error(err);
   //         else{            
@@ -20,6 +18,26 @@ router.post('/login',function(req,res){
   //             res.redirect('/')
   //         }
   //       });  
+  Admin.checkAdmin(newadmin,function(err,admin){   
+    console.log('admin---'+admin);     
+    if(err) console.error(err);
+    else{
+      if(admin.length == 0){//not match email and psd        
+        res.status(200);
+        res.send({
+          'code':0
+        });
+      }else{
+        console.log('ddddd');
+        res.redirect('/admin/manager');
+      }
+    }
+  });
+
+router.get('/manager',function(req,res){
+  console.log('adminmanager');
+  res.render('adminmanager');
+})
 });
 
 module.exports = router;

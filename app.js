@@ -92,23 +92,6 @@ app.use('/api/comeon',comeon);
 app.use('/upload',upload);
 
 app.use('/admin',admin);
-// app.get('/admin',function(req,res){
-//   console.log('render admin');
-//   res.render('login');
-// });
-// app.post('/admin/login',function(req,res){
-//   console.log(90909)
-//   var newadmin = new Admin(req.body);       
-//         newadmin.save(function(err,newadminEntity){
-//           if(err) console.error(err);
-//           else{            
-//               console.log('success save!'+newadminEntity);
-//               console.dir(req.session);   
-//               res.status('200');
-//               res.json(reslogin); 
-//           }
-//         });
-// });
 
 app.get('/logoshow',function(req,res){
   fs.readFile('public/img/penmanbox.png','binary',function(error,file){

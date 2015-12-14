@@ -15,7 +15,7 @@ var adminSchema = new mongoose.Schema({
 });
 
 adminSchema.static('checkAdmin', function ( value,cb) {
-    return this.find({"email":value.email,"psw":value.psw}).exec(cb);
+    return this.find({"email":value.email,"password":value.password}).exec(cb);
 });
 
 var AdminModel = mongoose.model('Admin',adminSchema);
