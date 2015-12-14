@@ -3,7 +3,7 @@ function credential(){
 	return{
 		cookieSecret:'put your cookie key here',
 		mymail:{
-			user:'2991923157',
+			user:'2991923157@qq.com',
 			password:'123qweasdzxc',
 		},
 		mongo:{

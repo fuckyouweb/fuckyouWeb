@@ -4,8 +4,11 @@ var mongoose = require('mongoose');
 adminSchema	email,psw,auth
  */
 var adminSchema = new mongoose.Schema({
-	email:String,
-	psw:String,
+	email:{
+		type:String,
+		index:{unique:true}
+	},
+	password:String,
 	auth:String
 },{
 	minimize:false
@@ -16,4 +19,4 @@ adminSchema.static('checkAdmin', function ( value,cb) {
 });
 
 var AdminModel = mongoose.model('Admin',adminSchema);
-module.exports = adminModel;
+module.exports = AdminModel;

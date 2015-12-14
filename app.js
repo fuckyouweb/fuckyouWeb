@@ -9,13 +9,10 @@ var session = require('express-session');
 
 var mail = require('./public/js/mail/mail');
 var credential = require('./public/js/credential/credential');
-//var config = require('./config/index');
+var config = require('./config/index');
 
 var app = express();
-//app = config(app);
-app.set('port', (process.env.PORT || 4000));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app = config(app);
 
 var PHOTO_PATH = path.join(__dirname,'public/authorphoto');
 var HEAD_PATH = path.join(__dirname,'public/head');
@@ -38,10 +35,6 @@ switch(process.argv[2]){
     }));
     break;
 }
-
-
-// var logger = require('morgan');
-// app.use(logger());
 
 var mongoopts = {
   server:{
@@ -72,8 +65,7 @@ var theme = require('./routes/themeserver');
 var home = require('./routes/homeserver');
 var comeon = require('./routes/comeonserver');
 var upload = require('./routes/uploadserver');
-
-//var proxy = require('./routes/proxy');
+var admin = require('./admin/adminManager');
 
 var db = mongoose.connection;
 db.on('error', function(){
@@ -84,8 +76,6 @@ db.once('open', function () {
     console.log('db open success');
     console.dir(arguments);
 });
-
-//app.use('/admin',admin);
 
 app.use('/',index);
 app.use('/',userstate);
@@ -101,11 +91,24 @@ app.use('/api/theme',theme);
 app.use('/api/comeon',comeon);
 app.use('/upload',upload);
 
-
-app.get('/admin',function(req,res){
-  console.log('render admin');
-  res.render('login');
-});
+app.use('/admin',admin);
+// app.get('/admin',function(req,res){
+//   console.log('render admin');
+//   res.render('login');
+// });
+// app.post('/admin/login',function(req,res){
+//   console.log(90909)
+//   var newadmin = new Admin(req.body);       
+//         newadmin.save(function(err,newadminEntity){
+//           if(err) console.error(err);
+//           else{            
+//               console.log('success save!'+newadminEntity);
+//               console.dir(req.session);   
+//               res.status('200');
+//               res.json(reslogin); 
+//           }
+//         });
+// });
 
 app.get('/logoshow',function(req,res){
   fs.readFile('public/img/penmanbox.png','binary',function(error,file){
@@ -121,7 +124,7 @@ app.get('/logoshow',function(req,res){
 });
 });
 
-500
+//500
 app.use(function(err,req,res,next){
   var body = '<html style="background-color:#15adbc">'+
   '<head>'+
@@ -178,10 +181,5 @@ Date.prototype.Format = function(fmt){
   console.log('fmt='+fmt);
   return fmt;   
 } 
-
-
-app.listen(app.get('port'), function() {
-  console.log('Express started in:'+app.get('env')+' Server started: http://localhost:' + app.get('port') + '/');
-});
 
 module.exports = app;

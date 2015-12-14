@@ -31,7 +31,7 @@ router.post('/', function(req, res) {
 
   var checkuser = newlogin.email;
 
-  mail(checkuser);
+  //mail(checkuser);
 
   /*connect to db,first to check,then save*/
   User.getUserByEmail(checkuser,function(err,userexist){
