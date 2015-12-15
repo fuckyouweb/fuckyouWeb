@@ -65,7 +65,8 @@ var theme = require('./routes/themeserver');
 var home = require('./routes/homeserver');
 var comeon = require('./routes/comeonserver');
 var upload = require('./routes/uploadserver');
-var admin = require('./admin/adminManager');
+var adminlogin = require('./admin/adminLogin');
+var adminmanager = require('./admin/adminManager');
 
 var db = mongoose.connection;
 db.on('error', function(){
@@ -91,20 +92,21 @@ app.use('/api/theme',theme);
 app.use('/api/comeon',comeon);
 app.use('/upload',upload);
 
-app.use('/admin',admin);
+app.use('/admin',adminlogin);
+app.use('/manager',adminmanager);
 
 app.get('/logoshow',function(req,res){
   fs.readFile('public/img/penmanbox.png','binary',function(error,file){
-  if(error){
-    res.writeHead(500,{'Content-Type':'text/plain'});
-    res.write(error+'\n');
-    res.end();
-  }else{
-    res.writeHead(200,{'Content-Type':'image/png'});
-    res.write(file,'binary');
-    res.end();
-  }
-});
+    if(error){
+      res.writeHead(500,{'Content-Type':'text/plain'});
+      res.write(error+'\n');
+      res.end();
+    }else{
+      res.writeHead(200,{'Content-Type':'image/png'});
+      res.write(file,'binary');
+      res.end();
+    }
+  });
 });
 
 //500

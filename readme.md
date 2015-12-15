@@ -85,3 +85,6 @@ React.renderComponent(<div style={divStyle}>Hello</div>)
 
 ###上传模块切分时bug
 原因：自动提交了一次get请求，导致setHeader报错
+
+###ajax传递数据页面局部刷新
+在服务端验证通过以后redirect以后接到请求，没有重新渲染，是ajax的问题么？
