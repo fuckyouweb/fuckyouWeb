@@ -2,7 +2,8 @@
 $(document).ready(function(){
     $('#adminForm').bind('submit', function(){
         ajaxSubmit(this, function(data){
-            ;
+            if(data.code == '0')
+            	alert('你没有登录权限！');
         });
         return false;
     });

@@ -36,7 +36,7 @@ router.post('/login',function(req,res){
 
 router.get('/manager',function(req,res){
   console.log('adminmanager');
-  res.render('adminmanager');
+  //res.render('adminmanager');
 })
 });
 
