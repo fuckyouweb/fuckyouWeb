@@ -1,2 +1,43 @@
-h1
-  |111
+doctype html
+html
+  head
+    title
+      |Admin Manager
+    link(rel='stylesheet',href='css/lib/bootstrap.min.css')
+    link(rel='stylesheet',href='css/lib/bootstrap-theme.min.css')
+    script(type='text/javascript',src='js/lib/jquery.min.js')
+    script(type="text/javascript", src='js/admin/managerapp.js')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  body
+    .container
+      h1
+        |Admin Manager Page
+      table.table.table-striped
+        thead
+          tr
+            th
+              |_id
+            th
+              |Work
+            th
+              |Author
+            th
+              |Theme
+            th
+              |Describe
+            th
+              |Operate
+          tbody
+            - var arr = workjson
+            - for(var i=0 ; i<arr.length ; i++) 
+              tr             
+                td= arr[i]._id
+                td= arr[i].photo
+                td= arr[i].username
+                td= arr[i].theme
+                td= arr[i].describe
+                td
+                  div.btn.btn-primary.btn-sm(type='button',id='delbtn')
+                    |delete
+
+            

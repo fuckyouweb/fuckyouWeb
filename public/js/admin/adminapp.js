@@ -4,6 +4,9 @@ $(document).ready(function(){
         ajaxSubmit(this, function(data){
             if(data.code == '0')
             	alert('你没有登录权限！');
+            else{
+            	window.location = 'manager';
+            }
         });
         return false;
     });
