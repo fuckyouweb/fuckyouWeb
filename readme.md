@@ -88,3 +88,7 @@ React.renderComponent(<div style={divStyle}>Hello</div>)
 
 ###ajax传递数据页面局部刷新
 在服务端验证通过以后redirect以后接到请求，控制台显示已经到了get请求，没有重新渲染，url也没变，是ajax的问题么？控制台显示已经到了get请求
+
+
+###如果在上传处理中增加写文件操作
+肯定会影响效率，在search中读取文件应该会比遍历数据库要快，这步怎么设计更好？
