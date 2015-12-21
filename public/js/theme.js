@@ -150,8 +150,18 @@ var HotContainer = React.createClass({
 		_cover = this;
 		return {data:[],coverdata:{}}
 	},
-	componentDidMount: function() {
+	componentWillMount: function() {
     	this.loadFormFromServer();
+  	},
+  	componentDidMount: function(){
+  		var dom = this.getDOMNode();
+  		var searchinput = $('#searchinput');
+  		searchinput.bind('keyup', function(event) {
+        if (event.keyCode == "13") {
+            //回车执行查询
+            $('#search').click();
+        }
+    });
   	},
 	render:function(){
 		return(
@@ -164,7 +174,7 @@ var HotContainer = React.createClass({
 					<li className='index_head_home'><a href="home.html">home</a></li>
 					<li className="index_log" id="index_log">
 						<div>
-							<input type="text" placeholder="theme search" className="theme_search" ref="searchcontent"/>
+							<input type="text" placeholder="theme search" className="theme_search" ref="searchcontent" id="searchinput"/>
 							<div className="theme_searchlogo" id="search" onClick={this.handlesearch}>
 								<img src="img/iconfont-search.png" />
 							</div>
