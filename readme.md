@@ -92,3 +92,9 @@ React.renderComponent(<div style={divStyle}>Hello</div>)
 
 ###如果在上传处理中增加写文件操作
 肯定会影响效率，在search中读取文件应该会比遍历数据库要快，这步怎么设计更好？
+
+###will Did
+在did中发ajax改善体验
+
+###componentDidMount绑定事件，componentWillUnmount解除绑定
+生命周期结束时销毁,react自身的gc是怎么做的（内联写点击事件）？

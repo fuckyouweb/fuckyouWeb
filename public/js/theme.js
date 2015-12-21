@@ -150,18 +150,23 @@ var HotContainer = React.createClass({
 		_cover = this;
 		return {data:[],coverdata:{}}
 	},
-	componentWillMount: function() {
-    	this.loadFormFromServer();
-  	},
+	// componentWillMount: function() {
+ //    	this.loadFormFromServer();
+ //  	},
   	componentDidMount: function(){
+  		this.loadFormFromServer();
   		var dom = this.getDOMNode();
   		var searchinput = $('#searchinput');
   		searchinput.bind('keyup', function(event) {
-        if (event.keyCode == "13") {
-            //回车执行查询
-            $('#search').click();
-        }
-    });
+	        if (event.keyCode == "13") {
+	            //回车执行查询
+	            $('#search').click();
+	        }
+	    });
+  	},
+  	componentWillUnmount:function(){
+  		var searchinput = $('#searchinput');
+  		searchinput.unbind();
   	},
 	render:function(){
 		return(
