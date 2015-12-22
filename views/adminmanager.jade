@@ -5,6 +5,7 @@ html
       |Admin Manager
     link(rel='stylesheet',href='css/lib/bootstrap.min.css')
     link(rel='stylesheet',href='css/lib/bootstrap-theme.min.css')
+    link(rel='stylesheet',href='css/manager.css')
     script(type='text/javascript',src='js/lib/jquery.min.js')
     script(type="text/javascript", src='js/admin/managerapp.js')
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -12,7 +13,7 @@ html
     .container
       h1
         |Admin Manager Page
-      table.table.table-striped
+      table.table.table-striped#worktable
         thead
           tr
             th
@@ -37,7 +38,11 @@ html
                 td= arr[i].theme
                 td= arr[i].describe
                 td
-                  div.btn.btn-primary.btn-sm(type='button',id='delbtn')
+                  div.btn.btn-primary.btn-sm(type='button',id='delbtn' data-id=arr[i]._id)
                     |delete
-
-            
+          div.button_dividepage
+            span.btn.btn-default.page_pre
+              |pre 
+            ul.pagelist
+            span.btn.btn-default.page_aft
+              |after

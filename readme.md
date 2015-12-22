@@ -98,3 +98,9 @@ React.renderComponent(<div style={divStyle}>Hello</div>)
 
 ###componentDidMount绑定事件，componentWillUnmount解除绑定
 生命周期结束时销毁,react自身的gc是怎么做的（内联写点击事件）？
+
+###home闪现
+haswork用是否获取到数据来展示，初始时是肯定没数据的，所以即使获得了数据也会渲染一次没数据的状态，就会出现闪现的问题，所以还是添加判断代码，改善体验
+
+###jade数据传递的问题
+直接在jade中传递数据完全可以渲染出来，在server端以对象的形式传递给jade数据 ，渲染的数据按照对象属性的个数渲染了？不要乱用json解析，是可以以键值对传递的，一旦解析就会渲染成单个字母一行
