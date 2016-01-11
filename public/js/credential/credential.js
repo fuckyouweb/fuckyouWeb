@@ -3,8 +3,8 @@ function credential(){
 	return{
 		cookieSecret:'put your cookie key here',
 		mymail:{
-			user:'2991923157@qq.com',
-			password:'123qweasdzxc',
+			user:'penmanbox@qq.com',
+			password:'pqrdtvnffhrrdcfi',
 		},
 		mongo:{
 			development:{

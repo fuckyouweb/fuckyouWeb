@@ -6,6 +6,7 @@ var User = require('../db/user');
 var Work = require('../db/work');
 var fs = require('fs');
 var path = require('path');
+var mail = require('../public/js/mail/mail');
 
 function AdminWork(_id,work,author,theme,describe){
   this._id = _id;
@@ -27,9 +28,8 @@ router.get('/',function(req,res){
 });
 
 router.post('/delwork',function(req,res){
-  console.log('delwork');
   var workid = req.body.workid.replace(/\"/g, "");;
-  console.log(workid);
+
   Work.deleteWorkById(workid,function(err,works){
     var photo = works.photo;
     if(err) console.error(err);

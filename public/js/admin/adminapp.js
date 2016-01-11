@@ -15,7 +15,6 @@ $(document).ready(function(){
 //将form转为AJAX提交
 function ajaxSubmit(frm, fn) {
     var dataPara = getFormJson(frm);
-    console.log('dataPara--'+dataPara);
     $.ajax({
         url: frm.action,
         type: frm.method,
@@ -27,7 +26,7 @@ function ajaxSubmit(frm, fn) {
     });
 }
 
-//将form中的值转换为键值对。
+//将form中的值转换为键值对
 function getFormJson(frm) {
     var o = {};
     var a = $(frm).serializeArray();

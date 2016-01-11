@@ -2,9 +2,9 @@ var nodemailer = require('nodemailer');
 var credential = require('../credential/credential');
 
 var mymail = credential();
+console.log('mymail='+mymail);
 
-module.exports = function(tosb){
-    console.log('mymail.mymail.user='+mymail.mymail.user);
+module.exports = function(){
     var transporter = nodemailer.createTransport({
         service: 'QQ',
         secureConnection:true,//use SSL
@@ -18,7 +18,7 @@ module.exports = function(tosb){
     var fromme = mymail.mymail.user;
 
     return{
-        send:function(tosb){ 
+        send:function(tosb){
             var mailOptions = {
                 from:fromme, 
                 to: tosb, 
@@ -34,6 +34,23 @@ module.exports = function(tosb){
                     console.log('Message sent: ' + info.response);
                 }
             });
+        },
+        delsend:function(tosb){
+            var mailOptions = {
+                from:fromme,
+                to:sb,
+                subject:'Apologize to my friend',
+                html:'<p>I'm ginny,the administrator of penmanbox website.I'm sorry to tell that your work which is not in accrodance with our rules will be invisible.</p><p>Please reply this e-mail directly if you have any problem.</p><p>Thanks for your supporting!</p>'
+            };
+
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    console.log(error);
+                }else{
+                    console.log('Message sent: ' + info.response);
+                }
+            });
+
         },
         emailError:function(message,filename,exception){
             var body = '<h1>pen man box has a little problem</h1>'+'message:<br><pre>'+message+'</pre><br>';

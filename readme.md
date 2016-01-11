@@ -30,6 +30,12 @@ server端采用multer插件上传，可以通过console.dir(req.files)来查看�
 ###调用发送邮件模块之后res无法响应
 使用自己写的模块之后如何next()?代码错误，只是当事件执行，是res.sent和res.redirect的问题
 
+###535
+{ [Error: Invalid login]
+  code: 'EAUTH',
+  response: '535 Error: ÇëÊ¹ÓÃÊÚÈ¨ÂëµÇÂ¼¡£ÏêÇéÇë¿´: http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256',
+  responseCode: 535 }
+
 ###如何在服务器未打开的时候返回500？
 打开时返回的是浏览器的默认打不开
 
