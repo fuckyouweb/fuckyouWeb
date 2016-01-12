@@ -21,14 +21,12 @@
 
 comeon照片裁剪预览
 
-多次下拉判断成一次
-
 ###用户专页
 别人可看的页面
 
 ###管理页
-login
-admin
+ － login
+ － admin
 token和session验证
 
  - 移动端页面改版
@@ -36,6 +34,11 @@ token和session验证
 home页面register和展示是分开的两个组件,最好建立通信
 
 SEO
+
+theme页点赞功能，hortative＋＋
+搜索功能，排列 按照点赞数、日期（点赞先用图片替换，动效先不做）
+
+事件框架阻止重复提交
 
 
 

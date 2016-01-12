@@ -1,7 +1,7 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
-var User = require('../db/user');
+var express = require('express'),
+    router = express.Router(),
+    User = require('../db/user');
 
 router.post('/api/register',function(req,res){
   var usernow = req.body;

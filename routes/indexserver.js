@@ -1,7 +1,7 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
-var Work = require('../db/work');
+var express = require('express'),
+    router = express.Router(),
+    Work = require('../db/work');
 
 function Mywork(authorname,id,theme,describe,photo,hotrate){
   this.authorname = authorname;

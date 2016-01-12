@@ -1,12 +1,12 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
-var Admin = require('../db/admin');
-var User = require('../db/user');
-var Work = require('../db/work');
-var fs = require('fs');
-var path = require('path');
-var mail = require('../public/js/mail/mail');
+var express = require('express'),
+    router = express.Router(),
+    Admin = require('../db/admin'),
+    User = require('../db/user'),
+    Work = require('../db/work'),
+    fs = require('fs'),
+    path = require('path'),
+    mail = require('../public/js/mail/mail');
 
 function AdminWork(_id,work,author,theme,describe){
   this._id = _id;

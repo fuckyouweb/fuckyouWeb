@@ -1,8 +1,8 @@
-var nodemailer = require('nodemailer');
-var credential = require('../credential/credential');
+var nodemailer = require('nodemailer'),
+    credential = require('../credential/credential'),
 
-var mymail = credential();
-console.log('mymail='+mymail);
+    mymail = credential(),
+    fromme = mymail.mymail.user;;
 
 module.exports = function(){
     var transporter = nodemailer.createTransport({
@@ -14,8 +14,6 @@ module.exports = function(){
             pass: mymail.mymail.password
         }
     });
-
-    var fromme = mymail.mymail.user;
 
     return{
         send:function(tosb){
@@ -40,7 +38,7 @@ module.exports = function(){
                 from:fromme,
                 to:sb,
                 subject:'Apologize to my friend',
-                html:'<p>I'm ginny,the administrator of penmanbox website.I'm sorry to tell that your work which is not in accrodance with our rules will be invisible.</p><p>Please reply this e-mail directly if you have any problem.</p><p>Thanks for your supporting!</p>'
+                html:'<p>I am ginny,the administrator of penmanbox website.I am sorry to tell that your work which is not in accrodance with our rules will be invisible.</p><p>Please reply this e-mail directly if you have any problem.</p><p>Thanks for your supporting!</p>'
             };
 
             transporter.sendMail(mailOptions, function(error, info){
@@ -66,11 +64,8 @@ module.exports = function(){
                 generateTextFromHtml:true
             };
             transporter.sendMail(mailOptions,function(err){
-                if(err)
-                    console.error('Unable to send email:'+error);
-            })
+                if(err) console.error('Unable to send email:'+error);
+            });
         }
-
-        
     }
 }

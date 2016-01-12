@@ -1,7 +1,7 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
-var bodyParser = require('body-parser');
+var express = require('express'),
+    router = express.Router(),
+    bodyParser = require('body-parser');
 
 router.get('/', function(req, res) {
   if(req.session.useremail == undefined || req.session.useremail == ''){

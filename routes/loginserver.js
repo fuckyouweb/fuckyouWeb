@@ -1,10 +1,10 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
-var User = require('../db/user');
-var fs = require('fs');
-var path = require('path');
-var mail = require('../public/js/mail/mail');
+var express = require('express'),
+    router = express.Router(),
+    User = require('../db/user'),
+    fs = require('fs'),
+    path = require('path'),
+    mail = require('../public/js/mail/mail');
 
 router.get('/', function(req, res) {
   var data = {
@@ -17,19 +17,19 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var isnew = false;
-  var login = {};
-  var newlogin = req.body;
+  var isnew = false,
+      login = {};
+      newlogin = req.body,
+      reslogin = {},
+      checkuser = newlogin.email;
+
   login.name = newlogin.name;
   login.email = newlogin.email;
   login.psw = newlogin.psw;
   login.aliveTime = new Date();
 
-  var reslogin = {};
   reslogin.name = newlogin.name;
   reslogin.email = newlogin.email;
-
-  var checkuser = newlogin.email;
 
   mail().send(checkuser);
 
@@ -37,8 +37,7 @@ router.post('/', function(req, res) {
   User.getUserByEmail(checkuser,function(err,userexist){
     if(err) console.error(err);
     else{    
-      if(userexist.length != 0){//exist
-        console.log('userexist='+userexist);
+      if(userexist.length != 0){
         res.status(200);
         res.send({
           'code':0
@@ -49,11 +48,9 @@ router.post('/', function(req, res) {
         newuser.save(function(err,newuserEntity){
           if(err) console.error(err);
           else{            
-              console.log('success save!'+newuserEntity);
               req.session.username = newuserEntity.name;
               req.session.useremail = newuserEntity.email;
-              req.session.userid = newuserEntity._id;
-              console.dir(req.session);   
+              req.session.userid = newuserEntity._id;  
               res.status('200');
               res.json(reslogin); 
           }

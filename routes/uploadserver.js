@@ -1,28 +1,28 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
-var path = require('path');
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var upload = multer({dest:path.join(__dirname, '../public/authorphoto')});
-var PHOTO_PATH = path.join(__dirname,'../public/authorphoto');
-var Work = require('../db/work');
-var fs = require('fs');
+var express = require('express'),
+    router = express.Router(),
+    path = require('path'),
+    bodyParser = require('body-parser'),
+    multer = require('multer'),
+    upload = multer({dest:path.join(__dirname, '../public/authorphoto')}),
+    PHOTO_PATH = path.join(__dirname,'../public/authorphoto'),
+    Work = require('../db/work'),
+    fs = require('fs'),
 
-var comeonfile = upload.fields([
-  {name:'theme', maxCount: 1000},
-  {name:'describe',maxCount:1000},
-  {name:'photo',maxCount:10000}]);
+    comeonfile = upload.fields([
+      {name:'theme', maxCount: 1000},
+      {name:'describe',maxCount:1000},
+      {name:'photo',maxCount:10000}]);
 
 router.post('/',comeonfile,function(req,res){
-  var filename = req.files["photo"][0]["filename"];
-  var mimetype = req.files["photo"][0]["mimetype"];
-  var imgtype = mimetype.toLowerCase().substring(6);
-  var theme = req.body.theme;
-  var describe = req.body.describe;
-  var date = new Date();
-  var userid = req.session.userid || '';
-  var username = req.session.username || '';
+  var filename = req.files["photo"][0]["filename"],
+      mimetype = req.files["photo"][0]["mimetype"],
+      imgtype = mimetype.toLowerCase().substring(6),
+      theme = req.body.theme,
+      describe = req.body.describe,
+      date = new Date(),
+      userid = req.session.userid || '',
+      username = req.session.username || '';
   date = date.Format('yyyyMMddhhmmss');
 
   //change type for system

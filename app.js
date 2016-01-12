@@ -1,28 +1,28 @@
-var fs = require('fs');
-var path = require('path');
-var express = require('express');
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var upload = multer({dest:path.join(__dirname, 'public/authorphoto')});
-var cookie= require('cookie-parser');
-var session = require('express-session');
+var fs = require('fs'),
+    path = require('path'),
+    express = require('express'),
+    bodyParser = require('body-parser'),
+    multer = require('multer'),
+    upload = multer({dest:path.join(__dirname, 'public/authorphoto')}),
+    cookie= require('cookie-parser'),
+    session = require('express-session'),
 
-var mail = require('./public/js/mail/mail');
-var credential = require('./public/js/credential/credential');
-var config = require('./config/index');
+    mail = require('./public/js/mail/mail'),
+    credential = require('./public/js/credential/credential'),
+    config = require('./config/index');
 
 var app = express();
 app = config(app);
 
-var PHOTO_PATH = path.join(__dirname,'public/authorphoto');
-var HEAD_PATH = path.join(__dirname,'public/head');
+var PHOTO_PATH = path.join(__dirname,'public/authorphoto'),
+    HEAD_PATH = path.join(__dirname,'public/head'),
+    mongoconnect = null;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookie());
 
-var mongoconnect = null;
 switch(process.argv[2]){
   case 'dev':
     mongoconnect = credential().mongo.development.connectionString;
