@@ -17,17 +17,19 @@ header{
 	background-color: #000;
 	ul{
 		.flexbox();
+		li:not(.not){
+			font-size: 20px !important;
+		}
 		li{
 			cursor: pointer;
 			.flex();
 			list-style: none;
-			display: inline-block;
-			font-size: 20px !important;
+			display: inline-block;			
 			a{
 				color: #eee !important;
 			}
 		}
-		li:first-child{
+		li:first-child:not(.not){
 			.flex(2);
 			font-size: 25px !important;
 			a{
@@ -65,6 +67,24 @@ header{
 	}
 	.index_log .header_welcome{
 		color:@color_green;
+	}
+
+
+	.comeon_choosetry{
+		position: absolute;
+		background-color: #000;
+		color: #fff;
+		//position: absolute;
+		font-size: 1.5rem;
+	}
+	.comeon_head{
+		ul{
+			display:none;
+			font-size: 1.5rem;
+		}
+		 li:hover > ul{
+		 	display: block;
+		 }
 	}
 }
 }

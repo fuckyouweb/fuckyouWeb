@@ -110,3 +110,9 @@ haswork用是否获取到数据来展示，初始时是肯定没数据的，所�
 
 ###jade数据传递的问题
 直接在jade中传递数据完全可以渲染出来，在server端以对象的形式传递给jade数据 ，渲染的数据按照对象属性的个数渲染了？不要乱用json解析，是可以以键值对传递的，一旦解析就会渲染成单个字母一行
+
+###直接用window.location ="**.html"
+直接渲染了页面，和后端没有连接起来
+app.get('/onlinepaint',function(req,res){
+  res.sendFile(__dirname+'/public/onlinepaint.html');
+});
