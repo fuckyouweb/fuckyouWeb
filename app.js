@@ -112,7 +112,7 @@ io.on('connection',function(socket){
     var user = {
         id: socket.id,
         ip:socket.handshake.address,
-        cname: ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6)
+        cname: data.username || ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6)
    }
 
     console.log(user);
@@ -157,22 +157,25 @@ io.on('connection',function(socket){
 
       var msg = {
           id: socket.id,
-          txt:data.say
+          txt:data.say,
+          cname:data.username || '［神秘人］'
       }
       socket.broadcast.in(socket.roomid).emit('say msg', msg);
   })
 
   socket.on('disconnect', function(){
-    var user = {
-        id: socket.id,
-        ip:socket.handshake.address,
-        cname: roomList[roomid][socket.id]['cname']
-    }
+    console.log('........>>>>>>>>>>>>>>');
+    console.log('disconnect');
+    // var user = {
+    //     id: socket.id,
+    //     ip:socket.handshake.address,
+    //     cname: roomList[roomid][socket.id]['cname']
+    // }
 
     var roomid = socket['roomid'];
     delete roomList[roomid][socket.id];
 
-    socket.broadcast.to(socket.roomid).emit('userOut', user);
+    //socket.broadcast.to(socket.roomid).emit('userOut', user);
   });
 
 });

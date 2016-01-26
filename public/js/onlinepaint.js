@@ -66,10 +66,17 @@ $(document).ready(function(){
         $op_page2.show();
         socket = io.connect('http://localhost:4000');
 
-        socket.emit('createRoom', {room: opt});
+        socket.emit('createRoom', {room: opt,username:window.localStorage.username});
 
         socket.on('connect', function() {
-            //say('[与服务器连接成功]')
+            say('[旁友你要玩的开心哦～]');
+            $('header').on(clickEventName,function(e){
+		    	e.preventDefault();
+		    	if(socket && confirm('你确定要离开房间嘛？你的作品会被删除哦！')){
+		    		socket.emit('disconnect');
+		    	}
+		    	window.close();
+    		});
         });
 
         socket.on('userIn', function(data) {
@@ -84,12 +91,16 @@ $(document).ready(function(){
           	}
         });
 
-        socket.on('userOut', function(data) {
-            //var tmpname = $('#' + data.id + ' a').text();
-            //delete roomList[data.id];
-            say('(' + data.id + ') [离开]');
-            //showlist(roomList);
-        });
+   //      socket.on('userOut', function(data) {
+   //      	alert('lea')
+   //          //var tmpname = $('#' + data.id + ' a').text();
+   //          //delete roomList[data.id];
+   //          say('(' + data.cname + ') [离开]');
+   //          //showlist(roomList);
+   //          //window.opener=null ;
+			// //window.open("","_self") ;
+		 //    window.close();
+   //      });
 
         socket.on('draw', function(data) {
 	      	return Draw(context,data.brush,true);
@@ -97,11 +108,11 @@ $(document).ready(function(){
 
         socket.on('say msg', function(data) {
             //var tmpname = $('#' + data.id + ' a').text();
-            var tmptou = '说：';          
-            say('(' + data.id + ')' + tmptou + data.txt)
-        });
-        
+            var tmptou = '说：';        
+            say('(' + data.cname+ ')' + tmptou + data.txt)
+        });        
     }
+
 
 	//if mousedown,recond position now.
 	$mycanvas.on(downEventName,function(e){
@@ -171,7 +182,8 @@ $(document).ready(function(){
 
 	$sendMsg.on('click',function(e){
 		var txt = $('textarea').val();
-  		sendsay(txt);
+		var username = window.localStorage.username;
+  		sendsay(txt,username);
 	});	
 });
 
@@ -301,10 +313,16 @@ function say(txt) {
     $('p').text(txt).appendTo($('#msgbox'));
 }
 
-function sendsay(txt) {
+function sendsay(txt,username) {
     if (txt) {
-        socket.emit('say msgs', {'say': txt});
-        say('(我):'+ txt)
+    	if(username){
+    		//alert('username='+username);
+	        socket.emit('say msgs', {'say': txt,'username':username});
+	        say('(我):'+ txt);
+        }else{
+        	socket.emit('say msgs', {'say': txt});
+	        say('(我):'+ txt);
+        }
     }
 }
 

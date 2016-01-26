@@ -74,6 +74,16 @@ div[type="button"] {
 .hidechooseroom_id {
   display: none;
 }
+.hidechooseroom_id input {
+  width: 10rem;
+  height: 3rem;
+  border: 2px solid #000;
+  text-align: center;
+  display: inline-block;
+  line-height: 3rem;
+  cursor: pointer;
+  margin-top: 2rem;
+}
 .chooseroom_id {
   display: block;
 }
@@ -89,6 +99,10 @@ li {
   position: absolute;
   bottom: 0;
   left: 0;
+  background-color: #eee;
+  -webkit-box-shadow: 3px 3px 5px;
+  -moz-box-shadow: 3px 3px 5px;
+  box-shadow: 3px 3px 5px;
 }
 @keyframes pop {
   0% {
