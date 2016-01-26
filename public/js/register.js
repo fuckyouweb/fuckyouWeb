@@ -4,7 +4,8 @@ var LoginShow = React.createClass({
 		var form = {
 			'email':this.refs.email.value.trim(),
 			'psw':this.refs.psw.value.trim()
-		}
+		};
+		var storage = window.localStorage;
 		$.ajax({
 		      url: this.props.url,
 		      dataType: 'json',
@@ -20,7 +21,8 @@ var LoginShow = React.createClass({
 		        	this.setState({
 		        		data:2,
 		        		user:data.username
-		        	})
+		        	});
+		        storage.username = data.username;
 		        }
 		      }.bind(this),
 		      error: function(xhr, status, err) {
@@ -43,6 +45,7 @@ var LoginShow = React.createClass({
 		        console.error(this.props.url, status, err.toString());
 		      }.bind(this)
 		    });
+		    window.localStorage.removeItem('username');
 		}
 	},
 	loadFormFromServer: function() {

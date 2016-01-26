@@ -121,6 +121,7 @@ var HotContainer = React.createClass({
 	      dataType: 'json',
 	      cache:false,
 	      success: function(data) {
+	      	alert(window.localStorage.username+'www');
 	        this.setState({data:
 	        	{
 	        	data1:data.data1,

@@ -116,3 +116,14 @@ haswork用是否获取到数据来展示，初始时是肯定没数据的，所�
 app.get('/onlinepaint',function(req,res){
   res.sendFile(__dirname+'/public/onlinepaint.html');
 });
+其实不用，html页面直接和后端socket连接了
+
+###刷新时socket断了
+/Users/guoningyan/Desktop/html/git/fuckyouWeb/app.js:169
+        cname: roomList[roomid][socket.id]['cname']
+控制页面在刷新时关闭这个线程？这个要怎么做？
+
+###hover block被挡住了。。。。
+
+###session+cookie
+前端直接ajax取得数据，如果需要localstorage还要重新做，怎样才能整合到一起呢

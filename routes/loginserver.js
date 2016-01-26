@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   var isnew = false,
-      login = {};
+      login = {},
       newlogin = req.body,
       reslogin = {},
       checkuser = newlogin.email;

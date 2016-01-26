@@ -175,7 +175,7 @@ var HotContainer = React.createClass({
 				<ul className='index_head'>
 					<li className='index_head_pen'><a href="index.html">PenManBox</a></li>
 					<li className='index_head_theme'><a href="theme.html">theme</a></li>
-					<li className='index_head_comeon'><a href="comeon.html">来一发</a></li>
+					<li class='index_head_comeon'><a href="comeon.html">来一发</a></li>
 					<li className='index_head_home'><a href="home.html">home</a></li>
 					<li className="index_log" id="index_log">
 						<div>

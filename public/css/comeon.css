@@ -4,13 +4,6 @@ body {
   height: 100%;
   background-color: #15adbc;
 }
-.comeon_head_comeon {
-  color: #fff;
-  position: relative;
-}
-.comeon_head_comeon:hover {
-  color: #15adbc;
-}
 @media screen and (min-width: 765px) {
   html {
     font-size: 12px;

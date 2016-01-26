@@ -70,6 +70,13 @@
   header .index_log .header_welcome {
     color: #15adbc;
   }
+  header .comeon_head_comeon {
+    color: #fff;
+    position: relative;
+  }
+  header .comeon_head_comeon:hover {
+    color: #15adbc;
+  }
   header .comeon_choosetry {
     position: absolute;
     background-color: #000;

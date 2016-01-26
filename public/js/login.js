@@ -97,6 +97,7 @@ var LoginContainer = React.createClass({
 	/*load the message form server or just from temp json*/
 	handleLoginFormSubmit:function(forminfo){
 		var form = forminfo;
+		var storage = window.localStorage;
 		 $.ajax({
 		      url: this.props.url,
 		      dataType: 'json',
@@ -114,6 +115,7 @@ var LoginContainer = React.createClass({
 			        	'email':value.email,
 			        	'animateState':'true'
 			        }});
+			        storage.username = value.name;
 			        setTimeout(function(){
 	        			window.location = 'index.html';
 	        		},1000);
