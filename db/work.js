@@ -57,6 +57,13 @@ var mongoose = require('mongoose');
  * @property {String} username
  * @private
  */
+
+/**
+ * 表示作品的标签(1表示在线创作)
+ *
+ * @property {int} tag
+ * @private
+ */
 var workSchema = new mongoose.Schema({
 	theme:String,
 	describe:String,
@@ -64,7 +71,8 @@ var workSchema = new mongoose.Schema({
 	photo:String,  // theme+date
 	hotrate:Number,
 	userid:String,
-	username:String
+	username:String,
+	tag:String
 },{
 	minimize:false
 });

@@ -68,6 +68,7 @@ var theme = require('./routes/themeserver');
 var home = require('./routes/homeserver');
 var comeon = require('./routes/comeonserver');
 var upload = require('./routes/uploadserver');
+var onlinepaintserver = require('./routes/onlinepaintserver');
 var adminlogin = require('./admin/adminLogin');
 var adminmanager = require('./admin/adminManager');
 
@@ -98,6 +99,7 @@ app.use('/api/home',register);
 app.use('/api/theme',theme);
 app.use('/api/comeon',comeon);
 app.use('/upload',upload);
+app.use('/onlinepaintserver',onlinepaintserver);
 
 app.use('/admin',adminlogin);
 app.use('/manager',adminmanager);
@@ -129,9 +131,6 @@ io.on('connection',function(socket){
         roomList[roomid] = {};
         roomList[roomid][user.id] = user;
     }
-
-    console.log('^^^^^^^^^^^^^^^^^^')
-    console.log(roomList)
 
     var data_userin = {
         'room':roomList[roomid],
@@ -195,42 +194,42 @@ app.get('/logoshow',function(req,res){
 });
 
 //500
-// app.use(function(err,req,res,next){
-//   var body = '<html style="background-color:#15adbc">'+
-//   '<head>'+
-//     '<meta charset="UTF-8">'+
-//   '</head>'+
-//   '<body>'+
-//     '<div style="width:40%;margin-left:30%;">'+
-//       '<img src="/logoshow" style="width:100%;">'+
-//     '</div>'+
-//     '<h1 style="text-align:center;color:#f8ecd4;">Error 500</h1>'+
-//     '<h2 style="text-align:center;color:#f8ecd4;">Ginny try to save the web! Discourage her!</h2>'+
-//   '</body>'+
-//   '</html>';
-//     res.writeHead(200,{'Content-Type':'text/html'});
-//     res.write(body);
-//     res.end();
-// });
+app.use(function(err,req,res,next){
+  var body = '<html style="background-color:#15adbc">'+
+  '<head>'+
+    '<meta charset="UTF-8">'+
+  '</head>'+
+  '<body>'+
+    '<div style="width:40%;margin-left:30%;">'+
+      '<img src="/logoshow" style="width:100%;">'+
+    '</div>'+
+    '<h1 style="text-align:center;color:#f8ecd4;">Error 500</h1>'+
+    '<h2 style="text-align:center;color:#f8ecd4;">Ginny try to save the web! Discourage her!</h2>'+
+  '</body>'+
+  '</html>';
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.write(body);
+    res.end();
+});
 
-// //404
-// app.use(function(req,res){
-//   var body = '<html style="background-color:#15adbc">'+
-//   '<head>'+
-//     '<meta charset="UTF-8">'+
-//   '</head>'+
-//   '<body>'+
-//     '<div style="width:40%;margin-left:30%;">'+
-//       '<img src="/logoshow" style="width:100%;">'+
-//     '</div>'+
-//     '<h1 style="text-align:center;color:#f8ecd4;">Error 404</h1>'+
-//     '<h2 style="text-align:center;color:#f8ecd4;">Page is not here now!</h2>'+
-//   '</body>'+
-//   '</html>';
-//     res.writeHead(200,{'Content-Type':'text/html'});
-//     res.write(body);
-//     res.end();
-// });
+//404
+app.use(function(req,res){
+  var body = '<html style="background-color:#15adbc">'+
+  '<head>'+
+    '<meta charset="UTF-8">'+
+  '</head>'+
+  '<body>'+
+    '<div style="width:40%;margin-left:30%;">'+
+      '<img src="/logoshow" style="width:100%;">'+
+    '</div>'+
+    '<h1 style="text-align:center;color:#f8ecd4;">Error 404</h1>'+
+    '<h2 style="text-align:center;color:#f8ecd4;">Page is not here now!</h2>'+
+  '</body>'+
+  '</html>';
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.write(body);
+    res.end();
+});
 
 Date.prototype.Format = function(fmt){
   var o = { 

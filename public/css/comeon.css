@@ -62,6 +62,26 @@ body {
   .comeon_note .comeon_pic_show img {
     width: 100%;
   }
+  .comeon_head_comeon {
+    color: #fff;
+    position: relative;
+  }
+  .comeon_head_comeon:hover {
+    color: #15adbc;
+  }
+  .comeon_choosetry {
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  .comeon_head ul {
+    display: none;
+    font-size: 1.5rem;
+  }
+  .comeon_head li:hover > ul {
+    display: block;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 765px) {
   html {
@@ -116,10 +136,29 @@ body {
   .comeon_note .comeon_pic_show {
     display: none;
   }
+  .comeon_head li:nth-child(2):not(.not),
+  .comeon_head li:nth-child(4),
+  .comeon_head li:nth-child(5) {
+    display: none;
+  }
+  .comeon_head li:nth-child(3) {
+    height: 10rem;
+    margin-top: -5rem;
+    font-size: 0;
+    line-height: 5rem;
+  }
+  .comeon_head li:nth-child(3) ul {
+    font-size: 1rem;
+  }
+  .comeon_head li:nth-child(3) ul li:first-child {
+    display: none;
+  }
+  header {
+    height: 10rem;
+  }
 }
 .container {
   width: 100%;
-  height: 100%;
 }
 @-webkit-keyframes hat {
   0% {

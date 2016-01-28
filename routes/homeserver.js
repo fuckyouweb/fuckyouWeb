@@ -8,7 +8,9 @@ var express = require('express'),
 router.get('/', function(req, res) {
   var userid = req.session.userid || '';
   if(userid != ''){
-    var works = Work.getWorksByUserId(userid,function(err,works){      
+    var works = Work.getWorksByUserId(userid,function(err,works){ 
+    console.log('works-----------')
+    console.log(works)     
       if(err) console.error(err);
       else{
         res.status(200);

@@ -28,7 +28,7 @@ var Pic = React.createClass({
 		var name = this.props.name;
 		var theme = this.props.theme;
 		var head = this.props.head;
-		var photo = 'authorphoto/'+this.props.photo;
+		var photo = this.props.tag == '1' ? this.props.photo : 'authorphoto/'+this.props.photo;
 		var workid = this.props.workid;
 		return (
 			<div className="index_container_picwrap">
@@ -146,7 +146,7 @@ var Hot = React.createClass({
 		if(haswork){
 			var Pics = this.props.data.map(function(value,index){
 				return (
-					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} workid={value._id} describe={value.describe}/>
+					<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} workid={value._id} describe={value.describe} tag={value.tag}/>
 				);
 			});
 		}

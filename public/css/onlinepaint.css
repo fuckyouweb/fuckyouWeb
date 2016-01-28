@@ -1,8 +1,11 @@
 html {
   font-size: 10px;
+  width: 100%;
 }
 body {
   position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 div[type="button"] {
   width: 10rem;
@@ -95,14 +98,129 @@ ul {
 li {
   cursor: pointer;
 }
-.paintSave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: #eee;
-  -webkit-box-shadow: 3px 3px 5px;
-  -moz-box-shadow: 3px 3px 5px;
-  box-shadow: 3px 3px 5px;
+@media screen and (min-width: 765px) {
+  .paintSave {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #eee;
+    -webkit-box-shadow: 3px 3px 5px;
+    -moz-box-shadow: 3px 3px 5px;
+    box-shadow: 3px 3px 5px;
+    z-index: 100;
+    width: 10rem;
+    height: 8rem;
+    border: 2px solid #000;
+  }
+  .paintSaveWrap {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+  }
+  .brush {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 5px solid #eee;
+  }
+  .brush div {
+    padding: 1rem 0;
+  }
+  .brush_before {
+    vertical-align: middle;
+    width: 2rem;
+    padding: 0 0.5rem;
+    font-size: 2rem;
+    word-wrap: break-word;
+    letter-spacing: 1rem;
+    height: 7rem;
+    position: absolute;
+    left: -2.4rem;
+    top: 5rem;
+    background-color: #eee;
+    border: 2px solid #eee;
+  }
+  .palette li {
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 0;
+  }
+  .brushwidth li {
+    width: 4.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+  .tool li {
+    margin-left: 0.5rem;
+  }
+  .tool2 li {
+    margin-left: 0.5rem;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 765px) {
+  ul {
+    display: inline-block;
+  }
+  ul:nth-child(7) {
+    text-align: left;
+  }
+  .paintSaveWrap {
+    display: none;
+  }
+  .paintSave {
+    display: none;
+  }
+  .brush {
+    position: absolute;
+    right: 0;
+    border: 5px solid #eee;
+  }
+  .brush div {
+    padding: 0.5rem 0;
+  }
+  .brush_before {
+    display: none;
+  }
+  .palette li {
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    font-size: 0;
+  }
+  #finish {
+    display: none;
+  }
+  .brushwidth li {
+    width: 4.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    display: inline-block;
+  }
+  .tool {
+    display: inline-block;
+  }
+  .tool li {
+    margin-left: 0rem;
+  }
+  .tool2 {
+    display: inline-block;
+  }
+  .tool2 li {
+    margin-left: 0rem;
+  }
 }
 @keyframes pop {
   0% {
@@ -178,38 +296,8 @@ li {
   background-color: #f3c9dd;
   cursor: pointer;
 }
-.brush {
-  position: absolute;
-  right: 0;
-  top: 0;
-  border: 5px solid #eee;
-}
-.brush div {
-  padding: 1rem 0;
-}
-.brush_before {
-  vertical-align: middle;
-  width: 2rem;
-  padding: 0 0.5rem;
-  font-size: 2rem;
-  word-wrap: break-word;
-  letter-spacing: 1rem;
-  height: 7rem;
-  position: absolute;
-  left: -2.4rem;
-  top: 5rem;
-  background-color: #eee;
-  border: 2px solid #eee;
-}
 .palette {
   border: 0px solid #979797;
-}
-.palette li {
-  width: 2rem;
-  height: 2rem;
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-size: 0;
 }
 .palette .palette_one li:nth-child(1) {
   background-color: #8a2be2;
@@ -302,12 +390,6 @@ li {
   border: 0px solid #979797;
 }
 .brushwidth li {
-  width: 4.5rem;
-  height: 2rem;
-  line-height: 2rem;
-  text-align: center;
-  display: inline-block;
-  margin-left: 0.5rem;
   background: -moz-linear-gradient(top, #ffffff 0%, #cccccc 100%) no-repeat;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #cccccc) no-repeat);
   background: -webkit-linear-gradient(top, c4e1ff 0%, #cccccc 100%) no-repeat;
@@ -325,7 +407,6 @@ li {
   line-height: 2rem;
   text-align: center;
   display: inline-block;
-  margin-left: 0.5rem;
 }
 .tool li:first-child {
   background-color: #ffc0cb;
@@ -342,14 +423,8 @@ li {
   line-height: 2rem;
   text-align: center;
   display: inline-block;
-  margin-left: 0.5rem;
   border: 1px solid #eee;
 }
 .tool2 li:first-child {
   background-color: #fff;
-}
-#finish {
-  width: 10rem;
-  height: 8rem;
-  border: 2px solid #000;
 }

@@ -36,7 +36,7 @@ $(document).ready(function(){
 		$op_page2 = $('#op_page2'),
 		mycanvas = document.getElementById('mycanvas'),
 		context = mycanvas.getContext('2d'),
-		brush = {},	
+		brush = {},	canvasInit = {},
 		$mycanvas = $('#mycanvas'),
 		$palette = $('#palette'),
 		$brushwidth = $('#brushwidth')
@@ -59,24 +59,43 @@ $(document).ready(function(){
 			clickSize:[]
 		}
 
+		if(device){
+			canvasInit = {
+				width:$(window).width(),
+				height:$(window).width()*(2/3)
+			};
+			paddingTop = 100;
+		}else{
+			canvasInit = {
+				width:600,
+				height:400
+			}
+		}
+		
+
 		point.notFirst = false;
+
+		mycanvas.setAttribute('width',canvasInit.width);
+		mycanvas.setAttribute('height',canvasInit.height);
+
 
 	if(opt) {
         $op_page1.hide();
         $op_page2.show();
+        $('#onlineRoomId').text('room:'+opt);
         socket = io.connect('http://localhost:4000');
 
         socket.emit('createRoom', {room: opt,username:window.localStorage.username});
 
         socket.on('connect', function() {
             say('[旁友你要玩的开心哦～]');
-            $('header').on(clickEventName,function(e){
-		    	e.preventDefault();
-		    	if(socket && confirm('你确定要离开房间嘛？你的作品会被删除哦！')){
-		    		socket.emit('disconnect');
-		    	}
-		    	window.close();
-    		});
+      //       $('header').on(clickEventName,function(e){
+		    // 	e.preventDefault();
+		    // 	if(socket && confirm('你确定要离开房间嘛？你的作品会被删除哦！')){
+		    // 		socket.emit('disconnect');
+		    // 	}
+		    // 	window.close();
+    		// });
         });
 
         socket.on('userIn', function(data) {
@@ -87,7 +106,9 @@ $(document).ready(function(){
                 else
                 	tmpname = '一个围观的人';
                 say('(' + tmpname + ') [进入]');
-                showlist(data.room);
+                if(!device){
+                	showlist(data.room);
+                }
           	}
         });
 
@@ -176,7 +197,26 @@ $(document).ready(function(){
 		}else{
 			var img = mycanvas.toDataURL('image/png');
 			console.log(img);
-			$('#finish').attr('src',img);
+			//$('#finish').attr('src',img);
+			if(confirm('你确定要上传到你的主页吗？你也可以选择右键图片保存到本地哦。')){
+				$.ajax({
+			      url: '/onlinepaintserver',
+			      dataType: 'json',
+			      type: 'POST',
+			      data:{'img':img},
+			      cache: false,
+			      success: function(value){
+			      	if(value.code == '1')
+		      		alert('upload success!');
+		      		setTimeout(function(){
+		      			window.location = 'home.html';
+	      			},1000);
+			      }.bind(this),
+			      error: function(xhr, status, err) {
+			        console.error(this.props.url, status, err.toString());
+			      }.bind(this)
+			    });
+			}
 		}
 	});
 
@@ -293,8 +333,6 @@ function getParamValue(name) {
 function showlist(data) {
     var count = 0, htmlstr = '', cname = '';
     $('#userlist').empty();
-    console.log(data);
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^')
     $.each(data, function(index, val) {
         console.log(val)
         count += 1;
@@ -306,7 +344,7 @@ function showlist(data) {
         htmlstr = ' <li id="' + index + '">' +cname+'</li>';
         $('#userlist').append(htmlstr)
     });
-    $('#nowinline').html('在线' + count + '人 <span class="caret"></span>');
+    $('#nowinline').html('在线' + count + '人');
 }
 
 function say(txt) {

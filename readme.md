@@ -127,3 +127,6 @@ app.get('/onlinepaint',function(req,res){
 
 ###session+cookie
 前端直接ajax取得数据，如果需要localstorage还要重新做，怎样才能整合到一起呢
+
+###移动端画布比例
+setAttribute就不能和PC端保持一致了

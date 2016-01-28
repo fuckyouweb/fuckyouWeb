@@ -70,26 +70,6 @@
   header .index_log .header_welcome {
     color: #15adbc;
   }
-  header .comeon_head_comeon {
-    color: #fff;
-    position: relative;
-  }
-  header .comeon_head_comeon:hover {
-    color: #15adbc;
-  }
-  header .comeon_choosetry {
-    position: absolute;
-    background-color: #000;
-    color: #fff;
-    font-size: 1.5rem;
-  }
-  header .comeon_head ul {
-    display: none;
-    font-size: 1.5rem;
-  }
-  header .comeon_head li:hover > ul {
-    display: block;
-  }
 }
 @media screen and (min-width: 320px) and (max-width: 765px) {
   html {

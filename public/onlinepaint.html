@@ -29,10 +29,10 @@
 <header>
 	<ul class='index_head comeon_head'>
 		<li class='index_head_pen'><a href="index.html">PenManBox</a></li>
-		<li></li>
-		<li>离开这个房间</li>
-		<li></li>
-		<li></li>
+		<li class='index_head_theme'><a href="theme.html">theme</a></li>
+		<li class='index_head_comeon comeon_head_comeon'><a href="comeon.html">来一发</a></li>
+		<li class='index_head_home'><a href="home.html">home</a></li>
+		<li class='index_head_login'></li>
 	</ul>
 </header>
 
@@ -61,13 +61,18 @@
 <div id="op_page2" class="hidePaint">
 
 <div class="sendPop">
+<!-- 	<span class="onlineRoomId" id="onlineRoomId"></span> -->
 	<textarea></textarea> 
 	<div id="sendMsg">发送弹幕</div>
 </div>
 
-<canvas id='mycanvas' class="mycanvas" width='600' height='400'>您的浏览器不支持这个功能</canvas>
+<div id="canvas">
+<canvas id='mycanvas' class="mycanvas">您的浏览器不支持这个功能</canvas>
+</div>
 
+<div class="paintSaveWrap">
 <div class="paintSave"><img src="" id="finish"/></div>
+</div>
 
 <div class="brush">
 <div class="brush_before">涂鸦工具</div>
@@ -134,7 +139,7 @@
 <div class="tool2" id="tool2">
 	<ul>
 		<li>清空</li>
-		<li>预览</li>
+		<li>保存</li>
 	</ul>
 </div>
 </div><!-- brush -->

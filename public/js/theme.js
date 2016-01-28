@@ -11,7 +11,7 @@ var Pic = React.createClass({
 		var name = this.props.name;
 		var theme = this.props.theme;
 		var head = 'head/penmanbox_dog.png';
-		var photo = 'authorphoto/'+this.props.photo;
+		var photo = this.props.tag == '1' ? this.props.photo : 'authorphoto/'+this.props.photo;
 		return (
 			<div className="index_container_picwrap">
 				<div className="index_container_pic" onClick={this.handleImgClick}>
@@ -79,7 +79,7 @@ var Hot = React.createClass({
 	render:function(){
 		var Pics = this.props.data.map(function(value,index){
 			return (
-				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} describe={value.describe}/>
+				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} describe={value.describe} tag={value.tag}/>
 			);
 		});
 		return (
