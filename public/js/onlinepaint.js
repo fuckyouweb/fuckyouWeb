@@ -225,6 +225,13 @@ $(document).ready(function(){
 		var username = window.localStorage.username;
   		sendsay(txt,username);
 	});	
+
+	$('textarea').bind('keyup', function(e) {
+        if (e.keyCode == "13") {
+            //回车执行查询
+            $sendMsg.click();
+        }
+    });
 });
 
 function creatroom() {
@@ -289,7 +296,7 @@ function cleanCanvas(canvas,context,brush){
 		clickColor:[],
 		clickSize:[]
 	};
-	 context.clearRect(0, 60, canvas.width, canvas.height);
+	 context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function convertImageToCanvas(image) {
