@@ -35,9 +35,10 @@ server端采用multer插件上传，可以通过console.dir(req.files)来查看�
   code: 'EAUTH',
   response: '535 Error: ÇëÊ¹ÓÃÊÚÈ¨ÂëµÇÂ¼¡£ÏêÇéÇë¿´: http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256',
   responseCode: 535 }
+在邮箱中设置启用代理
 
 ###如何在服务器未打开的时候返回500？
-打开时返回的是浏览器的默认打不开
+打开时返回的是浏览器的默认打不开（暂时不解决）
 
 ###怎么判断定向的404
 server.js里面最后使用404中间件，url输入未找到时触发，可是之前的html也没发出特殊的请求，这是怎么判断的呢？由express服务器搜寻，没找到是定向404，不能自己在页面中写。
@@ -66,7 +67,7 @@ server.js里面最后使用404中间件，url输入未找到时触发，可是�
 怎样识别当前节点的id, 让getElementById的位置节点display:none,还是会渲染,className = {show ?  '' :'disnone'}这个写法是错误的,改写id状态改变也会默认添加到第一个上面
 
 ###用户删除后服务器文件夹里的文件？
-怎样删除？
+怎样删除？回调里面fs删除文件操作
 
 ###react报错
 当数据来自于搜索结果或者新的组件被添加到数据流里，在这种情况下，每个子节点需要保持唯一的标识。可以给每个子节点添加key属性。
@@ -122,6 +123,7 @@ app.get('/onlinepaint',function(req,res){
 /Users/guoningyan/Desktop/html/git/fuckyouWeb/app.js:169
         cname: roomList[roomid][socket.id]['cname']
 控制页面在刷新时关闭这个线程？这个要怎么做？
+这是有变量没有定义的问题。。。直接注释掉了。
 
 ###hover block被挡住了。。。。
 
@@ -130,3 +132,8 @@ app.get('/onlinepaint',function(req,res){
 
 ###移动端画布比例
 setAttribute就不能和PC端保持一致了
+
+###服务器直连报错，多开了一个服务
+events.js: 141 throw er; // Unhandled 'error' event
+ps aux | grep node
+kill -9 id
