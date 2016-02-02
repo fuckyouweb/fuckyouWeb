@@ -1,7 +1,7 @@
 var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())),
 	downEventName = device ? 'touchstart' : 'mousedown',
 	moveEventName = device ? 'touchmove' : 'mousemove',
-	upEventName = device ? 'touchend' : 'mouseup';
+	upEventName = device ? 'touchend' : 'mouseup',
 	clickEventName = 'click',
 	paddingTop = 60;
 
@@ -9,7 +9,7 @@ $(document).ready(function(){
 	//FastClick.attach(document.body);
 	var $op_page1 = $('#op_page1'),
 		$op_page2 = $('#op_page2'),
-		$cr_choose = $('#cr_choose');
+		$cr_choose = $('#cr_choose'),
 		$cr_id = $('#cr_id'),
 		$openCanvas = $('#openCanvas');
 
