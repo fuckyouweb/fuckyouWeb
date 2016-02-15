@@ -7,6 +7,7 @@ var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.t
 
 $(document).ready(function(){
 	//FastClick.attach(document.body);
+	//alert(device);
 	var $op_page1 = $('#op_page1'),
 		$op_page2 = $('#op_page2'),
 		$cr_choose = $('#cr_choose'),
@@ -137,6 +138,7 @@ $(document).ready(function(){
 
 	//if mousedown,recond position now.
 	$mycanvas.on(downEventName,function(e){
+		//alert('downEvent!!!');
 		paintNow = true;
 		recondMove(curTool,brush,e.pageX - this.offsetLeft,e.pageY - paddingTop - this.offsetTop);
 		Draw(context,brush);

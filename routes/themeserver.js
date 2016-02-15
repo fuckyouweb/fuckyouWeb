@@ -27,4 +27,20 @@ router.post('/',function(req,res){
   }
 });
 
+router.post('/addHotRate',function(req,res){
+  var workid = req.body.workid || '';
+  console.log('req.body.hotrate='+req.body.hotrate);
+  var hotrate = (+(req.body.hotrate || ''))+1;
+  Work.addHotRate(workid,hotrate,function(err,msg){
+    if(err) console.log(err);
+    else{
+      res.status(200);
+      res.send({
+        'code':1,
+      })
+    }
+  })
+  
+});
+
 module.exports = router;

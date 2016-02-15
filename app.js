@@ -86,6 +86,7 @@ db.once('open', function () {
 //   res.sendFile(__dirname+'/public/onlinepaint.html');
 // });
 
+
 app.use('/',index);
 app.use('/',userstate);
 app.use('/',register);
@@ -171,8 +172,8 @@ io.on('connection',function(socket){
     //     cname: roomList[roomid][socket.id]['cname']
     // }
 
-    var roomid = socket['roomid'];
-    delete roomList[roomid][socket.id];
+    //var roomid = socket['roomid'];
+    //delete roomList[roomid][socket.id];
 
     //socket.broadcast.to(socket.roomid).emit('userOut', user);
   });

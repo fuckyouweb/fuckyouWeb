@@ -117,7 +117,7 @@ workSchema.static('getWorksByUserId', function (userid, cb) {
  * @param  {Object} workid 用户身份信息(邮箱、密码)
  * @return 
  */
-workSchema.static('deleteWorkById',function(workid,cb){
+workSchema.static('deleteWorkById',function(workid,cb) {
 	return this.findByIdAndRemove(workid).exec(cb);	
 });
 
@@ -134,6 +134,15 @@ workSchema.static('updateWork', function (workid,theme,describe, cb) {
     return this.update({
         '_id': workid
     }, {'theme': theme,'describe': describe}).exec(cb);
+});
+
+workSchema.static('addHotRate',function(workid,hotrate,cb) {
+	console.log('db hotrate'+hotrate)
+	return this.update({
+		'_id':workid
+	},{
+		'hotrate':hotrate
+	}).exec(cb);
 });
 
 var WorkModel = mongoose.model('Work',workSchema);

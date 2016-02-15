@@ -1,10 +1,29 @@
 var _cover = null; //组件句柄
 
 var Pic = React.createClass({
-	handleImgClick:function(){
+	handleImgClick:function(e){
+		e.preventDefault();
 		var theme = this.props.theme;
 		var photo = 'authorphoto/'+this.props.photo;
 		var describe = this.props.describe;
+		var workid = this.props.workid;
+		var hotrate = this.props.hotrate;
+
+		$.ajax({
+	      url: '/api/theme/addHotRate',
+	      dataType: 'json',
+	      type: 'POST',
+	      data:{'workid':workid,'hotrate':hotrate},
+	      success: function(data) {
+	      	if(data.code == 1){
+	      		
+	      	} 
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+
 		return _cover.handleCoverShow(photo,theme,describe);
 	},
 	render:function(){
@@ -79,7 +98,7 @@ var Hot = React.createClass({
 	render:function(){
 		var Pics = this.props.data.map(function(value,index){
 			return (
-				<Pic key={index} name={value.username} theme={value.theme} head={value.head} photo={value.photo} describe={value.describe} tag={value.tag}/>
+				<Pic key={index} workid={value._id} name={value.username} theme={value.theme} head={value.head} photo={value.photo} describe={value.describe} hotrate={value.hotrate} tag={value.tag}/>
 			);
 		});
 		return (
