@@ -67,7 +67,7 @@ var ComeonNoteForm = React.createClass({
 				</textarea>
 				<div className="comeon_note_pic">uploadpicture:</div>
 				
-				<input id='file_pic' type="file" ref="photo"/>
+				<input id='file_pic' type="file" accept="image/*" ref="photo"/>
 				<button type='submit' className="comeon_note_submit">ok!</button>
 			</form>
 		)
