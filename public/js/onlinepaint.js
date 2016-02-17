@@ -138,7 +138,6 @@ $(document).ready(function(){
 
 	//if mousedown,recond position now.
 	$mycanvas.on(downEventName,function(e){
-		//alert('downEvent!!!');
 		paintNow = true;
 		recondMove(curTool,brush,e.pageX - this.offsetLeft,e.pageY - paddingTop - this.offsetTop);
 		Draw(context,brush);
@@ -226,6 +225,7 @@ $(document).ready(function(){
 		var txt = $('textarea').val();
 		var username = window.localStorage.username;
   		sendsay(txt,username);
+  		$('textarea').val('');
 	});	
 
 	$('textarea').bind('keyup', function(e) {
