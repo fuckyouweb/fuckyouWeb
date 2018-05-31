@@ -3,34 +3,30 @@ var _cover = null; //组件句柄
 var Pic = React.createClass({
 	handleImgClick:function(e){
 		e.preventDefault();
-		var theme = this.props.theme;
-		var photo = 'authorphoto/'+this.props.photo;
-		var describe = this.props.describe;
-		var workid = this.props.workid;
-		var hotrate = this.props.hotrate;
-
+		var theme = this.props.theme,
+		    photo = 'authorphoto/'+this.props.photo,
+		    describe = this.props.describe,
+		    workid = this.props.workid,
+		    hotrate = this.props.hotrate;
 		$.ajax({
 	      url: '/api/theme/addHotRate',
 	      dataType: 'json',
 	      type: 'POST',
 	      data:{'workid':workid,'hotrate':hotrate},
 	      success: function(data) {
-	      	if(data.code == 1){
-	      		
-	      	} 
+	      	if(data.code == 1){console.log("success")} 
 	      }.bind(this),
 	      error: function(xhr, status, err) {
 	        console.error(this.props.url, status, err.toString());
 	      }.bind(this)
 	    });
-
 		return _cover.handleCoverShow(photo,theme,describe);
 	},
 	render:function(){
-		var name = this.props.name;
-		var theme = this.props.theme;
-		var head = 'head/penmanbox_dog.png';
-		var photo = this.props.tag == '1' ? this.props.photo : 'authorphoto/'+this.props.photo;
+		var name = this.props.name,
+		    theme = this.props.theme,
+		    head = 'head/penmanbox_dog.png',
+		    photo = this.props.tag == '1' ? this.props.photo : 'authorphoto/'+this.props.photo;
 		return (
 			<div className="index_container_picwrap">
 				<div className="index_container_pic" onClick={this.handleImgClick}>

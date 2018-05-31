@@ -32,7 +32,7 @@ switch(process.argv[2]){
     app.use(require('morgan')('dev'));
     break;
   default:
-    mongoconnect = credential().mongo.production.connectionString;
+    mongoconnect = credential().mongo.development.connectionString;
     app.use(require('express-logger')({
       path:__dirname + '/log/requests.log'
     }));
@@ -42,7 +42,8 @@ switch(process.argv[2]){
 var mongoopts = {
   server:{
     socketOptions:{keepAlive:1}
-  }
+  },
+  useMongoClient:true,
 };
 var mongoose = require('mongoose');
 mongoose.connect(mongoconnect,mongoopts);
@@ -109,7 +110,6 @@ var roomList = {};
 var socketMap = {};
 
 io.on('connection',function(socket){
-
   socket.on('createRoom', function(data){
     var roomid = data.room;
     var user = {
@@ -117,9 +117,6 @@ io.on('connection',function(socket){
         ip:socket.handshake.address,
         cname: data.username || ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6)
    }
-
-    console.log(user);
-
     //把socket 加入房间
     socket.join(roomid);
     socket['roomid'] = roomid;
@@ -132,7 +129,6 @@ io.on('connection',function(socket){
         roomList[roomid] = {};
         roomList[roomid][user.id] = user;
     }
-
     var data_userin = {
         'room':roomList[roomid],
         'user':user
@@ -144,17 +140,12 @@ io.on('connection',function(socket){
         console.log('shit    .....')
     }, 500);
   });
-
   socket.on('drawClick', function(data){
     console.log('draw lick .....')
     console.log(data.brush);
       socket.broadcast.in(socket.roomid).emit('draw', {'brush':data.brush});
   });
-
   socket.on('say msgs', function(data){
-      console.log('say msg..............')
-      console.log(data)
-
       var msg = {
           id: socket.id,
           txt:data.say,
@@ -162,7 +153,6 @@ io.on('connection',function(socket){
       }
       socket.broadcast.in(socket.roomid).emit('say msg', msg);
   })
-
   socket.on('disconnect', function(){
     console.log('........>>>>>>>>>>>>>>');
     console.log('disconnect');
@@ -172,12 +162,11 @@ io.on('connection',function(socket){
     //     cname: roomList[roomid][socket.id]['cname']
     // }
 
-    //var roomid = socket['roomid'];
-    //delete roomList[roomid][socket.id];
+    // var roomid = socket['roomid'];
+    // delete roomList[roomid][socket.id];
 
     //socket.broadcast.to(socket.roomid).emit('userOut', user);
   });
-
 });
 
 app.get('/logoshow',function(req,res){

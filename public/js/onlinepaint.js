@@ -90,13 +90,6 @@ $(document).ready(function(){
 
         socket.on('connect', function() {
             say('[旁友你要玩的开心哦～]');
-      //       $('header').on(clickEventName,function(e){
-		    // 	e.preventDefault();
-		    // 	if(socket && confirm('你确定要离开房间嘛？你的作品会被删除哦！')){
-		    // 		socket.emit('disconnect');
-		    // 	}
-		    // 	window.close();
-    		// });
         });
 
         socket.on('userIn', function(data) {
@@ -113,16 +106,16 @@ $(document).ready(function(){
           	}
         });
 
-   //      socket.on('userOut', function(data) {
-   //      	alert('lea')
-   //          //var tmpname = $('#' + data.id + ' a').text();
-   //          //delete roomList[data.id];
-   //          say('(' + data.cname + ') [离开]');
-   //          //showlist(roomList);
-   //          //window.opener=null ;
-			// //window.open("","_self") ;
-		 //    window.close();
-   //      });
+        socket.on('userOut', function(data) {
+        	alert('lea')
+            var tmpname = $('#' + data.id + ' a').text();
+            delete roomList[data.id];
+            say('(' + data.cname + ') [离开]');
+            showlist(roomList);
+            window.opener=null ;
+			window.open("","_self") ;
+		    window.close();
+        });
 
         socket.on('draw', function(data) {
 	      	return Draw(context,data.brush,true);
@@ -284,7 +277,7 @@ function recondMove(curTool,brush,x,y,dragging){
 	brush.clickY.push(y);
 	brush.clickDrag.push(dragging); 
 	if(curTool == '橡皮') 
-		brush.clickColor.push('#fff');
+		brush.clickColor.push('#eee');
 	else
 		brush.clickColor.push(curColor);
 	brush.clickSize.push(curSize);
