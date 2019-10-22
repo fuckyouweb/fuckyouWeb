@@ -34,7 +34,7 @@
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-exec": "^0.4.6",
     "grunt-raml2html": "^0.3.2",
-    "superagent": "^1.5.0",
+    "superagent": "^5.1.0",
     "mocha": "2.3.4",
     "expect.js": "0.3.1"
   },
